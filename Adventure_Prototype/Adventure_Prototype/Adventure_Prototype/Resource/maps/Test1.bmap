@@ -1,0 +1,70 @@
+# Brunnen-G Adventure Engine Room File
+# Created: 22.04.2012 04:33:38
+# By: Kna - alias: Kna-Abakus
+# On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
+# 64Bit: True
+# Number of Processors: 4
+# Mapped Memory: 65032192
+# This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
+
+BEGIN
+BEGINROOM
+ID:Test1,TEXTURE:Graphics/Backgrounds/room01
+SCALING:False
+ENDROOM
+BEGINWALK
+X:26,Y:393,WIDTH:145,HEIGHT:76
+ENDWALK
+BEGINWALK
+X:167,Y:445,WIDTH:629,HEIGHT:24
+ENDWALK
+BEGINWALK
+X:160,Y:408,WIDTH:42,HEIGHT:42
+ENDWALK
+BEGINWALK
+X:190,Y:425,WIDTH:45,HEIGHT:27
+ENDWALK
+BEGINWALK
+X:694,Y:387,WIDTH:93,HEIGHT:65
+ENDWALK
+BEGINWALK
+X:563,Y:408,WIDTH:143,HEIGHT:48
+ENDWALK
+BEGINWALK
+X:449,Y:424,WIDTH:131,HEIGHT:27
+ENDWALK
+BEGINWALK
+X:363,Y:435,WIDTH:97,HEIGHT:19
+ENDWALK
+BEGINWALK
+X:616,Y:399,WIDTH:81,HEIGHT:15
+ENDWALK
+BEGINWALK
+X:515,Y:414,WIDTH:59,HEIGHT:17
+ENDWALK
+BEGINWO
+X:40,Y:196
+TEXTURE:Graphics/Sprites/room01_door
+NAME:Door
+ONLOOK:Looks locked...
+ONUSE:How unexpected! It's locked!
+ONTALK:Looks locked...
+ENDWO
+BEGINWO
+X:535,Y:120
+TEXTURE:Graphics/Sprites/picture
+NAME:Picture
+ONLOOK:Not quite the best drawer...
+ONUSE:I'd rather not touch it.
+ONTALK:Not quite the best drawer...
+ENDWO
+BEGINNPC
+X:638,Y:267
+TEXTURE:afroGB
+MIRROR:True
+NAME:Horst
+ONLOOK:What hair!
+ONUSE:Eesh...
+ONTALK:What hair!
+ENDNPC
+END

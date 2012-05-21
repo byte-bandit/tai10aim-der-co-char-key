@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure_Prototype", "Adventure_Prototype\Adventure_Prototype\Adventure_Prototype.csproj", "{AEA62DDA-19D1-4978-AE85-0552823BBAF2}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "Adventure_PrototypeContent", "Adventure_Prototype\Adventure_PrototypeContent\Adventure_PrototypeContent.contentproj", "{142109E0-9F57-458C-96DC-266457B4EEA1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEA62DDA-19D1-4978-AE85-0552823BBAF2}.Debug|x86.ActiveCfg = Debug|x86
+		{AEA62DDA-19D1-4978-AE85-0552823BBAF2}.Debug|x86.Build.0 = Debug|x86
+		{AEA62DDA-19D1-4978-AE85-0552823BBAF2}.Release|x86.ActiveCfg = Release|x86
+		{AEA62DDA-19D1-4978-AE85-0552823BBAF2}.Release|x86.Build.0 = Release|x86
+		{142109E0-9F57-458C-96DC-266457B4EEA1}.Debug|x86.ActiveCfg = Debug|x86
+		{142109E0-9F57-458C-96DC-266457B4EEA1}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
