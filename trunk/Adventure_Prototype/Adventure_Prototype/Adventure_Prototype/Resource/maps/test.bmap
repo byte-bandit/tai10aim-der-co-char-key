@@ -1,0 +1,36 @@
+# Brunnen-G Adventure Engine Room File
+# Created: 23.04.2012 23:40:23
+# By: Kna - alias: Kna-Abakus
+# On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
+# 64Bit: True
+# Number of Processors: 4
+# Mapped Memory: 61849600
+# This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
+
+BEGIN
+BEGINROOM
+ID:test,TEXTURE:Graphics/Backgrounds/room01
+SCALING:False
+ENDROOM
+BEGINWALK
+X:21,Y:391
+ENDWALK
+BEGINWALK
+X:177,Y:391
+ENDWALK
+BEGINWALK
+X:279,Y:451
+ENDWALK
+BEGINWALK
+X:796,Y:372
+ENDWALK
+BEGINWALK
+X:795,Y:595
+ENDWALK
+BEGINWALK
+X:22,Y:591
+ENDWALK
+BEGINWALK
+X:21,Y:391
+ENDWALK
+END

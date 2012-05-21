@@ -1,0 +1,41 @@
+# Brunnen-G Adventure Engine Room File
+# Created: 22.04.2012 16:32:01
+# By: Kna - alias: Kna-Abakus
+# On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
+# 64Bit: True
+# Number of Processors: 4
+# Mapped Memory: 64696320
+# This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
+
+BEGIN
+BEGINROOM
+ID:room01,TEXTURE:Graphics/Backgrounds/room01
+SCALING:False
+ENDROOM
+BEGINWALK
+X:19,Y:392,WIDTH:216,HEIGHT:82
+ENDWALK
+BEGINWALK
+X:179,Y:401,WIDTH:611,HEIGHT:82
+ENDWALK
+BEGINWALK
+X:629,Y:386,WIDTH:158,HEIGHT:58
+ENDWALK
+BEGINWO
+X:40,Y:196
+TEXTURE:Graphics/Sprites/room01_door
+NAME:Door
+ONLOOK:Nice door
+ONUSE:Na.. locked
+ONTALK:Hello Door
+ENDWO
+BEGINNPC
+X:650,Y:264
+TEXTURE:afroGB
+MIRROR:True
+NAME:Horsti
+ONLOOK:Oh its him
+ONUSE:Naaww...
+ONTALK:{D:Horst1}
+ENDNPC
+END
