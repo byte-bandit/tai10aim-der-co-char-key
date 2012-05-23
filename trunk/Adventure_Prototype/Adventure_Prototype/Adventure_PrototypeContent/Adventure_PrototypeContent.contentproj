@@ -93,6 +93,12 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Graphics\Charsets\spriteA.png">
+      <Name>spriteA</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <ProcessorParameters_ColorKeyColor>15, 191, 167, 255</ProcessorParameters_ColorKeyColor>
+    </Compile>
     <Content Include="WorldObjects.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>WorldObjects</Name>

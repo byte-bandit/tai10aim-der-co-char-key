@@ -34,7 +34,7 @@ namespace Classes
 
 		private bool isMirrored;
 
-		public Character(Game game, Room room, String id, String name, Animation animation = null, Texture2D sprite = null)
+		public Character(Game game, Room room, String id, String name, Animation animation = null, Texture2D sprite = null, float scale = 1.0f)
 			: base(game)
 		{
 			this.game = game;
@@ -42,7 +42,7 @@ namespace Classes
 			this.name = name;
 			this.isMirrored = false;
 			this.room = room;
-			this.scale = 1.0f;
+			this.scale = scale;
 			
 
 			if (animation != null)
@@ -63,7 +63,7 @@ namespace Classes
 
 
 
-		public Character(Game game, Room room, String id, String name, Animation animation = null, String sprite = null)
+		public Character(Game game, Room room, String id, String name, Animation animation = null, String sprite = null, float scale = 1.0f)
 			: base(game)
 		{
 			this.game = game;
@@ -71,7 +71,7 @@ namespace Classes
 			this.name = name;
 			this.isMirrored = false;
 			this.room = room;
-			this.scale = 1.0f;
+			this.scale = scale;
 
 
 			if (animation != null)

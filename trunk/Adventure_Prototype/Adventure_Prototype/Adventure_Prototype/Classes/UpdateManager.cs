@@ -50,7 +50,10 @@ namespace Classes
 		{
 			foreach (GameComponent g in updateList)
 			{
-				g.Update(gameTime);
+				if (g != null)
+				{
+					g.Update(gameTime);
+				}
 			}
 		}
 	}

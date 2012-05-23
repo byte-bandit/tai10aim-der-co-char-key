@@ -16,7 +16,7 @@ namespace Classes
 	class Animation
 	{
 		Rectangle[,] frames;
-		float frameLength = 1f / 5f;
+		float frameLength = 1f / 3f;
 		float timer = 0f;
 		int currentFrame = 0;
 		int currentLine = 0;
