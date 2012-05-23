@@ -1,2 +1,3 @@
 D:\Project Candy\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\ProjectCandy\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache

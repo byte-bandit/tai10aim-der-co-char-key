@@ -152,9 +152,9 @@ namespace Adventure_Prototype
 			{
 				Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test.bmap");
 				SceneryManager.CurrentRoom = testRoom;
-				Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/gb_sheet");
-				player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite);
-				player1.Position = new Vector2(100, 300);
+				Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
+				player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
+				player1.Position = new Vector2(100, 375);
 				GameRef.Player1 = player1;
 				GraphicsManager.addChild(player1);
 				UpdateManager.addItem(player1);
