@@ -38,7 +38,6 @@ using Classes.Pipeline;
 
 
 
-
 //######################################################################################
 //Namespace Definition: Make sure to change respective to build status
 //######################################################################################
@@ -62,6 +61,8 @@ namespace Adventure_Prototype
 		SpriteBatch spriteBatch;			//Global spriteBatch used for Drawing
 		Player player1;						//Link to Player1
 		Player player2;						//Link to Player2
+		Menu menu = new Menu();
+
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
 
 
@@ -122,7 +123,7 @@ namespace Adventure_Prototype
 			DialogueManager.Initialize();		//Get all Dialogues
 			
 			//Load up all our fonts
-			GraphicsManager.initializeFonts(Content.Load<SpriteFont>("ui_font"), Content.Load<SpriteFont>("big"), GraphicsDevice);
+			GraphicsManager.initializeFonts(Content.Load<SpriteFont>("ui_font"), Content.Load<SpriteFont>("big"), Content.Load<SpriteFont>("menu_font"), GraphicsDevice);
 				
 			//Initialize Parent
 			base.Initialize();
@@ -150,14 +151,17 @@ namespace Adventure_Prototype
 			//THIS WILL BE CHANGED LATER ON - SO DONT RELY ON IT !!
 			if (!_EDITOR)
 			{
-				Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test1.bmap");
-				SceneryManager.CurrentRoom = testRoom;
-				Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
-				player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
-				player1.Position = new Vector2(200, 500);
-				GameRef.Player1 = player1;
-				GraphicsManager.addChild(player1);
-				UpdateManager.addItem(player1);
+				//Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test1.bmap");
+				//SceneryManager.CurrentRoom = testRoom;
+				//Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
+				//player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
+				//player1.Position = new Vector2(200, 500);
+				//GameRef.Player1 = player1;
+				//GraphicsManager.addChild(player1);
+				//UpdateManager.addItem(player1);
+
+				menu.Initialize();
+
 			}
 			else
 			{
@@ -208,6 +212,11 @@ namespace Adventure_Prototype
 			MouseEx.Update();
 			KeyboardEx.Update();
 			DialogueManager.Update();
+
+			if (menu != null)
+			{
+				menu.Update(gameTime);
+			}
 			
 
 			//Update the Editor
@@ -230,6 +239,12 @@ namespace Adventure_Prototype
 
 			//Let the GM handle the GFXOutput
 			GraphicsManager.Draw(gameTime);
+
+			//Menu
+			if (menu != null)
+			{
+				menu.Draw(gameTime);
+			}
 
 			//Editor takes over if necessary
 			if (_EDITOR)
