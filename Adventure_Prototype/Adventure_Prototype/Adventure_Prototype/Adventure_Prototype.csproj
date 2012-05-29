@@ -131,12 +131,15 @@
     <Compile Include="Classes\IO\KeyboardEx.cs" />
     <Compile Include="Classes\IO\MouseEx.cs" />
     <Compile Include="Classes\Inventory\Item.cs" />
+    <Compile Include="Classes\IO\SoundManager.cs" />
+    <Compile Include="Classes\Menu.cs" />
     <Compile Include="Classes\NPC.cs" />
     <Compile Include="Classes\Pipeline\GameRef.cs" />
     <Compile Include="Classes\Pipeline\RoomProcessor.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Room.cs" />
     <Compile Include="Classes\SceneryManager.cs" />
+    <Compile Include="Classes\UI\Button.cs" />
     <Compile Include="Classes\UpdateManager.cs" />
     <Compile Include="Classes\Pathfinding\Path.cs" />
     <Compile Include="Classes\Pathfinding\Polygon.cs" />

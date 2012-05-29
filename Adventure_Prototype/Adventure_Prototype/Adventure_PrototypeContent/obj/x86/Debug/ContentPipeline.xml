@@ -172,6 +172,78 @@
       <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\spriteA.xnb</Output>
       <Time>2012-05-22T21:04:02.6866045+02:00</Time>
     </Item>
+    <Item>
+      <Source>Audio\music\title.wav</Source>
+      <Name>Audio\music\title</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\music\title.xnb</Output>
+      <Time>2012-05-29T23:49:21.0618211+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Audio\ui\click.WAV</Source>
+      <Name>Audio\ui\click</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\ui\click.xnb</Output>
+      <Time>2012-05-29T23:49:25.780091+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\blue_sky_march_2010___6_by_kartine29.jpg</Source>
+      <Name>Graphics\UI\menu_back</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_back.xnb</Output>
+      <Time>2012-05-30T00:02:38.5134328+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\menu_title_font.png</Source>
+      <Name>Graphics\UI\menu_title_font</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_title_font.xnb</Output>
+      <Time>2012-05-30T00:22:30.4766091+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\button_down.png</Source>
+      <Name>Graphics\UI\button_down</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_down.xnb</Output>
+      <Time>2012-05-30T00:29:00.3669096+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\button_up.png</Source>
+      <Name>Graphics\UI\button_up</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Parameters>
+        <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
+      </Parameters>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_up.xnb</Output>
+      <Time>2012-05-30T00:29:00.3829105+02:00</Time>
+    </Item>
+    <Item>
+      <Source>menu_font.spritefont</Source>
+      <Name>menu_font</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
+      <Time>2012-05-30T00:58:46.630078+02:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

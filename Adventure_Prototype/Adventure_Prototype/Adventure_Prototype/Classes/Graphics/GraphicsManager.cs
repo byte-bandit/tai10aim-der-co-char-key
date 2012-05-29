@@ -13,6 +13,7 @@ namespace Classes.Graphics
 		public static SpriteBatch spriteBatch;
 		public static SpriteFont font01;
 		public static SpriteFont font02;
+		public static SpriteFont font03;
 		public static Texture2D dummyTexture;
 
 
@@ -106,12 +107,13 @@ namespace Classes.Graphics
 		/// </summary>
 		/// <param name="Font01">Path to font01</param>
 		/// <param name="gp">Link to Graphics Device</param>
-		public static void initializeFonts(SpriteFont Font01, SpriteFont Font02,  GraphicsDevice gp)
+		public static void initializeFonts(SpriteFont Font01, SpriteFont Font02,  SpriteFont Font03, GraphicsDevice gp)
 		{
 			dummyTexture = new Texture2D(gp, 1,1);
 			dummyTexture.SetData(new Color[] { Color.White });
 			font01 = Font01;
 			font02 = Font02;
+			font03 = Font03;
 		}
 
 
