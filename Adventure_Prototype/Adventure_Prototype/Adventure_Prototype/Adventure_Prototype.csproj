@@ -122,6 +122,7 @@
     <Compile Include="Classes\Events\EventManager.cs" />
     <Compile Include="Classes\Graphics\GraphicsManager.cs" />
     <Compile Include="Classes\Graphics\LineOverlay.cs" />
+    <Compile Include="Classes\Graphics\POI.cs" />
     <Compile Include="Classes\Graphics\RectangleOverlay.cs" />
     <Compile Include="Classes\Graphics\WorldObject.cs" />
     <Compile Include="Classes\Inventory\Inventory.cs" />

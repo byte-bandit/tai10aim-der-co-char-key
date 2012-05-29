@@ -21,12 +21,14 @@ namespace Classes.Pathfinding
 		public LinkedList<Vector2> Way = new LinkedList<Vector2>(); //LinkedList 
 		private Vector2 start;
 		private Vector2 end;
+		private Polygon myPolygon;
 
-		public Path(Vector2 Point1, Vector2 Point2)
+		public Path(Vector2 Point1, Vector2 Point2, Polygon poly)
 			: base(GameRef.Game) // Constructor for Path
 		{
 			this.start = Point1;
 			this.end = Point2;
+			this.myPolygon = poly;
 		}
 
 		public Vector2 Start //start point property
@@ -44,10 +46,10 @@ namespace Classes.Pathfinding
 		{
 			LinkedList<Vector2> outcome = new LinkedList<Vector2>();
 			LinkedList<LinkedList<Vector2>> lines = new LinkedList<LinkedList<Vector2>>();
-			Vector2 tmp = SceneryManager.CurrentRoom.WalkAreas.Nodes[0];
+			Vector2 tmp = myPolygon.Nodes[0];
 
 			outcome.AddFirst(start);
-			lines = Path.findAllSegmentCrosses(start, end);
+			lines = Path.findAllSegmentCrosses(start, end, myPolygon);
 
 			if (lines.Count == 0)
 			{
@@ -59,14 +61,14 @@ namespace Classes.Pathfinding
 				if ((lines.Count % 2) == 0)
 				{
 					//lines = findAllSegmentCrosses(end, outcome.Last.Previous.Value);
-					lines = findAllSegmentCrosses(end, outcome.First.Value);
+					lines = findAllSegmentCrosses(end, outcome.First.Value, myPolygon);
 					while (lines.Count != 0)
 					{
 						foreach (LinkedList<Vector2> lv in lines)
 						{
 							if (outcome.Count == 1)
 							{
-								if (findAllSegmentCrosses(lv.First.Value, outcome.First.Value).Count == 0)
+								if (findAllSegmentCrosses(lv.First.Value, outcome.First.Value, myPolygon).Count == 0)
 								{
 									if (Path.astellarcosts(lv.First.Value, outcome.First.Value, end) < Path.astellarcosts(lv.First.Next.Value, outcome.First.Value, end))
 									{
@@ -83,7 +85,7 @@ namespace Classes.Pathfinding
 							}
 							else
 							{
-								if (findAllSegmentCrosses(lv.First.Value, outcome.Last.Previous.Value).Count == 0)
+								if (findAllSegmentCrosses(lv.First.Value, outcome.Last.Previous.Value, myPolygon).Count == 0)
 								{
 									if (Path.astellarcosts(lv.First.Value, outcome.Last.Previous.Value, end) < Path.astellarcosts(lv.First.Next.Value, outcome.Last.Previous.Value, end))
 									{
@@ -102,11 +104,11 @@ namespace Classes.Pathfinding
 						}
 						if (outcome.Count == 1)
 						{
-							lines = findAllSegmentCrosses(end, outcome.First.Value);
+							lines = findAllSegmentCrosses(end, outcome.First.Value, myPolygon);
 						}
 						else
 						{
-							lines = findAllSegmentCrosses(end, outcome.Last.Previous.Value);
+							lines = findAllSegmentCrosses(end, outcome.Last.Previous.Value, myPolygon);
 						}
 					}
 				}
@@ -156,17 +158,17 @@ namespace Classes.Pathfinding
 
 
 
-		public static LinkedList<LinkedList<Vector2>> findAllSegmentCrosses(Vector2 Start, Vector2 End)
+		public static LinkedList<LinkedList<Vector2>> findAllSegmentCrosses(Vector2 Start, Vector2 End, Polygon polygon)
 		{
 			LinkedList<Vector2> line = new LinkedList<Vector2>();
 			LinkedList<LinkedList<Vector2>> lines = new LinkedList<LinkedList<Vector2>>();
-			for (int i = 1; i < SceneryManager.CurrentRoom.WalkAreas.Nodes.Count; i++)
+			for (int i = 1; i <polygon.Nodes.Count; i++)
 			{
-				if (LineSegmentsCross(Start, End, SceneryManager.CurrentRoom.WalkAreas.Nodes[i - 1], SceneryManager.CurrentRoom.WalkAreas.Nodes[i]))
+				if (LineSegmentsCross(Start, End, polygon.Nodes[i - 1], polygon.Nodes[i]))
 				{
 					line.Clear();
-					line.AddFirst(SceneryManager.CurrentRoom.WalkAreas.Nodes[i - 1]);
-					line.AddLast(SceneryManager.CurrentRoom.WalkAreas.Nodes[i]);
+					line.AddFirst(polygon.Nodes[i - 1]);
+					line.AddLast(polygon.Nodes[i]);
 					lines.AddLast(line);
 				}
 			}

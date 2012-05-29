@@ -99,6 +99,11 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>15, 191, 167, 255</ProcessorParameters_ColorKeyColor>
     </Compile>
+    <Compile Include="Graphics\Backgrounds\room01.png">
+      <Name>room01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="WorldObjects.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>WorldObjects</Name>
@@ -112,11 +117,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>255, 255, 255, 255</ProcessorParameters_ColorKeyColor>
-    </Compile>
-    <Compile Include="Graphics\Backgrounds\room01.png">
-      <Name>room01</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </Compile>
     <Compile Include="Graphics\Sprites\room01_door.png">
       <Name>room01_door</Name>

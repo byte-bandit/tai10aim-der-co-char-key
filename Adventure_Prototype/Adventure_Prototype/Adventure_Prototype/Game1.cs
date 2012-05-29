@@ -150,11 +150,11 @@ namespace Adventure_Prototype
 			//THIS WILL BE CHANGED LATER ON - SO DONT RELY ON IT !!
 			if (!_EDITOR)
 			{
-				Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test.bmap");
+				Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test1.bmap");
 				SceneryManager.CurrentRoom = testRoom;
 				Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
 				player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
-				player1.Position = new Vector2(100, 375);
+				player1.Position = new Vector2(200, 500);
 				GameRef.Player1 = player1;
 				GraphicsManager.addChild(player1);
 				UpdateManager.addItem(player1);

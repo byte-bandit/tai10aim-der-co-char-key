@@ -38,6 +38,57 @@ namespace Classes.IO
 
 
 
+		public static bool clickInPolygon(Classes.Pathfinding.Polygon polygon)
+		{
+			if (!click())
+			{
+				return false;
+			}
+
+			Vector2 mid1 = Vector2.Add(polygon.Nodes[0],Vector2.Multiply(Vector2.Subtract(polygon.Nodes[1], polygon.Nodes[0]), 0.5f));
+			Vector2 mid2 = Vector2.Add(mid1, Vector2.Multiply(Vector2.Subtract(polygon.Nodes[2], mid1), 0.5f));
+
+			Pathfinding.Path route = new Pathfinding.Path(mid2, MouseEx.Position(), polygon);
+			LinkedList<Vector2> walkingRoute = route.findPath();
+
+			if (walkingRoute.Count % 2 ==  1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+
+
+
+
+		public static bool inPolygon(Classes.Pathfinding.Polygon polygon)
+		{
+
+			Vector2 mid1 = Vector2.Add(polygon.Nodes[0], Vector2.Multiply(Vector2.Subtract(polygon.Nodes[1], polygon.Nodes[0]), 0.5f));
+			Vector2 mid2 = Vector2.Add(mid1, Vector2.Multiply(Vector2.Subtract(polygon.Nodes[2], mid1), 0.5f));
+
+			Pathfinding.Path route = new Pathfinding.Path(mid2, MouseEx.Position(), polygon);
+			LinkedList<Vector2> walkingRoute = route.findPath();
+
+			if (walkingRoute.Count % 2 == 1)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+
+
+
+
 		/// <summary>
 		/// Checks whether the mouse is clicked inside a given rectangle
 		/// </summary>
