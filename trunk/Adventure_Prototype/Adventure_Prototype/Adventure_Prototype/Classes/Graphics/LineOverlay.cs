@@ -38,11 +38,9 @@ namespace Classes.Graphics
 		/// <param name="gameTime">Elapsed Time since start of the Application</param>
 		public override void Draw(GameTime gameTime)
 		{
-			Graphics.GraphicsManager.spriteBatch.End();
 			Graphics.GraphicsManager.spriteBatch.Begin();
 			Graphics.GraphicsManager.DrawLine(3, Colori, dummyVector1, dummyVector2);
 			Graphics.GraphicsManager.spriteBatch.End();
-			Graphics.GraphicsManager.spriteBatch.Begin();
 		}
 	}
 }

@@ -24,6 +24,7 @@ namespace Classes
 		private String backgroundTString;
 		private List<WorldObject> objects;
 		private List<NPC> npcs;
+		private List<POI> pois;
 		private bool scaleCharacters;
 		private int scaleCharactersMinPos;
 		private int scaleCharactersMaxPos;
@@ -41,6 +42,7 @@ namespace Classes
 			this.scaleCharacters = false;
 			this.objects = new List<WorldObject>();
 			this.npcs = new List<NPC>();
+			this.pois = new List<POI>();
 			this.LoadContent();
 		}
 
@@ -53,6 +55,12 @@ namespace Classes
 		public String TextureString
 		{
 			get { return this.backgroundTString; }
+		}
+
+		public List<POI> POIS
+		{
+			get { return this.pois; }
+			set { this.pois = value; }
 		}
 
 
@@ -207,6 +215,33 @@ namespace Classes
 				}
 			}
 
+
+
+
+
+			//Mouse Click POI?
+			foreach (POI w in this.pois)
+			{
+				if (MouseEx.clickInPolygon(w))
+				{
+					switch (Cursor.CurrentAction)
+					{
+						case Cursor.CursorAction.look:
+							Dialogues.DialogueManager.PlayerSay(w.onLook);
+							break;
+
+						case Cursor.CursorAction.talk:
+							Dialogues.DialogueManager.PlayerSay(w.onTalk);
+							break;
+
+						case Cursor.CursorAction.use:
+							Dialogues.DialogueManager.PlayerSay(w.onUse);
+							break;
+					}
+					return;
+				}
+			}
+
 			//Mouse Click NPC?
 			foreach (NPC n in this.npcs)
 			{
@@ -252,6 +287,17 @@ namespace Classes
 			foreach (WorldObject w in this.objects)
 			{
 				if (MouseEx.inBoundaries(w.getDrawingRect()))
+				{
+					infoText = w.Name;
+					return;
+				}
+			}
+
+
+			//Mouse Over Point of Interest?
+			foreach (POI w in this.pois)
+			{
+				if (MouseEx.inPolygon(w))
 				{
 					infoText = w.Name;
 					return;

@@ -237,7 +237,7 @@ namespace Classes
 
 		public void setWalkingTarget(Vector2 WalkingTarget)
 		{
-			//foreach (Rectangle r in SceneryManager.CurrentRoom.WalkAreas)
+			//foreach (Rectangle r in myPolygon)
 			//{
 			//    if (WalkingTarget.X > r.X && WalkingTarget.X < r.X + r.Width && WalkingTarget.Y > r.Y && WalkingTarget.Y < r.Y + r.Height)
 			//    {
@@ -248,7 +248,7 @@ namespace Classes
 			//    }
 			//}
 
-			Pathfinding.Path route = new Pathfinding.Path(this.getPivotPoint(), WalkingTarget);
+			Pathfinding.Path route = new Pathfinding.Path(this.getPivotPoint(), WalkingTarget, SceneryManager.CurrentRoom.WalkAreas);
 			this.walkingRoute = route.findPath();
 
 			if (this.walkingRoute.Count > 0)

@@ -1,70 +1,89 @@
 # Brunnen-G Adventure Engine Room File
-# Created: 22.04.2012 04:33:38
+# Created: 29.05.2012 21:59:46
 # By: Kna - alias: Kna-Abakus
 # On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
 # 64Bit: True
 # Number of Processors: 4
-# Mapped Memory: 65032192
+# Mapped Memory: 70381568
 # This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
 
 BEGIN
 BEGINROOM
-ID:Test1,TEXTURE:Graphics/Backgrounds/room01
+ID:test1,TEXTURE:Graphics/Backgrounds/room01
 SCALING:False
 ENDROOM
 BEGINWALK
-X:26,Y:393,WIDTH:145,HEIGHT:76
+X:247,Y:491
 ENDWALK
 BEGINWALK
-X:167,Y:445,WIDTH:629,HEIGHT:24
+X:605,Y:489
 ENDWALK
 BEGINWALK
-X:160,Y:408,WIDTH:42,HEIGHT:42
+X:597,Y:526
 ENDWALK
 BEGINWALK
-X:190,Y:425,WIDTH:45,HEIGHT:27
+X:784,Y:526
 ENDWALK
 BEGINWALK
-X:694,Y:387,WIDTH:93,HEIGHT:65
+X:790,Y:500
 ENDWALK
 BEGINWALK
-X:563,Y:408,WIDTH:143,HEIGHT:48
+X:818,Y:502
 ENDWALK
 BEGINWALK
-X:449,Y:424,WIDTH:131,HEIGHT:27
+X:1009,Y:710
 ENDWALK
 BEGINWALK
-X:363,Y:435,WIDTH:97,HEIGHT:19
+X:32,Y:706
 ENDWALK
 BEGINWALK
-X:616,Y:399,WIDTH:81,HEIGHT:15
+X:18,Y:692
 ENDWALK
 BEGINWALK
-X:515,Y:414,WIDTH:59,HEIGHT:17
+X:247,Y:491
 ENDWALK
 BEGINWO
-X:40,Y:196
+X:396,Y:298
 TEXTURE:Graphics/Sprites/room01_door
 NAME:Door
-ONLOOK:Looks locked...
-ONUSE:How unexpected! It's locked!
-ONTALK:Looks locked...
+ONLOOK:Its a door!
+ONUSE:It's locked ...
+ONTALK:Hi Door!
 ENDWO
 BEGINWO
-X:535,Y:120
+X:265,Y:154
 TEXTURE:Graphics/Sprites/picture
 NAME:Picture
-ONLOOK:Not quite the best drawer...
-ONUSE:I'd rather not touch it.
-ONTALK:Not quite the best drawer...
+ONLOOK:What an ugly painting
+ONUSE:Can't reach it ..
+ONTALK:Boooooooooh!
 ENDWO
-BEGINNPC
-X:638,Y:267
-TEXTURE:afroGB
-MIRROR:True
-NAME:Horst
-ONLOOK:What hair!
-ONUSE:Eesh...
-ONTALK:What hair!
-ENDNPC
+BEGINPOI
+X:19,Y:257
+X:20,Y:413
+X:139,Y:350
+X:130,Y:221
+X:19,Y:257
+NAME:Windows
+ONLOOK:It's a window
+ONUSE:Nahh..
+ONTALK:Hi Window
+ENDPOI
+BEGINPOI
+X:673,Y:2
+X:715,Y:4
+X:714,Y:325
+X:746,Y:322
+X:772,Y:358
+X:771,Y:506
+X:616,Y:504
+X:625,Y:350
+X:637,Y:332
+X:673,Y:334
+X:673,Y:2
+NAME:Chimney
+ONLOOK:Not hot
+ONUSE:Better not..
+ONTALK:Lemme give you a light
+ENDPOI
 END

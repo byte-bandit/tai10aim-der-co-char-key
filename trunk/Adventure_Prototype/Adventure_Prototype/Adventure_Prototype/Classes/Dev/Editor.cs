@@ -28,7 +28,7 @@ namespace Classes.Dev
 		private static StringBuilder edOut;
 		private static String VersionNumber = "0.2.3 [Brunnis-2]";
 		private static String helpmsg = "Press Strg-H to see the help";
-		private static String helpString = "Strg-N : New Room\nStrg-O Open existing Room\nTAB : Change Mode\nE : Create Walk Map\nW : Place World Objects\nN : Create NPCs";
+		private static String helpString = "Strg-N : New Room\nStrg-O Open existing Room\nTAB : Change Mode\nE : Create Walk Map\nW : Place World Objects\nN : Create NPCs\nQ: Create POI";
 
 
 		//Some Variables to decide wether Users is dragging or not
@@ -69,7 +69,8 @@ namespace Classes.Dev
 
 
 		//Variables for working with Points of Interest
-		private static List<Polygon> POIs = new List<Polygon>();
+		private static List<POI> POIs = new List<POI>();
+		private static POI currentPOI = null;
 
 		
 
@@ -150,6 +151,19 @@ namespace Classes.Dev
 				fileout.AppendLine("ONTALK:" + r.OnTalk);
 				fileout.AppendLine("ENDNPC");
 			}
+			foreach (POI r in POIs)
+			{
+				fileout.AppendLine("BEGINPOI");
+				foreach (Vector2 v in r.Nodes)
+				{
+					fileout.AppendLine("X:" + v.X + ",Y:" + v.Y);
+				}
+				fileout.AppendLine("NAME:" + r.Name);
+				fileout.AppendLine("ONLOOK:" + r.onLook);
+				fileout.AppendLine("ONUSE:" + r.onUse);
+				fileout.AppendLine("ONTALK:" + r.onTalk);
+				fileout.AppendLine("ENDPOI");
+			}
 			fileout.AppendLine("END");
 
 			try
@@ -217,6 +231,7 @@ namespace Classes.Dev
 			walkAreas = SceneryManager.CurrentRoom.WalkAreas;
 			WorldObjects = SceneryManager.CurrentRoom.getWorldObjects();
 			NPCs = SceneryManager.CurrentRoom.getNPCs();
+			POIs = SceneryManager.CurrentRoom.POIS;
 		}
 
 
@@ -244,6 +259,12 @@ namespace Classes.Dev
 
 
 
+			//Set creationmode to POI
+			if (KeyboardEx.isKeyHit(Keys.Q))
+			{
+				creationmode = CreationStatusTypes.POI;
+			}
+
 
 			//Set Creationmode to WalkArea
 			if (KeyboardEx.isKeyHit(Keys.E))
@@ -267,6 +288,10 @@ namespace Classes.Dev
 
 				case CreationStatusTypes.WalkArea:
 					UpdateCreation_WA();
+					break;
+
+				case CreationStatusTypes.POI:
+					UpdateCreation_POI();
 					break;
 
 				case CreationStatusTypes.NPC:
@@ -395,6 +420,58 @@ namespace Classes.Dev
 			}
 
 		}
+
+
+
+
+
+
+
+		private static void UpdateCreation_POI()
+		{
+
+			edOut.AppendLine("Creating Point of Interest");
+
+			if (MouseEx.click())
+			{
+				draggingPoint = MouseEx.Position();
+				if (currentPOI == null)
+				{
+					currentPOI = new POI(true, GameRef.Game);
+				}
+
+				if (currentPOI.Changeable)
+				{
+
+					if (currentPOI.Nodes.Count > 2 && currentPOI.firstNodeInRange(draggingPoint))
+					{
+						Vector2 tmp = currentPOI.Nodes[0];
+						currentPOI.Nodes.Add(tmp);
+						currentPOI.Changeable = false;
+
+						String tName = Microsoft.VisualBasic.Interaction.InputBox("Name");
+						String tOnLook = Microsoft.VisualBasic.Interaction.InputBox("OnLook");
+						String tOnTalk = Microsoft.VisualBasic.Interaction.InputBox("OnTalk");
+						String tOnUse = Microsoft.VisualBasic.Interaction.InputBox("OnUse");
+
+						currentPOI.Name = tName;
+						currentPOI.onLook = tOnLook;
+						currentPOI.onTalk = tOnTalk;
+						currentPOI.onUse = tOnUse;
+
+						POIs.Add(currentPOI);
+						currentPOI = null;
+
+					}
+					else
+					{
+						currentPOI.Nodes.Add(draggingPoint);
+					}
+				}
+
+			}
+		}
+
 
 
 
@@ -973,20 +1050,18 @@ namespace Classes.Dev
 				{
 					w.HighlightColor = Color.White;
 				}
-				GraphicsManager.spriteBatch.Begin();
 				w.Draw(gameTime);
-				GraphicsManager.spriteBatch.End();
 			}
 
 
-			Graphics.GraphicsManager.spriteBatch.Begin();
+			//Graphics.GraphicsManager.spriteBatch.Begin();
 
-			if (isDragging && mode == EditorModeTypes.Creation)
-			{
-				LineOverlay tmp;
-				tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), draggingPoint, new Color(128, 255, 128, 128), game);
-				tmp.Draw(gameTime);
-			}
+			//if (isDragging && mode == EditorModeTypes.Creation)
+			//{
+			//    LineOverlay tmp;
+			//    tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), draggingPoint, new Color(128, 255, 128, 128), game);
+			//    tmp.Draw(gameTime);
+			//}
 
 
 
@@ -1010,7 +1085,56 @@ namespace Classes.Dev
 
 			}
 
-			GraphicsManager.spriteBatch.End();
+
+
+
+			//Draw POI in Progress
+			if (currentPOI != null && currentPOI.Nodes.Count > 1)
+			{
+				/*foreach (Vector2 r in walkAreas.Nodes)
+				{*/
+				LineOverlay tmp;
+
+				for (int i = 1; i < currentPOI.Nodes.Count; i++)
+				{
+					tmp = new LineOverlay(currentPOI.Nodes[i], currentPOI.Nodes[i - 1], Color.Red, GameRef.Game);
+					tmp.Draw(gameTime);
+				}
+
+				/*if (selection != null && (selection.GetType() == typeof(Vector2) && r == (Vector2)selection))
+					tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), r, new Color(256, 128, 256, 128), game);
+				else
+					tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), r, new Color(128, 128, 256, 128), game);*/
+
+
+			}
+
+
+
+			//Draw done POIs
+			foreach (POI p in POIs)
+			{
+				if (p.Nodes.Count > 1)
+				{
+					/*foreach (Vector2 r in walkAreas.Nodes)
+					{*/
+					LineOverlay tmp;
+
+					for (int i = 1; i < p.Nodes.Count; i++)
+					{
+						tmp = new LineOverlay(p.Nodes[i], p.Nodes[i - 1], Color.Red, GameRef.Game);
+						tmp.Draw(gameTime);
+					}
+
+					/*if (selection != null && (selection.GetType() == typeof(Vector2) && r == (Vector2)selection))
+						tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), r, new Color(256, 128, 256, 128), game);
+					else
+						tmp = new LineOverlay(new Vector2(MouseEx.getState().X, MouseEx.getState().Y), r, new Color(128, 128, 256, 128), game);*/
+
+
+				}
+			}
+
 
 			foreach (NPC w in NPCs)
 			{
@@ -1027,9 +1151,7 @@ namespace Classes.Dev
 				{
 					w.HighlightColor = Color.White;
 				}
-				GraphicsManager.spriteBatch.Begin();
 				w.Draw(gameTime);
-				GraphicsManager.spriteBatch.End();
 			}
 
 

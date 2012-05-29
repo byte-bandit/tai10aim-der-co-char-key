@@ -122,6 +122,48 @@ namespace Classes.Pipeline
 
 
 
+
+
+				if (line.Trim().StartsWith("BEGINPOI"))
+				{
+					//Get X, Y, Width and Height
+					n++;
+					POI p = new POI(true, GameRef.Game);
+
+					while (data[n].Trim().StartsWith("X:"))
+					{
+
+						int X = int.Parse(data[n].Substring(data[n].IndexOf("X:") + 2, data[n].IndexOf(",Y:") - 2));
+						int Y = int.Parse(data[n].Substring(data[n].IndexOf("Y:") + 2));
+						p.Nodes.Add(new Vector2(X,Y));
+						n++;
+
+					}
+
+					//Get Name
+					p.Name = data[n].Substring(data[n].IndexOf("NAME:") + 5);
+
+					//Get Look
+					n++;
+					p.onLook = data[n].Substring(data[n].IndexOf("ONLOOK:") + 7);
+
+					//Get Use
+					n++;
+					p.onUse = data[n].Substring(data[n].IndexOf("ONUSE:") + 6);
+
+					//Get Talk
+					n++;
+					p.onTalk = data[n].Substring(data[n].IndexOf("ONTALK:") + 7);
+
+					ret.POIS.Add(p);
+
+					//Get next line
+					continue;
+				}
+
+
+
+
 				if (line.Trim().StartsWith("BEGINWO"))
 				{
 					//Get X, Y, Width and Height
