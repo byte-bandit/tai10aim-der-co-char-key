@@ -30,13 +30,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Adventure_Prototype;
 using Microsoft.Xna.Framework;
 
 namespace Classes.Pipeline
 {
 	static class GameRef
 	{
-		private static Game game;
+		private static Game1 game;
 		private static Boolean editor;
 		private static Vector2 resolution;
 		private static Vector2 animationFrames;
@@ -48,7 +49,7 @@ namespace Classes.Pipeline
 		/// Gets or sets the Main game.
 		/// You should only WRITE to this property ONCE during Initialization of the game
 		/// </summary>
-		public static  Game Game
+		public static  Game1 Game
 		{
 			get { return game; }
 			set { game = value; }

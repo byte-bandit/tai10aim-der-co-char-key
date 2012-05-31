@@ -11,6 +11,24 @@ namespace Classes
 	class SceneryManager
 	{
 		private static Room currentRoom;
+		private static Player player1;
+		private static Player player2;
+
+
+		public static Player Player1
+		{
+			get { return player1; }
+			set { player1 = value; }
+		}
+
+
+
+		public static Player Player2
+		{
+			get { return player2; }
+			set { player2 = value; }
+		}
+
 
 		public static Room CurrentRoom
 		{

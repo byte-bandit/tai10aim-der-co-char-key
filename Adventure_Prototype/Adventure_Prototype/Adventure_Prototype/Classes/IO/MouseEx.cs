@@ -14,6 +14,8 @@ namespace Classes.IO
 		private static MouseState prevMouseState;
 		private static MouseState currMouseState;
 
+		static bool hitButton;
+
 
 		/// <summary>
 		/// Checks whether a click is performed.
@@ -85,6 +87,44 @@ namespace Classes.IO
 			}
 		}
 
+
+
+
+
+
+		public static bool ReleaseButton(Classes.UI.Button button)
+		{
+			if (!pressed_LMB() && hitButton)
+			{
+				hitButton = false;
+				return true;
+			}
+
+			return false;
+		}
+
+
+
+
+
+
+
+
+		public static bool clickOnButton(Classes.UI.Button button)
+		{
+			if (!click())
+			{
+				return false;
+			}
+
+			if (inBoundaries(button.HitBox))
+			{
+				hitButton = true;
+				return true;
+			}
+
+			return false;
+		}
 
 
 

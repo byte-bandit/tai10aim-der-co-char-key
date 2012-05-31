@@ -149,7 +149,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\ui_font.xnb</Output>
-      <Time>2012-05-22T19:40:03.694156+02:00</Time>
+      <Time>2012-05-31T13:47:56.0216069+02:00</Time>
     </Item>
     <Item>
       <Source>big.spritefont</Source>
@@ -158,7 +158,7 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\big.xnb</Output>
-      <Time>2012-05-22T19:40:04.6632115+02:00</Time>
+      <Time>2012-05-31T13:47:50.6102973+02:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Charsets\spriteA.png</Source>
@@ -242,7 +242,43 @@
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
       <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
-      <Time>2012-05-30T00:58:46.630078+02:00</Time>
+      <Time>2012-05-31T13:46:39.4732285+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\menu_player_space.png</Source>
+      <Name>Graphics\UI\menu_player_space</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_player_space.xnb</Output>
+      <Time>2012-05-31T13:37:11.7687577+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\noGamePic.png</Source>
+      <Name>Graphics\UI\noGamePic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\noGamePic.xnb</Output>
+      <Time>2012-05-31T14:17:52.3233494+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\button_disabled.png</Source>
+      <Name>Graphics\UI\button_disabled</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_disabled.xnb</Output>
+      <Time>2012-05-31T16:01:30.9620352+02:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\UI\sad.png</Source>
+      <Name>Graphics\UI\sad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\sad.xnb</Output>
+      <Time>2012-05-31T16:54:25.8146264+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>

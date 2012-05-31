@@ -137,6 +137,26 @@
       <Processor>TextureProcessor</Processor>
       <ProcessorParameters_ColorKeyColor>0, 0, 0, 0</ProcessorParameters_ColorKeyColor>
     </Compile>
+    <Compile Include="Graphics\UI\menu_player_space.png">
+      <Name>menu_player_space</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Graphics\UI\noGamePic.png">
+      <Name>noGamePic</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Graphics\UI\button_disabled.png">
+      <Name>button_disabled</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Graphics\UI\sad.png">
+      <Name>sad</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Content Include="WorldObjects.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Name>WorldObjects</Name>
