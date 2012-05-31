@@ -16,6 +16,8 @@ namespace Classes.Graphics
 		public static SpriteFont font03;
 		public static Texture2D dummyTexture;
 
+		private static GraphicsDevice gd;
+
 
 		/// <summary>
 		/// Adds a new Child for the Graphics Manager to draw.
@@ -114,6 +116,17 @@ namespace Classes.Graphics
 			font01 = Font01;
 			font02 = Font02;
 			font03 = Font03;
+			gd = gp;
+		}
+
+
+
+
+
+
+		public static GraphicsDevice GraphicsDevice
+		{
+			get { return gd; }
 		}
 
 

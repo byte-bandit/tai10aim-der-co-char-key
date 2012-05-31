@@ -21,5 +21,9 @@ Content\Graphics\UI\menu_title_font.xnb
 Content\Graphics\UI\button_down.xnb
 Content\Graphics\UI\button_up.xnb
 Content\menu_font.xnb
+Content\Graphics\UI\menu_player_space.xnb
+Content\Graphics\UI\noGamePic.xnb
+Content\Graphics\UI\button_disabled.xnb
+Content\Graphics\UI\sad.xnb
 Content\WorldObjects.txt
 Content\Dialogues.txt

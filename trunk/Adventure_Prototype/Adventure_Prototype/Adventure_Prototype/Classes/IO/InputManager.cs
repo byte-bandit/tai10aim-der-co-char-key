@@ -5,6 +5,8 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 
+using Adventure_Prototype;
+using Classes;
 using Classes.Pipeline;
 
 namespace Classes.IO
@@ -12,9 +14,13 @@ namespace Classes.IO
 	class InputManager
 	{
 
-		public static void Update()
-		{
 
+		public static void Update(int gameMode)
+		{
+			if (gameMode == 0)
+			{
+				return;
+			}
 
 
 			//Handling Mouse Scrolls

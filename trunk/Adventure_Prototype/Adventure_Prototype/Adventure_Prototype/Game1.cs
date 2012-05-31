@@ -25,6 +25,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Net;
 
 
 using Classes;
@@ -33,6 +34,7 @@ using Classes.Graphics;
 using Classes.IO;
 using Classes.Dev;
 using Classes.Pipeline;
+using Classes.Net;
 
 
 
@@ -59,12 +61,26 @@ namespace Adventure_Prototype
 		//######################################################################################
 		GraphicsDeviceManager graphics;		//Global graphics card Interface
 		SpriteBatch spriteBatch;			//Global spriteBatch used for Drawing
-		Player player1;						//Link to Player1
-		Player player2;						//Link to Player2
-		Menu menu = new Menu();
+		//public Player player1;						//Link to Player1
+		//public Player player2;						//Link to Player2
+		Menu menu = new Menu();				//Main Menu Variable
 
+
+		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST ; // Set to not logged in for initial start screen
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
 
+
+
+
+
+		public enum GameMode
+		{
+			MAIN_MENU_CONNECT_OR_HOST,
+			MAIN_MENU_HOST,
+			MAIN_MENU_CONNECT,
+			GAME,
+			GAME_MENU
+		}
 
 
 		/// <summary>
@@ -78,10 +94,8 @@ namespace Adventure_Prototype
 			//*le setting screen resolution
 			graphics.PreferredBackBufferWidth = 1280;
 			graphics.PreferredBackBufferHeight = 720;
-
-			
-
 		}
+
 
 
 
@@ -121,12 +135,14 @@ namespace Adventure_Prototype
 			RoomProcessor.Initialize(this);		//Builds our room from source files [.bmap]
 			KeyboardEx.Initialize();			//A more powerful keyboard class
 			DialogueManager.Initialize();		//Get all Dialogues
+			NetworkManager.Initialize();
 			
 			//Load up all our fonts
 			GraphicsManager.initializeFonts(Content.Load<SpriteFont>("ui_font"), Content.Load<SpriteFont>("big"), Content.Load<SpriteFont>("menu_font"), GraphicsDevice);
 				
 			//Initialize Parent
 			base.Initialize();
+			//LoadContent();
 		}
 
 
@@ -144,6 +160,7 @@ namespace Adventure_Prototype
 			// Assign it to the Graphics Manager
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			GraphicsManager.spriteBatch = spriteBatch;
+			SoundManager.LoadContent();
 			
 			
 
@@ -201,14 +218,14 @@ namespace Adventure_Prototype
 
 			//SEND OUR PLAYER WALKING IF IN GAME MODE
 			// WILL BE CHANGED TO INPUTMANAGER EVENTUALLY
-			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR )
+			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME )
 			{
-				player1.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+				//player1.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
 			}
 
 			//Update our Managers
 			UpdateManager.Update(gameTime);
-			InputManager.Update();
+			if (this.gameMode == GameMode.GAME) { InputManager.Update(1); } else { InputManager.Update(0); }
 			MouseEx.Update();
 			KeyboardEx.Update();
 			DialogueManager.Update();
@@ -222,7 +239,8 @@ namespace Adventure_Prototype
 			//Update the Editor
 			if (_EDITOR)
 				Editor.Update();
-			
+			else
+				NetworkManager.Update();
 
 			base.Update(gameTime);
 		}

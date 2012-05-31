@@ -6,6 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Classes.Pipeline;
 using Classes.Graphics;
 
 namespace Classes.IO
@@ -69,8 +70,8 @@ namespace Classes.IO
 			GraphicsManager.spriteBatch.Begin();
 
 
-			//In Dialogue Mode?
-			if (Dialogues.DialogueManager.busy)
+			//In Dialogue Mode or menu?
+			if (Dialogues.DialogueManager.busy || GameRef.Game.gameMode != Adventure_Prototype.Game1.GameMode.GAME)
 			{
 				GraphicsManager.spriteBatch.Draw(c_dialogue, MouseEx.Position(), null, Color.White, 0.0f, Vector2.Zero, 0.5f, SpriteEffects.None, 1.0f);
 				GraphicsManager.spriteBatch.End();
