@@ -12,11 +12,9 @@ class Character
 	public int Y { get; set; }
 	public string Name { get; set; }
 	public NetConnection Connection { get; set; }
-	public Character(string name, int x, int y, NetConnection conn)
+	public Character(string name, NetConnection conn)
 	{
 		Name = name;
-		X = x;
-		Y = y;
 		Connection = conn;
 	}
 }

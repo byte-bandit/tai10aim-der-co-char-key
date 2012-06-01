@@ -18,8 +18,9 @@ using Lidgren.Network;
 enum PacketTypes
 {
 	LOGIN,
-	MOVE,
-	WORLDSTATE
+	ENV_INFO,
+	PLAYER_INFO,
+	BROADCAST
 }
 
 
@@ -86,26 +87,26 @@ namespace Classes.Net
 
 		public static void createSession()
 		{
-			//ProcessStartInfo start = new ProcessStartInfo();
-			//start.FileName = "GameServer.exe";
-			//start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-			//hostProcess = Process.Start(start);
+            ProcessStartInfo start = new ProcessStartInfo();
+            start.FileName = "GameServer.exe";
+            start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            hostProcess = Process.Start(start);
 
-			//config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-			//NetIncomingMessage inc;
+            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
+            NetIncomingMessage inc;
 
-			//while (true)
-			//{
-			//    client.DiscoverKnownPeer("localhost", 14242);
-			//    if ((inc = client.ReadMessage()) == null)
-			//    {
-			//        continue;
-			//    }
-			//    if (inc.MessageType == NetIncomingMessageType.DiscoveryResponse)
-			//    {
-			//        break;
-			//    }
-			//}
+            while (true)
+            {
+                client.DiscoverKnownPeer("localhost", 14242);
+                if ((inc = client.ReadMessage()) == null)
+                {
+                    continue;
+                }
+                if (inc.MessageType == NetIncomingMessageType.DiscoveryResponse)
+                {
+                    break;
+                }
+            }
 
 			connect("localhost");
 		}
@@ -161,6 +162,17 @@ namespace Classes.Net
 							System.Diagnostics.Debug.Print(ex.ToString());
 						}
 						
+						break;
+
+
+
+
+
+
+
+					//DATA TYPES
+					case NetIncomingMessageType.Data :
+						if((PacketTypes)inc.ReadByte())
 						break;
 				}
 			}
