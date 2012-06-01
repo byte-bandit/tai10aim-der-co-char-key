@@ -13,8 +13,30 @@ namespace Classes.IO
 	{
 		private static MouseState prevMouseState;
 		private static MouseState currMouseState;
+		private static Vector2 lastKnownPosition;
 
 		static bool hitButton;
+
+
+
+
+
+        private static bool isInGameWindow()
+        {
+            if ((int)Mouse.GetState().X < 0 || (int)Mouse.GetState().X > 1280)
+            {
+                return false;
+            }
+            if ((int)Mouse.GetState().Y < 0 || (int)Mouse.GetState().Y > 720)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+
+
 
 
 		/// <summary>
@@ -23,6 +45,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool click()
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (prevMouseState.LeftButton == ButtonState.Released && currMouseState.LeftButton == ButtonState.Pressed)
 			{
 				if (inBoundaries(new Rectangle(0,0,(int)GameRef.Resolution.X,(int) GameRef.Resolution.Y)))
@@ -70,6 +96,10 @@ namespace Classes.IO
 
 		public static bool inPolygon(Classes.Pathfinding.Polygon polygon)
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 
 			Vector2 mid1 = Vector2.Add(polygon.Nodes[0], Vector2.Multiply(Vector2.Subtract(polygon.Nodes[1], polygon.Nodes[0]), 0.5f));
 			Vector2 mid2 = Vector2.Add(mid1, Vector2.Multiply(Vector2.Subtract(polygon.Nodes[2], mid1), 0.5f));
@@ -94,6 +124,10 @@ namespace Classes.IO
 
 		public static bool ReleaseButton(Classes.UI.Button button)
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (!pressed_LMB() && hitButton)
 			{
 				hitButton = false;
@@ -181,6 +215,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool inBoundaries(Rectangle Boundaries)
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (Mouse.GetState().X >= Boundaries.X && Mouse.GetState().X <= Boundaries.X + Boundaries.Width && Mouse.GetState().Y >= Boundaries.Y &&
 				Mouse.GetState().Y <= Boundaries.Y + Boundaries.Height)
 			{
@@ -202,6 +240,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool inRange(Vector2 Boundaries, float Distance = 4.0f)
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (Vector2.Distance(new Vector2(Mouse.GetState().X, Mouse.GetState().Y), Boundaries) <= Distance)
 			{
 				return true;
@@ -259,6 +301,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool rightClick()
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (prevMouseState.RightButton == ButtonState.Released && currMouseState.RightButton == ButtonState.Pressed)
 			{
 				return true;
@@ -315,6 +361,28 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static Vector2 Position()
 		{
+            if (!isInGameWindow())
+            {
+                Vector2 ret = new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
+                if (ret.X < 0)
+                {
+                    ret.X = 0;
+                }else if (ret.X > 1280)
+                {
+                    ret.X = 1280;
+                }
+
+                if (ret.Y < 0)
+                {
+                    ret.Y = 0;
+                }else if (ret.Y > 720)
+                {
+                    ret.X = 720;
+                }
+
+				
+				return ret;
+            }
 			return new Vector2(Mouse.GetState().X, Mouse.GetState().Y);
 		}
 
@@ -326,6 +394,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool scrollUp()
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (prevMouseState.ScrollWheelValue < currMouseState.ScrollWheelValue)
 			{
 				return true;
@@ -345,6 +417,10 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool scrollDown()
 		{
+            if (!isInGameWindow())
+            {
+                return false;
+            }
 			if (prevMouseState.ScrollWheelValue > currMouseState.ScrollWheelValue)
 			{
 				return true;

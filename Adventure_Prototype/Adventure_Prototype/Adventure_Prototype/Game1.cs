@@ -99,8 +99,6 @@ namespace Adventure_Prototype
 
 
 
-
-
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
 		/// This is where it can query for any required services and load any non-graphic
@@ -211,6 +209,12 @@ namespace Adventure_Prototype
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+            //Focus?
+            if (!this.IsActive || !MouseEx.inBoundaries(new Rectangle(0,0,1280,720)))
+            {
+                return;
+            }
+
 			// Allows the game to exit
 			if (KeyboardEx.isKeyHit(Keys.Escape))
 				this.Exit();
@@ -275,7 +279,7 @@ namespace Adventure_Prototype
 			}
 
 			//Draw Cursor at last
-			if(!_EDITOR)
+			if(!_EDITOR && this.IsActive && MouseEx.inBoundaries(new Rectangle(0,0,1280,720)))
 				Cursor.Draw();
 			
 			base.Draw(gameTime);

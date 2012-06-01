@@ -20,8 +20,9 @@ namespace GameServer
 	enum PacketTypes
 	{
 		LOGIN,
-		MOVE,
-		WORLDSTATE
+		ENV_INFO,
+		PLAYER_INFO,
+		BROADCAST
 	}
 
 
@@ -110,10 +111,14 @@ namespace GameServer
 								print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
                                 inc.SenderConnection.Approve();
 								//Initialize Player here
+								Character tmp = new Character("Spieler " + Server.Connections.Length.ToString(), inc.SenderConnection);
+								GameWorldState.Add(tmp);
 
                                 NetOutgoingMessage outmsg = Server.CreateMessage();
 
-								outmsg.Write(true);
+								outmsg.Write((byte)PacketTypes.LOGIN);
+								outmsg.Write(Server.Connections.Length.ToString());
+								outmsg.Write(tmp.Name);
 
                                 Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
                             }
@@ -150,59 +155,59 @@ namespace GameServer
 						 * DATA PACKAGES
 						 *##################################################
 						 */
-                        case NetIncomingMessageType.Data:
+						//case NetIncomingMessageType.Data:
 
-                            if (inc.ReadByte() == (byte)PacketTypes.MOVE)
-                            {
+						//    if (inc.ReadByte() == (byte)PacketTypes.MOVE)
+						//    {
 
-                                foreach (Character ch in GameWorldState)
-                                {
-                                    if (ch.Connection != inc.SenderConnection)
-									{
-                                        continue;
-									}
+						//        foreach (Character ch in GameWorldState)
+						//        {
+						//            if (ch.Connection != inc.SenderConnection)
+						//            {
+						//                continue;
+						//            }
 
-									//// Read next byte
-									//byte b = inc.ReadByte();
+						//            //// Read next byte
+						//            //byte b = inc.ReadByte();
                                     
-									//// Handle movement. This byte should correspond to some direction
-									//if ((byte)MoveDirection.UP == b)
-									//    ch.Y--;
-									//if ((byte)MoveDirection.DOWN == b)
-									//    ch.Y++;
-									//if ((byte)MoveDirection.LEFT == b)
-									//    ch.X--;
-									//if ((byte)MoveDirection.RIGHT == b)
-									//    ch.X++;
+						//            //// Handle movement. This byte should correspond to some direction
+						//            //if ((byte)MoveDirection.UP == b)
+						//            //    ch.Y--;
+						//            //if ((byte)MoveDirection.DOWN == b)
+						//            //    ch.Y++;
+						//            //if ((byte)MoveDirection.LEFT == b)
+						//            //    ch.X--;
+						//            //if ((byte)MoveDirection.RIGHT == b)
+						//            //    ch.X++;
 
-                                    // Create new message
-                                    NetOutgoingMessage outmsg = Server.CreateMessage();
+						//            // Create new message
+						//            NetOutgoingMessage outmsg = Server.CreateMessage();
 
-                                    // Write byte, that is type of world state
-                                    outmsg.Write((byte)PacketTypes.WORLDSTATE);
+						//            // Write byte, that is type of world state
+						//            outmsg.Write((byte)PacketTypes.WORLDSTATE);
 
-                                    // Write int, "how many players in game?"
-                                    outmsg.Write(GameWorldState.Count);
+						//            // Write int, "how many players in game?"
+						//            outmsg.Write(GameWorldState.Count);
 
-                                    // Iterate throught all the players in game
-                                    foreach (Character ch2 in GameWorldState)
-                                    {
-                                        // Write all the properties of object to message
-                                        outmsg.WriteAllProperties(ch2);
-                                    }
+						//            // Iterate throught all the players in game
+						//            foreach (Character ch2 in GameWorldState)
+						//            {
+						//                // Write all the properties of object to message
+						//                outmsg.WriteAllProperties(ch2);
+						//            }
 
-                                    // Message contains
-                                    // Byte = PacketType
-                                    // Int = Player count
-                                    // Character obj * Player count
+						//            // Message contains
+						//            // Byte = PacketType
+						//            // Int = Player count
+						//            // Character obj * Player count
 
-                                    // Send messsage to clients ( All connections, in reliable order, channel 0)
-                                    Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-                                    break;
-                                }
+						//            // Send messsage to clients ( All connections, in reliable order, channel 0)
+						//            Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+						//            break;
+						//        }
 
-                            }
-                            break;
+						//    }
+						//    break;
 
 
 
@@ -262,7 +267,7 @@ namespace GameServer
                         NetOutgoingMessage outmsg = Server.CreateMessage();
 
                         // Write byte
-                        outmsg.Write((byte)PacketTypes.WORLDSTATE);
+                        outmsg.Write((byte)PacketTypes.BROADCAST);
 
                         // Write Int
                         outmsg.Write(GameWorldState.Count);

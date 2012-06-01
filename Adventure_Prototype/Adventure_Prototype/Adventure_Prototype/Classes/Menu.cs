@@ -170,7 +170,7 @@ namespace Classes
 
 		private String getSelectedServerIP()
 		{
-			if (selectedSessionIndex < 1)
+			if (selectedSessionIndex < 0)
 			{
 				return null;
 			}
