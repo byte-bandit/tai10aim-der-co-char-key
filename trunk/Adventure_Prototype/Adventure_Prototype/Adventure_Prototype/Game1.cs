@@ -91,10 +91,39 @@ namespace Adventure_Prototype
 			graphics = new GraphicsDeviceManager(this);		//Initialize our Graphics Card Interface
 			Content.RootDirectory = "Content";				//Setting up our Content-Root Directory
 			
+			//Killing all game Server instances
+			this.Disposed += new EventHandler<EventArgs>(Game1_Disposed);
+			
 			//*le setting screen resolution
 			graphics.PreferredBackBufferWidth = 1280;
 			graphics.PreferredBackBufferHeight = 720;
 		}
+
+
+
+		/// <summary>
+		/// Handles Game Disposal
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="args"></param>
+		private void Game1_Disposed(object sender, EventArgs args)
+		{
+			try
+			{
+				System.Diagnostics.Process[] pc = System.Diagnostics.Process.GetProcessesByName("GameServer");
+
+				foreach (System.Diagnostics.Process p in pc)
+				{
+					p.Kill();
+				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.Print(ex.ToString());
+			}
+		}
+
+
 
 
 
@@ -234,7 +263,7 @@ namespace Adventure_Prototype
 			KeyboardEx.Update();
 			DialogueManager.Update();
 
-			if (menu != null)
+			if (!_EDITOR && menu != null)
 			{
 				menu.Update(gameTime);
 			}
@@ -263,7 +292,7 @@ namespace Adventure_Prototype
 			GraphicsManager.Draw(gameTime);
 
 			//Menu
-			if (menu != null)
+			if (!_EDITOR && menu != null)
 			{
 				menu.Draw(gameTime);
 			}

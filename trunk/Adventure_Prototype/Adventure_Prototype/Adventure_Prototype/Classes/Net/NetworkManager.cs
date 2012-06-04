@@ -20,7 +20,8 @@ enum PacketTypes
 	LOGIN,
 	ENV_INFO,
 	PLAYER_INFO,
-	BROADCAST
+	BROADCAST,
+	LOBBY
 }
 
 
@@ -37,6 +38,9 @@ namespace Classes.Net
 		private static bool isEveryoneReady;
 		private static int connectedPlayers;
 		private static Process hostProcess;
+        private static String gamerName = "Unknown";
+        private static int myGamerNumber = 0;
+		private static List<String> connectedGamers = new List<String>();
 
 		public static void Initialize()
 		{
@@ -44,6 +48,40 @@ namespace Classes.Net
 			client = new NetClient(config);
 			connectedPlayers = 0;
 			client.Start();
+		}
+
+
+
+
+        public static String GamerName
+        {
+            get { return gamerName; }
+        }
+
+
+
+
+		public static List<String> ConnectedGamers
+		{
+			get { return connectedGamers; }
+		}
+
+
+
+
+		public static bool setPlayerName()
+		{
+			String s = Microsoft.VisualBasic.Interaction.InputBox("Wie möchtest du dich nennen?", "Spieler benennen...");
+
+			if (s == "")
+			{
+				return false;
+			}
+			else
+			{
+				gamerName = s;
+				return true;
+			}
 		}
 
 
@@ -132,6 +170,7 @@ namespace Classes.Net
 
 			NetOutgoingMessage outmsg = client.CreateMessage();
 			outmsg.Write((byte)PacketTypes.LOGIN);
+			outmsg.Write(gamerName);
 			client.Connect(ip, 14242, outmsg);
 		}
 
@@ -166,13 +205,55 @@ namespace Classes.Net
 
 
 
+					case NetIncomingMessageType.Error:
+						try
+						{
+							System.Diagnostics.Debug.Print(inc.ReadString());
+						}
+						catch (Exception ex)
+						{
+							System.Diagnostics.Debug.Print(ex.ToString());
+						}
 
+						break;
 
 
 
 					//DATA TYPES
 					case NetIncomingMessageType.Data :
-						if((PacketTypes)inc.ReadByte())
+                        if ((PacketTypes)inc.ReadByte() == PacketTypes.LOGIN )
+                        {
+                            try
+                            {
+                                connectedPlayers = inc.ReadInt32();
+                                myGamerNumber = connectedPlayers;
+                            }
+                            catch (Exception ex)
+                            {
+                                System.Diagnostics.Debug.Print(ex.ToString());
+                            }
+							return;
+                        }
+
+						//System.Diagnostics.Debug.Print(((PacketTypes)inc.ReadByte()).ToString());
+
+
+						if ((PacketTypes)inc.ReadByte() == PacketTypes.LOBBY)
+						{
+							try
+							{
+								connectedPlayers = inc.ReadInt32();
+								connectedGamers = new List<String>();
+								for (int a = 0; a < connectedPlayers; a++)
+								{
+									connectedGamers.Add(inc.ReadString());
+								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+						}
 						break;
 				}
 			}

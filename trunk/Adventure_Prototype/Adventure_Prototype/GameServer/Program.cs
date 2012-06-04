@@ -17,12 +17,19 @@ using Lidgren.Network;
 namespace GameServer
 {
 
+	enum ServerStatus
+	{
+		LOBBY,
+		GAME
+	}
+
 	enum PacketTypes
 	{
 		LOGIN,
 		ENV_INFO,
 		PLAYER_INFO,
-		BROADCAST
+		BROADCAST,
+		LOBBY
 	}
 
 
@@ -42,6 +49,7 @@ namespace GameServer
 
         static NetServer Server;				//The Server Object itself
         static NetPeerConfiguration Config;		//Used to store the server config
+		static ServerStatus serverStatus;		//Simpleton to check whether we're in game or lobby.
 
 
 
@@ -55,6 +63,8 @@ namespace GameServer
 
         static void Main(string[] args)
         {
+			//Boot in Lobby mode
+			serverStatus = ServerStatus.LOBBY;
 
 			//Setup Configuration
             Config = new NetPeerConfiguration("CoCharKey");	//Make sure the Application ID is the same on Server & Game!
@@ -94,7 +104,7 @@ namespace GameServer
 
 
             while (true)
-            {
+             {
 
                 if ((inc = Server.ReadMessage()) != null)
                 {
@@ -110,14 +120,15 @@ namespace GameServer
                             {
 								print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
                                 inc.SenderConnection.Approve();
+
 								//Initialize Player here
-								Character tmp = new Character("Spieler " + Server.Connections.Length.ToString(), inc.SenderConnection);
+								Character tmp = new Character(inc.ReadString(), inc.SenderConnection);
 								GameWorldState.Add(tmp);
 
                                 NetOutgoingMessage outmsg = Server.CreateMessage();
 
 								outmsg.Write((byte)PacketTypes.LOGIN);
-								outmsg.Write(Server.Connections.Length.ToString());
+								outmsg.Write(Server.Connections.Length);
 								outmsg.Write(tmp.Name);
 
                                 Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
@@ -261,6 +272,27 @@ namespace GameServer
 				*/
                 if ((time + interval) < DateTime.Now)
                 {
+					if (serverStatus == ServerStatus.LOBBY)
+					 {
+						NetOutgoingMessage msg = Server.CreateMessage();
+						Config.EnableMessageType(NetIncomingMessageType.Data);
+
+						//Write byte
+						msg.Write((byte)PacketTypes.LOBBY);
+
+						//Number of players
+						msg.Write(Server.Connections.Length);
+
+						//Player Names
+						foreach (Character c in GameWorldState)
+						{
+							msg.Write(c.Name);
+						}
+
+						Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+
+						continue;
+					}
 
                     if (Server.ConnectionsCount != 0)
                     {
