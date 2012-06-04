@@ -188,6 +188,10 @@ namespace Classes
 				switch (b.ID)
 				{
 					case "btnHost":
+						while (!NetworkManager.setPlayerName())
+						{
+							Microsoft.VisualBasic.Interaction.MsgBox("Der eingegebe Name ist ungültig. Bitte versuche es erneut.");
+						}
 						NetworkManager.createSession();
 						this.state = MenuStates.HOST;
 						break;
@@ -231,9 +235,9 @@ namespace Classes
 
 			int x = 1;
 
-			for (int a = 0; a <= NetworkManager.ConnectedPlayers; a++ )
+			for (int a = 0; a < NetworkManager.ConnectedGamers.Count ; a++ )
 			{
-				string text = "DUMMYTEXT";
+				string text = NetworkManager.ConnectedGamers[a]  ;
 				Texture2D pic = noGamerPic;
 
 				//if (gamer.IsReady)

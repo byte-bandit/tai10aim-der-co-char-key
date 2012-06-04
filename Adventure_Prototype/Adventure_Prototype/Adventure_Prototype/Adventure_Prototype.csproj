@@ -136,6 +136,7 @@
     <Compile Include="Classes\Inventory\Item.cs" />
     <Compile Include="Classes\IO\SoundManager.cs" />
     <Compile Include="Classes\Menu.cs" />
+    <Compile Include="Classes\Net\Gamer.cs" />
     <Compile Include="Classes\Net\NetworkManager.cs" />
     <Compile Include="Classes\NPC.cs" />
     <Compile Include="Classes\Pipeline\GameRef.cs" />
