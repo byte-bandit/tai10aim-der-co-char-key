@@ -96,7 +96,7 @@ namespace Classes
 					buttons.Add(new Button(new Vector2(512, 640), "btnReady", "Bereit"));
 					if (NetworkManager.IsHost)
 					{
-						if (NetworkManager.IsEveryoneReady)
+						if (NetworkManager.IsEveryoneReady && NetworkManager.ConnectedGamers.Count == 2)
 						{
 							buttons.Add(new Button(new Vector2(960, 640), "btnGo", "Start", false));
 						}
@@ -104,9 +104,12 @@ namespace Classes
 						{
 							buttons.Add(new Button(new Vector2(960, 640), "btnGo", "Start", true));
 						}
-
+						buttons.Add(new Button(new Vector2(64, 640), "btnBack", "Zurück"));
 					}
-					buttons.Add(new Button(new Vector2(64, 640), "btnBack", "Zurück"));
+					else
+					{
+						buttons.Add(new Button(new Vector2(64, 640), "btnBack3", "Zurück"));
+					}
 					break;
 
 
@@ -200,22 +203,32 @@ namespace Classes
 						this.state = MenuStates.JOIN ;
 						break;
 					case "btnJoinSession":
+						while (!NetworkManager.setPlayerName())
+						{
+							Microsoft.VisualBasic.Interaction.MsgBox("Der eingegebe Name ist ungültig. Bitte versuche es erneut.");
+						}
 						NetworkManager.connect(getSelectedServerIP());
 						this.state = MenuStates.HOST;
 						break;
 					case "btnReady":
-						//TODO
+						NetworkManager.Profile.ready = !NetworkManager.Profile.ready;
 						break;
 					case "btnBack":
 						NetworkManager.quitSession();
 						this.state = MenuStates.MAIN;
 						break;
 					case "btnBack2":
+						this.state = MenuStates.MAIN;
+						break;
+					case "btnBack3":
 						NetworkManager.leaveSession();
 						this.state = MenuStates.MAIN;
 						break;
 					case "btnQuit":
 						GameRef.Game.Exit();
+						break;
+					case "btnGo":
+						GameRef.Game.StartNewGame();
 						break;
 				}
 			}
@@ -237,18 +250,18 @@ namespace Classes
 
 			for (int a = 0; a < NetworkManager.ConnectedGamers.Count ; a++ )
 			{
-				string text = NetworkManager.ConnectedGamers[a]  ;
+				string text = NetworkManager.ConnectedGamers[a].Name  ;
 				Texture2D pic = noGamerPic;
 
-				//if (gamer.IsReady)
-				//{
-				//    text += " - Bereit!";
-				//}
+				if (NetworkManager.ConnectedGamers[a].ready)
+				{
+					text += " - Bereit!";
+				}
 
 				GraphicsManager.spriteBatch.Begin();
-				GraphicsManager.spriteBatch.Draw(pic, new Vector2(320, x * 256), Color.White);
+				GraphicsManager.spriteBatch.Draw(pic, new Vector2(320, x * 256 - ((x-1)*32)), Color.White);
 				GraphicsManager.spriteBatch.End();
-				GraphicsManager.drawText(text, new Vector2(392, x * 264), GraphicsManager.font03, Color.White, true);
+				GraphicsManager.drawText(text, new Vector2(392, x * 264 - ((x-1)*40)), GraphicsManager.font03, Color.White, true);
 
 
 				x++;

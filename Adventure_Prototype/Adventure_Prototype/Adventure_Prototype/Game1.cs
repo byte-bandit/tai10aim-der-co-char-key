@@ -64,6 +64,8 @@ namespace Adventure_Prototype
 		//public Player player1;						//Link to Player1
 		//public Player player2;						//Link to Player2
 		Menu menu = new Menu();				//Main Menu Variable
+		Texture2D p1Sprite;
+		Texture2D p2Sprite;
 
 
 		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST ; // Set to not logged in for initial start screen
@@ -197,7 +199,8 @@ namespace Adventure_Prototype
 			{
 				//Room testRoom = RoomProcessor.createRoomFromFile("Data/Rooms/test1.bmap");
 				//SceneryManager.CurrentRoom = testRoom;
-				//Texture2D p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
+				p1Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
+				p2Sprite = Content.Load<Texture2D>("Graphics/Charsets/spriteA");
 				//player1 = new Player(this, testRoom, "player01", "Darksvakthaniel", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
 				//player1.Position = new Vector2(200, 500);
 				//GameRef.Player1 = player1;
@@ -276,6 +279,33 @@ namespace Adventure_Prototype
 				NetworkManager.Update();
 
 			base.Update(gameTime);
+		}
+
+
+
+
+
+		public void StartNewGame()
+		{
+			this.gameMode = GameMode.GAME;
+			this.menu = null;
+
+			SceneryManager.CurrentRoom = RoomProcessor.createRoomFromFile("Data/Rooms/start0.bmap");
+
+			SceneryManager.Player1 = new Player(this, SceneryManager.CurrentRoom , "p1", "Spieler 1", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
+			SceneryManager.Player2 = new Player(this, SceneryManager.CurrentRoom , "p2", "Spieler 2", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
+
+			SceneryManager.Player1.Position = new Vector2(200, 200);
+			SceneryManager.Player2.Position = new Vector2(400, 200);
+
+			SceneryManager.Player1.Owner = NetworkManager.ConnectedGamers[0];
+			SceneryManager.Player2.Owner = NetworkManager.ConnectedGamers[1];
+
+			UpdateManager.addItem(SceneryManager.Player1);
+			UpdateManager.addItem(SceneryManager.Player2);
+
+			GraphicsManager.addChild(SceneryManager.Player1);
+			GraphicsManager.addChild(SceneryManager.Player2);
 		}
 
 

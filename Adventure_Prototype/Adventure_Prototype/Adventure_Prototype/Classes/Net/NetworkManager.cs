@@ -15,13 +15,24 @@ using Lidgren.Network;
 
 
 
+enum ServerStatus
+{
+	LOBBY,
+	GAME
+}
+
+
+
+
+
 enum PacketTypes
 {
 	LOGIN,
 	ENV_INFO,
 	PLAYER_INFO,
 	BROADCAST,
-	LOBBY
+	LOBBY,
+	GAME_STATE_CHANGED
 }
 
 
@@ -31,16 +42,27 @@ namespace Classes.Net
 	class NetworkManager
 	{
 		private static NetClient client;
-		private static System.Timers.Timer timer;
 		private static NetPeerConfiguration config;
 		private static List<String> searchResults;
+
 		private static bool isHost;
 		private static bool isEveryoneReady;
+
 		private static int connectedPlayers;
 		private static Process hostProcess;
-        private static String gamerName = "Unknown";
-        private static int myGamerNumber = 0;
-		private static List<String> connectedGamers = new List<String>();
+
+
+		private static Gamer myProfile = new Gamer("UNKOWN");
+		private static List<Gamer> connectedGamers = new List<Gamer>();
+		private static NetConnection con;
+
+		private static ServerStatus gameState = ServerStatus.LOBBY;
+		private static int UpdateInterval = 60;
+		private static int UpdateStep = 0;
+
+
+
+
 
 		public static void Initialize()
 		{
@@ -55,13 +77,20 @@ namespace Classes.Net
 
         public static String GamerName
         {
-            get { return gamerName; }
+            get { return myProfile.Name; }
         }
 
 
 
 
-		public static List<String> ConnectedGamers
+		public static Gamer Profile
+		{
+			get { return myProfile; }
+		}
+
+
+
+		public static List<Gamer> ConnectedGamers
 		{
 			get { return connectedGamers; }
 		}
@@ -79,7 +108,7 @@ namespace Classes.Net
 			}
 			else
 			{
-				gamerName = s;
+				myProfile.Name = s;
 				return true;
 			}
 		}
@@ -127,26 +156,15 @@ namespace Classes.Net
 		{
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "GameServer.exe";
-            start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden ;
             hostProcess = Process.Start(start);
 
-            config.EnableMessageType(NetIncomingMessageType.DiscoveryResponse);
-            NetIncomingMessage inc;
+			while (!connect("localhost"))
+			{
+				System.Threading.Thread.Sleep(100);
+			}
 
-            while (true)
-            {
-                client.DiscoverKnownPeer("localhost", 14242);
-                if ((inc = client.ReadMessage()) == null)
-                {
-                    continue;
-                }
-                if (inc.MessageType == NetIncomingMessageType.DiscoveryResponse)
-                {
-                    break;
-                }
-            }
-
-			connect("localhost");
+			isHost = true;
 		}
 
 
@@ -165,26 +183,89 @@ namespace Classes.Net
 		}
 
 
-		public static void connect(String ip)
+		public static bool connect(String ip)
 		{
-
-			NetOutgoingMessage outmsg = client.CreateMessage();
-			outmsg.Write((byte)PacketTypes.LOGIN);
-			outmsg.Write(gamerName);
-			client.Connect(ip, 14242, outmsg);
+			try
+			{
+				NetOutgoingMessage outmsg = client.CreateMessage();
+				outmsg.Write((byte)PacketTypes.LOGIN);
+				outmsg.Write(myProfile.Name);
+				con = client.Connect(ip, 14242, outmsg);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				Debug.Print(ex.ToString());
+				return false;
+			}
+			
 		}
 
 
 
 		public static void leaveSession()
 		{
-			client.Disconnect("QUIT");
+			try
+			{
+				client.Disconnect("Bye");
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.Print(ex.ToString());
+			}
+
+			Debug.Print("New Status: " + con.Status.ToString());
+			con = null;
 		}
+
+
+
+
+
+		public static void startGame()
+		{
+			NetOutgoingMessage msg = client.CreateMessage();
+			msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
+			msg.Write((byte)ServerStatus.GAME);
+			client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+		}
+
+
+
+
+
 
 
 
 		public static void Update()
 		{
+
+
+
+
+
+			//+++
+			//Not-net
+			//+++
+			if (gameState == ServerStatus.LOBBY)
+			{
+				isEveryoneReady = true;
+				foreach (Gamer g in connectedGamers)
+				{
+					if (!g.ready)
+					{
+						isEveryoneReady = false;
+					}
+				}
+			}
+
+
+
+
+
+			//+++
+			//GET
+			//+++
 			NetIncomingMessage inc;
 			while ((inc = client.ReadMessage()) != null)
 			{
@@ -221,12 +302,13 @@ namespace Classes.Net
 
 					//DATA TYPES
 					case NetIncomingMessageType.Data :
-                        if ((PacketTypes)inc.ReadByte() == PacketTypes.LOGIN )
+						byte packetidentifier = inc.ReadByte();
+
+						if ((PacketTypes)packetidentifier == PacketTypes.LOGIN)
                         {
                             try
                             {
                                 connectedPlayers = inc.ReadInt32();
-                                myGamerNumber = connectedPlayers;
                             }
                             catch (Exception ex)
                             {
@@ -235,19 +317,33 @@ namespace Classes.Net
 							return;
                         }
 
-						//System.Diagnostics.Debug.Print(((PacketTypes)inc.ReadByte()).ToString());
 
-
-						if ((PacketTypes)inc.ReadByte() == PacketTypes.LOBBY)
+						if ((PacketTypes)packetidentifier == PacketTypes.LOBBY)
 						{
 							try
 							{
 								connectedPlayers = inc.ReadInt32();
-								connectedGamers = new List<String>();
+								connectedGamers = new List<Gamer>();
 								for (int a = 0; a < connectedPlayers; a++)
 								{
-									connectedGamers.Add(inc.ReadString());
+									Gamer gmp = new Gamer(inc.ReadString());
+									gmp.ready = inc.ReadBoolean();
+									connectedGamers.Add(gmp);
 								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+						}
+
+
+
+						if ((PacketTypes)packetidentifier == PacketTypes.GAME_STATE_CHANGED)
+						{
+							try
+							{
+								gameState = (ServerStatus)inc.ReadByte();
 							}
 							catch (Exception ex)
 							{
@@ -256,6 +352,28 @@ namespace Classes.Net
 						}
 						break;
 				}
+			}
+
+
+
+
+
+
+			//+++
+			//POST
+			//+++
+			if (UpdateStep < UpdateInterval )
+			{
+				UpdateStep ++;
+			}
+			else
+			{
+				UpdateStep = 0;
+				NetOutgoingMessage msg = client.CreateMessage();
+				msg.Write((byte)PacketTypes.LOBBY);
+				msg.Write(Profile.Name);
+				msg.Write(Profile.ready);
+				client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 			}
 		}
 	}

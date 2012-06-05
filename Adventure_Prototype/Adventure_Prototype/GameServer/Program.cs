@@ -29,19 +29,10 @@ namespace GameServer
 		ENV_INFO,
 		PLAYER_INFO,
 		BROADCAST,
-		LOBBY
+		LOBBY,
+		GAME_STATE_CHANGED
 	}
 
-
-
-	enum MoveDirection
-	{
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT,
-		NONE
-	}
 
 
     class Program
@@ -105,6 +96,10 @@ namespace GameServer
 
             while (true)
              {
+				 //System.Diagnostics.Debug.Print(DateTime.Now.ToString());
+
+				 System.Threading.Thread.Sleep(50);
+				
 
                 if ((inc = Server.ReadMessage()) != null)
                 {
@@ -119,10 +114,31 @@ namespace GameServer
                             if (inc.ReadByte() == (byte)PacketTypes.LOGIN)
                             {
 								print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
+
+								bool alreadyConnected = false;
+
+								foreach (Character c in GameWorldState)
+								{
+									if (c.Connection == inc.SenderConnection)
+									{
+										print(inc.SenderEndpoint.Address.ToString() + " is already connected!");
+										alreadyConnected = true;
+										break;
+									}
+								}
+
+								if (alreadyConnected)
+								{
+									break;
+								}
+
+
+
                                 inc.SenderConnection.Approve();
 
 								//Initialize Player here
 								Character tmp = new Character(inc.ReadString(), inc.SenderConnection);
+								tmp.ready = false;
 								GameWorldState.Add(tmp);
 
                                 NetOutgoingMessage outmsg = Server.CreateMessage();
@@ -160,67 +176,36 @@ namespace GameServer
 
 
 
+						case NetIncomingMessageType.ErrorMessage:
+							System.Diagnostics.Debug.Print("Error Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							System.Diagnostics.Debug.Print(inc.ReadString());
+							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
+							break;
 
 
-						/*##################################################
-						 * DATA PACKAGES
-						 *##################################################
-						 */
-						//case NetIncomingMessageType.Data:
-
-						//    if (inc.ReadByte() == (byte)PacketTypes.MOVE)
-						//    {
-
-						//        foreach (Character ch in GameWorldState)
-						//        {
-						//            if (ch.Connection != inc.SenderConnection)
-						//            {
-						//                continue;
-						//            }
-
-						//            //// Read next byte
-						//            //byte b = inc.ReadByte();
-                                    
-						//            //// Handle movement. This byte should correspond to some direction
-						//            //if ((byte)MoveDirection.UP == b)
-						//            //    ch.Y--;
-						//            //if ((byte)MoveDirection.DOWN == b)
-						//            //    ch.Y++;
-						//            //if ((byte)MoveDirection.LEFT == b)
-						//            //    ch.X--;
-						//            //if ((byte)MoveDirection.RIGHT == b)
-						//            //    ch.X++;
-
-						//            // Create new message
-						//            NetOutgoingMessage outmsg = Server.CreateMessage();
-
-						//            // Write byte, that is type of world state
-						//            outmsg.Write((byte)PacketTypes.WORLDSTATE);
-
-						//            // Write int, "how many players in game?"
-						//            outmsg.Write(GameWorldState.Count);
-
-						//            // Iterate throught all the players in game
-						//            foreach (Character ch2 in GameWorldState)
-						//            {
-						//                // Write all the properties of object to message
-						//                outmsg.WriteAllProperties(ch2);
-						//            }
-
-						//            // Message contains
-						//            // Byte = PacketType
-						//            // Int = Player count
-						//            // Character obj * Player count
-
-						//            // Send messsage to clients ( All connections, in reliable order, channel 0)
-						//            Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-						//            break;
-						//        }
-
-						//    }
-						//    break;
+						case NetIncomingMessageType.DebugMessage:
+							System.Diagnostics.Debug.Print("Debug Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							System.Diagnostics.Debug.Print(inc.ReadString());
+							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
+							break;
 
 
+						case NetIncomingMessageType.WarningMessage:
+							System.Diagnostics.Debug.Print("Warning Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							System.Diagnostics.Debug.Print(inc.ReadString());
+							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
+							break;
+
+
+
+
+
+
+
+						//LOGOUT?!?! O____O
+						case NetIncomingMessageType.UnconnectedData:
+							inc.SenderConnection.Disconnect("Bye");
+							break;
 
 
 
@@ -248,6 +233,43 @@ namespace GameServer
                             break;
 
 
+
+						/*##################################################
+						 * DATA!!!!!!!!!!!!!!!!
+						 *##################################################
+						 */
+						case NetIncomingMessageType.Data:
+
+							byte packageID = inc.ReadByte();
+
+							if ((PacketTypes)packageID == PacketTypes.LOBBY)
+							{
+								String name = inc.ReadString();
+								foreach (Character c in GameWorldState)
+								{
+									if (c.Connection == inc.SenderConnection && c.Name == name)
+									{
+										c.Name = name;
+										c.ready = inc.ReadBoolean();
+										print(c.Name + " is " + c.ready.ToString());
+										break;
+									}
+								}
+							}
+
+
+							if ((PacketTypes)packageID == PacketTypes.GAME_STATE_CHANGED)
+							{
+								serverStatus = (ServerStatus)inc.ReadByte();
+
+								NetOutgoingMessage msg = Server.CreateMessage();
+								msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
+								msg.Write((byte)serverStatus );
+
+								Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+							}
+
+							break;
 
 
 
@@ -287,6 +309,7 @@ namespace GameServer
 						foreach (Character c in GameWorldState)
 						{
 							msg.Write(c.Name);
+							msg.Write(c.ready);
 						}
 
 						Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
@@ -328,7 +351,6 @@ namespace GameServer
 
 
                 // Lets not overcompensate much...
-                System.Threading.Thread.Sleep(1);
             }
         }
     }

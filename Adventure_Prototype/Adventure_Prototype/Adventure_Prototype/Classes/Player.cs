@@ -6,15 +6,27 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Classes.Net;
+
 namespace Classes
 {
 	class Player : Character
 	{
 
+		private Gamer owner;
+
 		public Player(Game game, Room room, String id, String name, Animation animation = null, Texture2D sprite = null, float scale = 1.0f)
 			: base(game, room, id, name, animation, sprite, scale)
 		{
 			//this.gfxInfo = null;
+		}
+
+
+
+		public Gamer Owner
+		{
+			get { return this.owner; }
+			set { this.owner = value; }
 		}
 		
 	}

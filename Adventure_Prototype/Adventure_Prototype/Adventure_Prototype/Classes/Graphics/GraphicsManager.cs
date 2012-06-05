@@ -75,6 +75,8 @@ namespace Classes.Graphics
 		/// <returns></returns>
 		public static void drawText(String text, Vector2 position, SpriteFont font, Color color, bool shadow=false)
 		{
+			if (text == null) { text = ""; }
+
 			Graphics.GraphicsManager.spriteBatch.Begin();
 			if (shadow)
 			{
