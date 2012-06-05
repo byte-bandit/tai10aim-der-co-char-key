@@ -1,0 +1,15 @@
+# Brunnen-G Adventure Engine Room File
+# Created: 05.06.2012 16:27:43
+# By: Henning - alias: MESSE-PC
+# On: MESSE-PC - Microsoft Windows NT 6.1.7601 Service Pack 1
+# 64Bit: False
+# Number of Processors: 4
+# Mapped Memory: 52273152
+# This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
+
+BEGIN
+BEGINROOM
+ID:start0,TEXTURE:Graphics/Backgrounds/room01
+SCALING:False
+ENDROOM
+END
