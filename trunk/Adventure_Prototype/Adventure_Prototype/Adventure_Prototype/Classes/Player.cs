@@ -13,7 +13,7 @@ namespace Classes
 	class Player : Character
 	{
 
-		private Gamer owner;
+		private int owner;
 
 		public Player(Game game, Room room, String id, String name, Animation animation = null, Texture2D sprite = null, float scale = 1.0f)
 			: base(game, room, id, name, animation, sprite, scale)
@@ -23,7 +23,7 @@ namespace Classes
 
 
 
-		public Gamer Owner
+		public int Owner
 		{
 			get { return this.owner; }
 			set { this.owner = value; }

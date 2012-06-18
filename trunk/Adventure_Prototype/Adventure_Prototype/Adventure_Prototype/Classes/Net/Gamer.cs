@@ -13,6 +13,8 @@ namespace Classes.Net
 		public int Y { get; set; }
 		public string Name { get; set; }
 		public bool ready { get; set; }
+		public int GamerNumber { get; set; }
+		public Player puppet { get; set; }
 		public NetConnection Connection { get; set; }
 		public Gamer(string name)
 		{

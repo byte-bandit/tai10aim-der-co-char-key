@@ -1,10 +1,10 @@
 # Brunnen-G Adventure Engine Room File
-# Created: 05.06.2012 16:27:43
+# Created: 18.06.2012 15:14:02
 # By: Henning - alias: MESSE-PC
 # On: MESSE-PC - Microsoft Windows NT 6.1.7601 Service Pack 1
 # 64Bit: False
 # Number of Processors: 4
-# Mapped Memory: 52273152
+# Mapped Memory: 52359168
 # This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
 
 BEGIN
@@ -12,4 +12,53 @@ BEGINROOM
 ID:start0,TEXTURE:Graphics/Backgrounds/room01
 SCALING:False
 ENDROOM
+BEGINWALK
+X:256,Y:494
+ENDWALK
+BEGINWALK
+X:587,Y:503
+ENDWALK
+BEGINWALK
+X:586,Y:526
+ENDWALK
+BEGINWALK
+X:795,Y:534
+ENDWALK
+BEGINWALK
+X:791,Y:505
+ENDWALK
+BEGINWALK
+X:818,Y:505
+ENDWALK
+BEGINWALK
+X:981,Y:696
+ENDWALK
+BEGINWALK
+X:61,Y:707
+ENDWALK
+BEGINWALK
+X:34,Y:688
+ENDWALK
+BEGINWALK
+X:256,Y:494
+ENDWALK
+BEGINWO
+X:524,Y:107
+TEXTURE:Graphics/Sprites/picture
+NAME:Picture
+ONLOOK:Hello Picture
+ONUSE:BBB
+ONTALK:OOO
+ENDWO
+BEGINPOI
+X:389,Y:289
+X:507,Y:289
+X:513,Y:479
+X:383,Y:480
+X:389,Y:289
+NAME:Door
+ONLOOK:It's a door
+ONUSE:Hello Door
+ONTALK:Quite exciting
+ENDPOI
 END

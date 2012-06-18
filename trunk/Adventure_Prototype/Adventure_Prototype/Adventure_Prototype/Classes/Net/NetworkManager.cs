@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 
 
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Net;
 
 using Classes.Pipeline;
@@ -59,6 +60,8 @@ namespace Classes.Net
 		private static ServerStatus gameState = ServerStatus.LOBBY;
 		private static int UpdateInterval = 60;
 		private static int UpdateStep = 0;
+
+		public static int myGamerNumber { get; set; }
 
 
 
@@ -224,6 +227,7 @@ namespace Classes.Net
 
 		public static void startGame()
 		{
+			gameState = ServerStatus.GAME;
 			NetOutgoingMessage msg = client.CreateMessage();
 			msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
 			msg.Write((byte)ServerStatus.GAME);
@@ -309,6 +313,7 @@ namespace Classes.Net
                             try
                             {
                                 connectedPlayers = inc.ReadInt32();
+								Profile.GamerNumber  = connectedPlayers;
                             }
                             catch (Exception ex)
                             {
@@ -316,6 +321,37 @@ namespace Classes.Net
                             }
 							return;
                         }
+
+
+						if ((PacketTypes)packetidentifier == PacketTypes.BROADCAST)
+						{
+							try
+							{
+								int peek;
+								while ((peek = inc.ReadInt32()) != NetworkManager.Profile.GamerNumber)
+								{
+									inc.ReadInt32();
+									inc.ReadInt32();
+								}
+
+								if (peek== NetworkManager.Profile.GamerNumber)
+								{
+									if (NetworkManager.Profile.puppet == SceneryManager.Player1)
+									{
+										SceneryManager.Player2.Position = new Vector2(inc.ReadInt32(), inc.ReadInt32());
+									}
+									else
+									{
+										SceneryManager.Player1.Position = new Vector2(inc.ReadInt32(), inc.ReadInt32());
+									}
+								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+							return;
+						}
 
 
 						if ((PacketTypes)packetidentifier == PacketTypes.LOBBY)
@@ -327,6 +363,7 @@ namespace Classes.Net
 								for (int a = 0; a < connectedPlayers; a++)
 								{
 									Gamer gmp = new Gamer(inc.ReadString());
+									gmp.GamerNumber = inc.ReadInt32();
 									gmp.ready = inc.ReadBoolean();
 									connectedGamers.Add(gmp);
 								}
@@ -343,7 +380,17 @@ namespace Classes.Net
 						{
 							try
 							{
-								gameState = (ServerStatus)inc.ReadByte();
+								//gameState = (ServerStatus)inc.ReadByte();
+								ServerStatus newState = (ServerStatus)inc.ReadByte();
+								switch (newState)
+								{
+									case ServerStatus.GAME:
+										GameRef.Game.StartNewGame();
+										break;
+									case ServerStatus.LOBBY:
+
+										break;
+								}
 							}
 							catch (Exception ex)
 							{
@@ -368,12 +415,25 @@ namespace Classes.Net
 			}
 			else
 			{
-				UpdateStep = 0;
-				NetOutgoingMessage msg = client.CreateMessage();
-				msg.Write((byte)PacketTypes.LOBBY);
-				msg.Write(Profile.Name);
-				msg.Write(Profile.ready);
-				client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+				if (gameState  == ServerStatus.LOBBY)
+				{
+					UpdateStep = 0;
+					NetOutgoingMessage msg = client.CreateMessage();
+					msg.Write((byte)PacketTypes.LOBBY);
+					msg.Write(Profile.Name);
+					msg.Write(Profile.ready);
+					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+				}
+				else
+				{
+					UpdateStep = 0;
+					NetOutgoingMessage msg = client.CreateMessage();
+					msg.Write((byte)PacketTypes.PLAYER_INFO );
+					msg.Write(NetworkManager.Profile.puppet.Owner);
+					msg.Write((int)NetworkManager.Profile.puppet.Position.X);
+					msg.Write((int)NetworkManager.Profile.puppet.Position.Y);
+					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+				}
 			}
 		}
 	}

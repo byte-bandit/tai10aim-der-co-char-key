@@ -241,29 +241,16 @@ namespace Adventure_Prototype
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
-            //Focus?
-            if (!this.IsActive || !MouseEx.inBoundaries(new Rectangle(0,0,1280,720)))
-            {
-                return;
-            }
 
 			// Allows the game to exit
 			if (KeyboardEx.isKeyHit(Keys.Escape))
 				this.Exit();
 
 
-			//SEND OUR PLAYER WALKING IF IN GAME MODE
-			// WILL BE CHANGED TO INPUTMANAGER EVENTUALLY
-			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME )
-			{
-				//player1.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-			}
-
 			//Update our Managers
 			UpdateManager.Update(gameTime);
 			if (this.gameMode == GameMode.GAME) { InputManager.Update(1); } else { InputManager.Update(0); }
-			MouseEx.Update();
-			KeyboardEx.Update();
+			
 			DialogueManager.Update();
 
 			if (!_EDITOR && menu != null)
@@ -277,6 +264,26 @@ namespace Adventure_Prototype
 				Editor.Update();
 			else
 				NetworkManager.Update();
+
+			//Focus?
+			if (!this.IsActive || !MouseEx.inBoundaries(new Rectangle(0, 0, 1280, 720)))
+			{
+				return;
+			}
+
+			MouseEx.Update();
+			KeyboardEx.Update();
+
+			//SEND OUR PLAYER WALKING IF IN GAME MODE
+			// WILL BE CHANGED TO INPUTMANAGER EVENTUALLY
+			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME)
+			{
+
+
+				NetworkManager.Profile.puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+
+			}
+
 
 			base.Update(gameTime);
 		}
@@ -295,11 +302,15 @@ namespace Adventure_Prototype
 			SceneryManager.Player1 = new Player(this, SceneryManager.CurrentRoom , "p1", "Spieler 1", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
 			SceneryManager.Player2 = new Player(this, SceneryManager.CurrentRoom , "p2", "Spieler 2", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
 
-			SceneryManager.Player1.Position = new Vector2(200, 200);
-			SceneryManager.Player2.Position = new Vector2(400, 200);
+			SceneryManager.Player1.Position = new Vector2(200, 600);
+			SceneryManager.Player2.Position = new Vector2(400, 600);
 
-			SceneryManager.Player1.Owner = NetworkManager.ConnectedGamers[0];
-			SceneryManager.Player2.Owner = NetworkManager.ConnectedGamers[1];
+			if (NetworkManager.IsHost)
+			{
+				NetworkManager.Profile.puppet = SceneryManager.Player1;
+			}else{
+				NetworkManager.Profile.puppet = SceneryManager.Player2;
+			}
 
 			UpdateManager.addItem(SceneryManager.Player1);
 			UpdateManager.addItem(SceneryManager.Player2);
