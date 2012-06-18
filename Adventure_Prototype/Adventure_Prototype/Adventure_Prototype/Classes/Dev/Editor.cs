@@ -232,6 +232,12 @@ namespace Classes.Dev
 			WorldObjects = SceneryManager.CurrentRoom.getWorldObjects();
 			NPCs = SceneryManager.CurrentRoom.getNPCs();
 			POIs = SceneryManager.CurrentRoom.POIS;
+
+
+			if (walkAreas.Nodes.Count < 1)
+			{
+				walkAreas.Changeable = true;
+			}
 		}
 
 
@@ -391,31 +397,50 @@ namespace Classes.Dev
 		private static void UpdateCreation_WA()
 		{
 
-			if (MouseEx.pressed_LMB())
+			//if (MouseEx.pressed_LMB())
+			//{
+			//    drawNewArea();
+			//}
+			//else
+			//{
+			//    if (isDragging)
+			//    {
+			//        stopDragging();
+			//        if (walkAreas.Changeable)
+			//        {
+
+			//            if (walkAreas.Nodes.Count > 2 && walkAreas.firstNodeInRange(draggingPoint))
+			//            {
+			//                Vector2 tmp = walkAreas.Nodes[0];
+			//                walkAreas.Nodes.Add(tmp);
+			//                walkAreas.Changeable = false;
+			//                Microsoft.VisualBasic.Interaction.MsgBox("Walkare Complete.");
+			//            }
+			//            else
+			//            {
+			//                walkAreas.Nodes.Add(draggingPoint);
+			//            }
+			//        }
+
+			//    }
+			//}
+
+			if (MouseEx.click())
 			{
-				drawNewArea();
-			}
-			else
-			{
-				if (isDragging)
+				if (walkAreas.Changeable)
 				{
-					stopDragging();
-					if (walkAreas.Changeable)
+
+					if (walkAreas.Nodes.Count > 2 && walkAreas.firstNodeInRange(MouseEx.Position()))
 					{
-
-						if (walkAreas.Nodes.Count > 2 && walkAreas.firstNodeInRange(draggingPoint))
-						{
-							Vector2 tmp = walkAreas.Nodes[0];
-							walkAreas.Nodes.Add(tmp);
-							walkAreas.Changeable = false;
-							Microsoft.VisualBasic.Interaction.MsgBox("Walkare Complete.");
-						}
-						else
-						{
-							walkAreas.Nodes.Add(draggingPoint);
-						}
+						Vector2 tmp = walkAreas.Nodes[0];
+						walkAreas.Nodes.Add(tmp);
+						walkAreas.Changeable = false;
+						Microsoft.VisualBasic.Interaction.MsgBox("Walkare Complete.");
 					}
-
+					else
+					{
+						walkAreas.Nodes.Add(MouseEx.Position());
+					}
 				}
 			}
 

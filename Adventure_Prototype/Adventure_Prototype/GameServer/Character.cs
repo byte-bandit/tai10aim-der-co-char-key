@@ -13,6 +13,7 @@ class Character
 	public string Name { get; set; }
 	public bool ready { get; set; }
 	public NetConnection Connection { get; set; }
+	public int GamerNumber { get; set; }
 	public Character(string name, NetConnection conn)
 	{
 		Name = name;

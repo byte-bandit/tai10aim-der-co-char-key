@@ -194,6 +194,7 @@ namespace Classes
 						while (!NetworkManager.setPlayerName())
 						{
 							Microsoft.VisualBasic.Interaction.MsgBox("Der eingegebe Name ist ungültig. Bitte versuche es erneut.");
+							return;
 						}
 						NetworkManager.createSession();
 						this.state = MenuStates.HOST;
@@ -206,6 +207,7 @@ namespace Classes
 						while (!NetworkManager.setPlayerName())
 						{
 							Microsoft.VisualBasic.Interaction.MsgBox("Der eingegebe Name ist ungültig. Bitte versuche es erneut.");
+							return;
 						}
 						NetworkManager.connect(getSelectedServerIP());
 						this.state = MenuStates.HOST;
@@ -228,7 +230,7 @@ namespace Classes
 						GameRef.Game.Exit();
 						break;
 					case "btnGo":
-						GameRef.Game.StartNewGame();
+						NetworkManager.startGame();
 						break;
 				}
 			}

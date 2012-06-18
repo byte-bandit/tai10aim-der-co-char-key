@@ -41,7 +41,9 @@ namespace GameServer
         static NetServer Server;				//The Server Object itself
         static NetPeerConfiguration Config;		//Used to store the server config
 		static ServerStatus serverStatus;		//Simpleton to check whether we're in game or lobby.
-
+		static List<Player> players;			//Stores all our players
+		
+		
 
 
 
@@ -139,6 +141,7 @@ namespace GameServer
 								//Initialize Player here
 								Character tmp = new Character(inc.ReadString(), inc.SenderConnection);
 								tmp.ready = false;
+								tmp.GamerNumber = Server.Connections.Length;
 								GameWorldState.Add(tmp);
 
                                 NetOutgoingMessage outmsg = Server.CreateMessage();
@@ -258,9 +261,30 @@ namespace GameServer
 							}
 
 
+							if ((PacketTypes)packageID == PacketTypes.PLAYER_INFO )
+							{
+								Int32 owner = inc.ReadInt32();
+								foreach (Player c in players)
+								{
+									if (c.owner == owner)
+									{
+										c.x = inc.ReadInt32();
+										c.y = inc.ReadInt32();
+										break;
+									}
+								}
+							}
+
+
 							if ((PacketTypes)packageID == PacketTypes.GAME_STATE_CHANGED)
 							{
 								serverStatus = (ServerStatus)inc.ReadByte();
+
+								players = new List<Player>();
+
+								players.Add(new Player(GameWorldState[0].GamerNumber));
+								players.Add(new Player(GameWorldState[1].GamerNumber));
+								
 
 								NetOutgoingMessage msg = Server.CreateMessage();
 								msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
@@ -309,6 +333,7 @@ namespace GameServer
 						foreach (Character c in GameWorldState)
 						{
 							msg.Write(c.Name);
+							msg.Write(c.GamerNumber);
 							msg.Write(c.ready);
 						}
 
@@ -317,32 +342,23 @@ namespace GameServer
 						continue;
 					}
 
-                    if (Server.ConnectionsCount != 0)
-                    {
-                        NetOutgoingMessage outmsg = Server.CreateMessage();
+					if (Server.ConnectionsCount != 0)
+					{
+						if (serverStatus == ServerStatus.GAME)
+						{
+							NetOutgoingMessage outmsg = Server.CreateMessage();
+							outmsg.Write((byte)PacketTypes.BROADCAST);
 
-                        // Write byte
-                        outmsg.Write((byte)PacketTypes.BROADCAST);
+							foreach (Player ch2 in players)
+							{
+								outmsg.Write(ch2.owner);
+								outmsg.Write(ch2.x);
+								outmsg.Write(ch2.y);
+							}
 
-                        // Write Int
-                        outmsg.Write(GameWorldState.Count);
-
-                        // Iterate throught all the players in game
-                        foreach (Character ch2 in GameWorldState)
-                        {
-
-                            // Write all properties of character, to the message
-                            outmsg.WriteAllProperties(ch2);
-                        }
-
-                        // Message contains
-                        // byte = Type
-                        // Int = Player count
-                        // Character obj * Player count
-
-                        // Send messsage to clients ( All connections, in reliable order, channel 0)
-                        Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-                    }
+							Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+						}
+					}
                     // Update current time
                     time = DateTime.Now;
                 }
