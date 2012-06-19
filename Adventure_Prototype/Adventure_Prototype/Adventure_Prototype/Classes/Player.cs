@@ -10,7 +10,7 @@ using Classes.Net;
 
 namespace Classes
 {
-	class Player : Character
+	public class Player : Character
 	{
 
 		private int owner;

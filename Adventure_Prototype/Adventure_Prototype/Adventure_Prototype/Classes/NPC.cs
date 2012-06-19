@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Classes.Pipeline;
 namespace Classes
 {
-	class NPC : Character
+	 class NPC : Character
 	{
 		private String _ID;
 		private String _name;

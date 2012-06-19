@@ -13,20 +13,13 @@ using Classes.Pipeline;
 
 using Lidgren.Network;
 
-
-
-
-enum ServerStatus
+public enum ServerStatus
 {
 	LOBBY,
 	GAME
 }
 
-
-
-
-
-enum PacketTypes
+public enum PacketTypes
 {
 	LOGIN,
 	ENV_INFO,
@@ -58,7 +51,7 @@ namespace Classes.Net
 		private static NetConnection con;
 
 		private static ServerStatus gameState = ServerStatus.LOBBY;
-		private static int UpdateInterval = 60;
+		private static int UpdateInterval = 30;
 		private static int UpdateStep = 0;
 
 		public static int myGamerNumber { get; set; }
@@ -159,7 +152,7 @@ namespace Classes.Net
 		{
             ProcessStartInfo start = new ProcessStartInfo();
             start.FileName = "GameServer.exe";
-            start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden ;
+            start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal ;
             hostProcess = Process.Start(start);
 
 			while (!connect("localhost"))
@@ -426,13 +419,21 @@ namespace Classes.Net
 				}
 				else
 				{
-					UpdateStep = 0;
-					NetOutgoingMessage msg = client.CreateMessage();
-					msg.Write((byte)PacketTypes.PLAYER_INFO );
-					msg.Write(NetworkManager.Profile.puppet.Owner);
-					msg.Write((int)NetworkManager.Profile.puppet.Position.X);
-					msg.Write((int)NetworkManager.Profile.puppet.Position.Y);
-					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+					try
+					{
+
+						UpdateStep = 0;
+						NetOutgoingMessage msg = client.CreateMessage();
+						msg.Write((byte)PacketTypes.PLAYER_INFO);
+						msg.Write(NetworkManager.Profile.puppet.Owner);
+						msg.Write((int)NetworkManager.Profile.puppet.Position.X);
+						msg.Write((int)NetworkManager.Profile.puppet.Position.Y);
+						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+					}
+					catch
+					{
+						Debug.Print("Oh no...");
+					}
 				}
 			}
 		}

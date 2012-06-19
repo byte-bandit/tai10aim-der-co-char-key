@@ -1,14 +1,28 @@
-﻿using System;
+﻿/*******************************************************************************
+ * Game Server for Co-Char-Key!
+ * 
+ * Author: Christian Lohr
+ * 
+ * ******************************************************************************
+ */
+
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 
 using Lidgren.Network;
 
-/*
- * Server Application - Keep updated with the game itself!
- * 
- */
+using Classes;
+using Classes.Net;
+
+
+
 
 
 
@@ -17,309 +31,209 @@ using Lidgren.Network;
 namespace GameServer
 {
 
-	enum ServerStatus
-	{
-		LOBBY,
-		GAME
-	}
-
-	enum PacketTypes
-	{
-		LOGIN,
-		ENV_INFO,
-		PLAYER_INFO,
-		BROADCAST,
-		LOBBY,
-		GAME_STATE_CHANGED
-	}
-
-
 
     class Program
     {
 
+
+		/**********************************************************************************************
+		 * Global Variable Definitions
+		 * ********************************************************************************************
+		 */
         static NetServer Server;				//The Server Object itself
         static NetPeerConfiguration Config;		//Used to store the server config
 		static ServerStatus serverStatus;		//Simpleton to check whether we're in game or lobby.
-		static List<Player> players;			//Stores all our players
+		static List<Gamer> connectedGamers = new List<Gamer>();	//Stores all our players
+
+
+
+
 		
-		
 
 
-
-		static void print(String text)
-		{
-			Console.WriteLine(DateTime.Now.ToString() + ": " + text);
-		}
-
-
-
-        static void Main(string[] args)
+		static void Main(string[] args)
         {
-			//Boot in Lobby mode
-			serverStatus = ServerStatus.LOBBY;
+			//Initiate our logging
+			Trace.Listeners.Add(new TextWriterTraceListener("GameServer.log"));
+			Trace.AutoFlush = true;
 
-			//Setup Configuration
-            Config = new NetPeerConfiguration("CoCharKey");	//Make sure the Application ID is the same on Server & Game!
-            Config.Port = 14242;
-            Config.MaximumConnections = 2;
-            Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
-			Config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
-            
+			//Register the closing Event
+			AppDomain.CurrentDomain.ProcessExit += new EventHandler(DisposeServer);
 
-            // Create new Server, load in config
-			try
+
+
+
+
+
+			//****************************************************************************
+			//First, we start the Server itself, socket it to the specific port and give
+			//it a certain ID to identify itself with the game.
+			//****************************************************************************
+
+			if (!startServer())
 			{
-				Server = new NetServer(Config);
-				Server.Start();
-			}
-			catch (Exception ex)
-			{
-				System.Diagnostics.Debug.Print(ex.ToString());
+				print("Unable to start server! Quitting");
 				return;
 			}
-            
 
-			print("Server started!");
+
+
+
+			//****************************************************************************
+			//More Internal Variables
+			//****************************************************************************
 
 			DateTime time = DateTime.Now;							//Used for time measurement
 			TimeSpan interval = new TimeSpan(0, 0, 0, 0, 30);		//This is the interval for our network communication, currently 30ms
             NetIncomingMessage inc;									//This holds incoming messages
-			List<Character> GameWorldState = new List<Character>();	//Collection of connected players
 
-			print("Bouncing on port " + Server.Configuration.Port.ToString());
+
+
+
+
+			print("Binding to Port " + Server.Configuration.Port.ToString());
 			print("Server is up and running, we are ready to roll...");
 
+
+
+
+			//****************************************************************************
+			//Sending the creation signal
+			//****************************************************************************
 
 			NetOutgoingMessage ret = Server.CreateMessage();
 			ret.Write(true);
 			Server.SendDiscoveryResponse(ret, new System.Net.IPEndPoint(0000,Server.Configuration.Port));
 
 
+
+
+
+
+
+
+
+
+
+
+			/****************************************************************************
+			 * 
+			 * M A I N   L O G I C   L O O P
+			 * 
+			 ****************************************************************************/
             while (true)
              {
-				 //System.Diagnostics.Debug.Print(DateTime.Now.ToString());
-
-				 System.Threading.Thread.Sleep(50);
+				//Sleep a little to give CPU Power to the rest of the System
+				System.Threading.Thread.Sleep(50);
 				
 
+
+				//Check to see whether we have new messages in our mailbox
                 if ((inc = Server.ReadMessage()) != null)
                 {
 
+
+					
+
                     switch (inc.MessageType)
                     {
-						/*##################################################
-						 * LOGIN CONNECTION APPROVAL
-						 *##################################################
-						 */
-                        case NetIncomingMessageType.ConnectionApproval:
-                            if (inc.ReadByte() == (byte)PacketTypes.LOGIN)
-                            {
-								print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
 
-								bool alreadyConnected = false;
-
-								foreach (Character c in GameWorldState)
-								{
-									if (c.Connection == inc.SenderConnection)
-									{
-										print(inc.SenderEndpoint.Address.ToString() + " is already connected!");
-										alreadyConnected = true;
-										break;
-									}
-								}
-
-								if (alreadyConnected)
-								{
-									break;
-								}
-
-
-
-                                inc.SenderConnection.Approve();
-
-								//Initialize Player here
-								Character tmp = new Character(inc.ReadString(), inc.SenderConnection);
-								tmp.ready = false;
-								tmp.GamerNumber = Server.Connections.Length;
-								GameWorldState.Add(tmp);
-
-                                NetOutgoingMessage outmsg = Server.CreateMessage();
-
-								outmsg.Write((byte)PacketTypes.LOGIN);
-								outmsg.Write(Server.Connections.Length);
-								outmsg.Write(tmp.Name);
-
-                                Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
-                            }
-
+                        case NetIncomingMessageType.ConnectionApproval:		//Login
+							loginPlayer(inc);
                             break;
 
 
+						case NetIncomingMessageType.DiscoveryRequest :		//Ping
+							handleDiscoveryRequest(inc);
+							break;
 
-
-
-
-
-
-						/*##################################################
-						 * PING!
-						 *##################################################
-						 */
-						case NetIncomingMessageType.DiscoveryRequest :
-
-							System.Diagnostics.Debug.Print(inc.LengthBytes.ToString());
-							print(inc.SenderEndpoint.Address.ToString() + " pinged me!");
-							NetOutgoingMessage outmsg2 = Server.CreateMessage();
-							outmsg2.Write("Speak friend and enter");
-							Server.SendDiscoveryResponse(outmsg2, inc.SenderEndpoint);
+						case NetIncomingMessageType.ErrorMessage:			//Error Msg
+							print("Error Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							print(inc.ReadString());
+							print("------------------------------------------------------------------");
 							break;
 
 
-
-
-
-						case NetIncomingMessageType.ErrorMessage:
-							System.Diagnostics.Debug.Print("Error Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
-							System.Diagnostics.Debug.Print(inc.ReadString());
-							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
+						case NetIncomingMessageType.DebugMessage:			//Debug
+							print("Debug Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							print(inc.ReadString());
+							print("------------------------------------------------------------------");
 							break;
 
 
-						case NetIncomingMessageType.DebugMessage:
-							System.Diagnostics.Debug.Print("Debug Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
-							System.Diagnostics.Debug.Print(inc.ReadString());
-							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
+						case NetIncomingMessageType.WarningMessage:			//Warning
+							print("Warning Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
+							print(inc.ReadString());
+							print("------------------------------------------------------------------");
 							break;
 
-
-						case NetIncomingMessageType.WarningMessage:
-							System.Diagnostics.Debug.Print("Warning Message, Length :" + inc.LengthBytes.ToString() + " Bytes");
-							System.Diagnostics.Debug.Print(inc.ReadString());
-							System.Diagnostics.Debug.Print("------------------------------------------------------------------");
-							break;
-
-
-
-
-
-
-
-						//LOGOUT?!?! O____O
-						case NetIncomingMessageType.UnconnectedData:
+						case NetIncomingMessageType.UnconnectedData:		//Logout | Connection Lost
 							inc.SenderConnection.Disconnect("Bye");
 							break;
 
-
-
-
-
-						/*##################################################
-						 * MOTHERFLIPPIN STATUS CHANGES!
-						 *##################################################
-						 */
-                        case NetIncomingMessageType.StatusChanged:
-
-                            print(inc.SenderEndpoint.Address.ToString() + ": " + inc.SenderConnection.Status.ToString());
-
-                            if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
-                            {
-                                foreach (Character cha in GameWorldState)
-                                {
-                                    if (cha.Connection == inc.SenderConnection)
-                                    {
-                                        GameWorldState.Remove(cha);
-                                        break;
-                                    }
-                                }
-                            }
+                        case NetIncomingMessageType.StatusChanged:			//Status Changed
+							handleStatusChange(inc);
                             break;
 
 
 
+
+
+
+
+
 						/*##################################################
-						 * DATA!!!!!!!!!!!!!!!!
+						 * DATA Packages
+						 * 
+						 * These packages are categorized in several types of
+						 * communication protocols and processes.
+						 * They usually begin with a (byte)ServerStatus Type
 						 *##################################################
 						 */
 						case NetIncomingMessageType.Data:
 
 							byte packageID = inc.ReadByte();
 
-							if ((PacketTypes)packageID == PacketTypes.LOBBY)
+							switch ((PacketTypes)packageID)
 							{
-								String name = inc.ReadString();
-								foreach (Character c in GameWorldState)
-								{
-									if (c.Connection == inc.SenderConnection && c.Name == name)
-									{
-										c.Name = name;
-										c.ready = inc.ReadBoolean();
-										print(c.Name + " is " + c.ready.ToString());
-										break;
-									}
-								}
+								case PacketTypes.LOBBY:				//Lobby Input - Updates during the Lobby (ready, etc...)
+									handleData_Lobby(inc);
+									break;
+
+								case PacketTypes.PLAYER_INFO:		//Player Info - Updates for all players
+									break;
+
+								case PacketTypes.GAME_STATE_CHANGED:	//Game State - Switch between Lobby and Game Mode
+									handleData_GameStateChanged(inc);
+									break;
 							}
-
-
-							if ((PacketTypes)packageID == PacketTypes.PLAYER_INFO )
-							{
-								Int32 owner = inc.ReadInt32();
-								foreach (Player c in players)
-								{
-									if (c.owner == owner)
-									{
-										c.x = inc.ReadInt32();
-										c.y = inc.ReadInt32();
-										break;
-									}
-								}
-							}
-
-
-							if ((PacketTypes)packageID == PacketTypes.GAME_STATE_CHANGED)
-							{
-								serverStatus = (ServerStatus)inc.ReadByte();
-
-								players = new List<Player>();
-
-								players.Add(new Player(GameWorldState[0].GamerNumber));
-								players.Add(new Player(GameWorldState[1].GamerNumber));
-								
-
-								NetOutgoingMessage msg = Server.CreateMessage();
-								msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
-								msg.Write((byte)serverStatus );
-
-								Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
-							}
-
 							break;
 
-
-
-
                         default:
-                            //Nothing to do here *swoosh*
-							//print("Found a " + inc.MessageType.ToString());
-							//print("This aint the MessageType we're looking for. Move along...");
-							System.Diagnostics.Debug.Print(inc.MessageType.ToString() + inc.LengthBytes.ToString() );
+							print("Unknown Message Type: " + inc.MessageType.ToString() + inc.LengthBytes.ToString() );
                             break;
-                    }
-                }
+					}
 
 
 
+					_BROADCAST(time, interval);
+				}
+			}
+        }
 
 
 
-                /*##################################################
-				* BROADCAST
-				*##################################################
-				*/
-                if ((time + interval) < DateTime.Now)
-                {
+		static void _BROADCAST(DateTime time, TimeSpan interval)
+		{
+
+			try
+			{
+
+				if ((time + interval) < DateTime.Now)
+				{
+
 					if (serverStatus == ServerStatus.LOBBY)
-					 {
+					{
 						NetOutgoingMessage msg = Server.CreateMessage();
 						Config.EnableMessageType(NetIncomingMessageType.Data);
 
@@ -339,7 +253,7 @@ namespace GameServer
 
 						Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
 
-						continue;
+						return;
 					}
 
 					if (Server.ConnectionsCount != 0)
@@ -359,15 +273,219 @@ namespace GameServer
 							Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
 						}
 					}
-                    // Update current time
-                    time = DateTime.Now;
-                }
+					// Update current time
+					time = DateTime.Now;
+				}
+			}
+			catch (Exception ex)
+			{
+				print("Broadcast failed: " + ex.ToString());
+			}
+		}
 
 
 
 
-                // Lets not overcompensate much...
-            }
-        }
+
+
+
+		static void handleData_GameStateChanged(NetIncomingMessage inc)
+		{
+			try
+			{
+				serverStatus = (ServerStatus)inc.ReadByte();
+
+				NetOutgoingMessage msg = Server.CreateMessage();
+				msg.Write((byte)PacketTypes.GAME_STATE_CHANGED);
+				msg.Write((byte)serverStatus);
+
+				Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
+			}
+			catch(Exception ex)
+			{
+				print("GameStateChanged failed: " + ex.ToString());
+			}
+		}
+
+
+
+
+
+
+		static void handleData_Lobby(NetIncomingMessage inc)
+		{
+			String name = inc.ReadString();
+			foreach (Gamer  g in connectedGamers )
+			{
+				if (g.Connection == inc.SenderConnection && g.Name == name)
+				{
+					g.Name = name;
+					bool old = g.Ready;
+					g.Ready = inc.ReadBoolean();
+					if (g.Ready != old)
+					{
+						print(g.Name + " is ready: " + g.Ready.ToString());
+					}
+					break;
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+		static void handleStatusChange(NetIncomingMessage inc)
+		{
+			print(inc.SenderEndpoint.Address.ToString() + "'s Status changed to: " + inc.SenderConnection.Status.ToString());
+
+			if (inc.SenderConnection.Status == NetConnectionStatus.Disconnected || inc.SenderConnection.Status == NetConnectionStatus.Disconnecting)
+			{
+				foreach (Gamer g in connectedGamers )
+				{
+					if (g.Connection == inc.SenderConnection)
+					{
+						connectedGamers.Remove(g);
+						break;
+					}
+				}
+			}
+		}
+
+
+
+
+
+
+
+
+
+		static void handleDiscoveryRequest(NetIncomingMessage inc)
+		{
+			print(inc.SenderEndpoint.Address.ToString() + " pinged me!");
+			NetOutgoingMessage outmsg2 = Server.CreateMessage();
+			outmsg2.Write("Speak friend and enter");
+			Server.SendDiscoveryResponse(outmsg2, inc.SenderEndpoint);
+		}
+
+
+
+
+
+
+
+
+
+
+		static bool loginPlayer(NetIncomingMessage inc)
+		{
+			try
+			{
+				if (inc.ReadByte() == (byte)PacketTypes.LOGIN)
+				{
+					print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
+
+					inc.SenderConnection.Approve();
+
+					//Initialize Player here
+					Gamer tmp = new Gamer(inc.ReadString(), inc.SenderConnection);
+					tmp.Ready = false;
+					connectedGamers.Add(tmp);
+
+					NetOutgoingMessage outmsg = Server.CreateMessage();
+
+					outmsg.Write((byte)PacketTypes.LOGIN);
+					outmsg.Write(Server.Connections.Length);
+					outmsg.Write(tmp.Name);
+
+					Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch (Exception ex)
+			{
+				print("Login failed: " + ex.ToString());
+				return false;
+			}
+		}
+
+
+
+
+
+
+
+
+
+		static void DisposeServer(Object sender, EventArgs e)
+		{
+			//Don't forget to flush the log!
+			Trace.Flush();
+		}
+
+
+
+
+
+
+
+
+
+
+		static bool startServer()
+		{
+			//Boot in Lobby mode
+			serverStatus = ServerStatus.LOBBY;
+
+			//Setup Configuration
+			Config = new NetPeerConfiguration("CoCharKey");	//Make sure the Application ID is the same on Server & Game!
+			Config.Port = 14242;
+			Config.MaximumConnections = 2;
+			Config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
+			Config.EnableMessageType(NetIncomingMessageType.DiscoveryRequest);
+
+
+			// Create new Server, load in config
+			try
+			{
+				Server = new NetServer(Config);
+				Server.Start();
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.Print(ex.ToString());
+				return false;
+			}
+
+
+			print("Server started!");
+			return true;
+		}
+
+
+
+
+
+
+
+
+
+		static void print(String text)
+		{
+			Console.WriteLine(DateTime.Now.ToString() + ": " + text);
+			Trace.WriteLine(DateTime.Now.ToString() + ": " + text);
+		}
+
+
+
     }
 }
