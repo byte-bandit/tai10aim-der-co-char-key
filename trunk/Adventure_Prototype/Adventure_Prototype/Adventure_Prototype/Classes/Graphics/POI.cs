@@ -8,7 +8,7 @@ using Classes.Graphics;
 
 namespace Classes.Graphics
 {
-	class POI : Classes.Pathfinding.Polygon 
+	public class POI : Classes.Pathfinding.Polygon 
 	{
 
 

@@ -21,9 +21,7 @@ using Lidgren.Network;
 using Classes;
 using Classes.Net;
 
-
-
-
+using Microsoft.Xna.Framework;
 
 
 
@@ -46,13 +44,14 @@ namespace GameServer
 		static List<Gamer> connectedGamers = new List<Gamer>();	//Stores all our players
 
 
-
-
 		
 
 
 		static void Main(string[] args)
         {
+			//Delete the old log file
+			if (System.IO.File.Exists("GameServer.log"))
+				System.IO.File.Delete("GameServer.log");
 			//Initiate our logging
 			Trace.Listeners.Add(new TextWriterTraceListener("GameServer.log"));
 			Trace.AutoFlush = true;
@@ -244,17 +243,18 @@ namespace GameServer
 						msg.Write(Server.Connections.Length);
 
 						//Player Names
-						foreach (Character c in GameWorldState)
+						foreach (Gamer g in connectedGamers)
 						{
-							msg.Write(c.Name);
-							msg.Write(c.GamerNumber);
-							msg.Write(c.ready);
+							msg.WriteAllProperties(g);
 						}
 
 						Server.SendMessage(msg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
 
 						return;
 					}
+
+
+
 
 					if (Server.ConnectionsCount != 0)
 					{
@@ -263,11 +263,11 @@ namespace GameServer
 							NetOutgoingMessage outmsg = Server.CreateMessage();
 							outmsg.Write((byte)PacketTypes.BROADCAST);
 
-							foreach (Player ch2 in players)
+							foreach (Gamer g in connectedGamers )
 							{
-								outmsg.Write(ch2.owner);
-								outmsg.Write(ch2.x);
-								outmsg.Write(ch2.y);
+								outmsg.Write(g.Token);
+								outmsg.Write(g.Name);
+								outmsg.WriteAllProperties(g.Puppet);
 							}
 
 							Server.SendMessage(outmsg, Server.Connections, NetDeliveryMethod.ReliableOrdered, 0);
@@ -400,7 +400,7 @@ namespace GameServer
 
 					outmsg.Write((byte)PacketTypes.LOGIN);
 					outmsg.Write(Server.Connections.Length);
-					outmsg.Write(tmp.Name);
+					outmsg.WriteAllProperties(tmp);
 
 					Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
 

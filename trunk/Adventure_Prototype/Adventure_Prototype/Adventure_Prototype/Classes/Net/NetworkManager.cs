@@ -35,37 +35,50 @@ namespace Classes.Net
 {
 	class NetworkManager
 	{
+		/*
+		 * Client, and config files
+		 */
 		private static NetClient client;
 		private static NetPeerConfiguration config;
 		private static List<String> searchResults;
 
+		/*
+		 * Bools for ReadyCheck and HostCheck
+		 */
 		private static bool isHost;
 		private static bool isEveryoneReady;
 
-		private static int connectedPlayers;
+		/*
+		 * Holding the Server Process
+		 */
 		private static Process hostProcess;
 
 
-		private static Gamer myProfile = new Gamer("UNKOWN");
+		private static Gamer profile  = new Gamer("",null);
 		private static List<Gamer> connectedGamers = new List<Gamer>();
+		private static int connectedGamersAmount;
 		private static NetConnection con;
 
 		private static ServerStatus gameState = ServerStatus.LOBBY;
 		private static int UpdateInterval = 30;
 		private static int UpdateStep = 0;
 
-		public static int myGamerNumber { get; set; }
-
-
 
 
 
 		public static void Initialize()
 		{
-			config = new NetPeerConfiguration("CoCharKey");
-			client = new NetClient(config);
-			connectedPlayers = 0;
-			client.Start();
+			try
+			{
+				config = new NetPeerConfiguration("CoCharKey");
+				client = new NetClient(config);
+				connectedGamersAmount = 0;
+				client.Start();
+			}
+			catch (Exception ex)
+			{
+				Debug.Print(ex.ToString());
+			}
 		}
 
 
@@ -73,7 +86,7 @@ namespace Classes.Net
 
         public static String GamerName
         {
-            get { return myProfile.Name; }
+            get { return profile.Name; }
         }
 
 
@@ -81,7 +94,7 @@ namespace Classes.Net
 
 		public static Gamer Profile
 		{
-			get { return myProfile; }
+			get { return profile; }
 		}
 
 
@@ -104,16 +117,16 @@ namespace Classes.Net
 			}
 			else
 			{
-				myProfile.Name = s;
+				profile.Name = s;
 				return true;
 			}
 		}
 
 
 
-		public static int ConnectedPlayers
+		public static int ConnectedGamersAmount
 		{
-			get { return connectedPlayers; }
+			get { return connectedGamersAmount ; }
 		}
 
 
@@ -185,7 +198,7 @@ namespace Classes.Net
 			{
 				NetOutgoingMessage outmsg = client.CreateMessage();
 				outmsg.Write((byte)PacketTypes.LOGIN);
-				outmsg.Write(myProfile.Name);
+				outmsg.Write(profile.Name);
 				con = client.Connect(ip, 14242, outmsg);
 				return true;
 			}
@@ -249,7 +262,7 @@ namespace Classes.Net
 				isEveryoneReady = true;
 				foreach (Gamer g in connectedGamers)
 				{
-					if (!g.ready)
+					if (!g.Ready)
 					{
 						isEveryoneReady = false;
 					}
@@ -305,8 +318,8 @@ namespace Classes.Net
                         {
                             try
                             {
-                                connectedPlayers = inc.ReadInt32();
-								Profile.GamerNumber  = connectedPlayers;
+                                connectedGamersAmount  = inc.ReadInt32();
+								inc.ReadAllProperties(profile);
                             }
                             catch (Exception ex)
                             {
@@ -320,24 +333,7 @@ namespace Classes.Net
 						{
 							try
 							{
-								int peek;
-								while ((peek = inc.ReadInt32()) != NetworkManager.Profile.GamerNumber)
-								{
-									inc.ReadInt32();
-									inc.ReadInt32();
-								}
-
-								if (peek== NetworkManager.Profile.GamerNumber)
-								{
-									if (NetworkManager.Profile.puppet == SceneryManager.Player1)
-									{
-										SceneryManager.Player2.Position = new Vector2(inc.ReadInt32(), inc.ReadInt32());
-									}
-									else
-									{
-										SceneryManager.Player1.Position = new Vector2(inc.ReadInt32(), inc.ReadInt32());
-									}
-								}
+								
 							}
 							catch (Exception ex)
 							{
@@ -351,14 +347,15 @@ namespace Classes.Net
 						{
 							try
 							{
-								connectedPlayers = inc.ReadInt32();
+								connectedGamersAmount  = inc.ReadInt32();
 								connectedGamers = new List<Gamer>();
-								for (int a = 0; a < connectedPlayers; a++)
+
+								Gamer tmp = new Gamer("",null);
+
+								for (var n = 0; n < connectedGamersAmount; n++)
 								{
-									Gamer gmp = new Gamer(inc.ReadString());
-									gmp.GamerNumber = inc.ReadInt32();
-									gmp.ready = inc.ReadBoolean();
-									connectedGamers.Add(gmp);
+									inc.ReadAllProperties(tmp);
+									connectedGamers.Add(tmp);
 								}
 							}
 							catch (Exception ex)
@@ -408,32 +405,18 @@ namespace Classes.Net
 			}
 			else
 			{
-				if (gameState  == ServerStatus.LOBBY)
+				if (gameState  == ServerStatus.LOBBY && profile != null)
 				{
 					UpdateStep = 0;
 					NetOutgoingMessage msg = client.CreateMessage();
 					msg.Write((byte)PacketTypes.LOBBY);
 					msg.Write(Profile.Name);
-					msg.Write(Profile.ready);
+					msg.Write(Profile.Ready);
 					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 				}
 				else
 				{
-					try
-					{
 
-						UpdateStep = 0;
-						NetOutgoingMessage msg = client.CreateMessage();
-						msg.Write((byte)PacketTypes.PLAYER_INFO);
-						msg.Write(NetworkManager.Profile.puppet.Owner);
-						msg.Write((int)NetworkManager.Profile.puppet.Position.X);
-						msg.Write((int)NetworkManager.Profile.puppet.Position.Y);
-						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
-					}
-					catch
-					{
-						Debug.Print("Oh no...");
-					}
 				}
 			}
 		}

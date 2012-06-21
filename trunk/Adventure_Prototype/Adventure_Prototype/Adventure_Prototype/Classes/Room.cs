@@ -16,7 +16,7 @@ using Classes.Pathfinding;
 
 namespace Classes
 {
-	class Room : DrawableGameComponent
+	public class Room : DrawableGameComponent
 	{
 		private String id;
 		private Texture2D background;

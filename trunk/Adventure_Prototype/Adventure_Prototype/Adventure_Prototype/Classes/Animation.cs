@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Classes
 {
-	class Animation
+	public class Animation
 	{
 		Rectangle[,] frames;
 		float frameLength = 1f / 3f;
