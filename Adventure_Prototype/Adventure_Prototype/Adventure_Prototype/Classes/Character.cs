@@ -9,7 +9,7 @@ using Classes.Pipeline;
 
 namespace Classes
 {
-	abstract class Character : DrawableGameComponent 
+	public abstract class Character : DrawableGameComponent 
 	{
 		protected Vector2 position;
 		protected Vector2 target;

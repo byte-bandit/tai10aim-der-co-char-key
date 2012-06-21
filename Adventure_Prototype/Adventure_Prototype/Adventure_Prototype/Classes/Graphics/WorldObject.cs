@@ -8,7 +8,7 @@ using Classes.Graphics;
 
 namespace Classes.Graphics
 {
-	class WorldObject : DrawableGameComponent
+	public class WorldObject : DrawableGameComponent
 	{
 
 		private String textureString;

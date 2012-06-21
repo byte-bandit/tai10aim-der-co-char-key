@@ -31,7 +31,10 @@ namespace Classes.Net
 		{
 			this.name = _name;
 			this.connection = con;
-			this.token = buildTokenString();
+			if (this.name != null && this.connection != null)
+			{
+				this.token = buildTokenString();
+			}
 		}
 
 
@@ -42,7 +45,21 @@ namespace Classes.Net
 		/// </summary>
 		private String buildTokenString()
 		{
-			String ret = this.name + this.connection.RemoteEndpoint.Address.ToString() + DateTime.Now.ToString();
+			String ret = this.name + this.connection.RemoteEndpoint.Address.ToString() + DateTime.Now.ToString().Replace(".","").Replace(":","").Replace(" ", "");
+
+			try
+			{
+				System.Security.Cryptography.SHA512 hash = new System.Security.Cryptography.SHA512Managed  ();
+				System.Text.ASCIIEncoding enc = new System.Text.ASCIIEncoding();
+				Byte[] built = hash.ComputeHash(enc.GetBytes(ret.ToCharArray()));
+				String final = enc.GetString(built);
+				return final;
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.Print(ex.ToString());
+			}
+			
 			return System.Security.Cryptography.SHA256.Create(ret).ToString();
 		}
 
@@ -69,6 +86,7 @@ namespace Classes.Net
 		public String Token
 		{
 			get { return this.token; }
+			set { this.token = value; }
 		}
 
 
@@ -109,6 +127,7 @@ namespace Classes.Net
 		public NetConnection Connection
 		{
 			get { return this.connection; }
+			set { this.connection = value; }
 		}
 
 

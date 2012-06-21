@@ -280,7 +280,7 @@ namespace Adventure_Prototype
 			{
 
 
-				NetworkManager.Profile.puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+				NetworkManager.Profile.Puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
 
 			}
 
@@ -307,9 +307,9 @@ namespace Adventure_Prototype
 
 			if (NetworkManager.IsHost)
 			{
-				NetworkManager.Profile.puppet = SceneryManager.Player1;
+				NetworkManager.Profile.Puppet = SceneryManager.Player1;
 			}else{
-				NetworkManager.Profile.puppet = SceneryManager.Player2;
+				NetworkManager.Profile.Puppet = SceneryManager.Player2;
 			}
 
 			UpdateManager.addItem(SceneryManager.Player1);

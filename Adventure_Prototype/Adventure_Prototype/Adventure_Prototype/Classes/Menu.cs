@@ -213,7 +213,7 @@ namespace Classes
 						this.state = MenuStates.HOST;
 						break;
 					case "btnReady":
-						NetworkManager.Profile.ready = !NetworkManager.Profile.ready;
+						NetworkManager.Profile.Ready = !NetworkManager.Profile.Ready;
 						break;
 					case "btnBack":
 						NetworkManager.quitSession();
@@ -255,7 +255,7 @@ namespace Classes
 				string text = NetworkManager.ConnectedGamers[a].Name  ;
 				Texture2D pic = noGamerPic;
 
-				if (NetworkManager.ConnectedGamers[a].ready)
+				if (NetworkManager.ConnectedGamers[a].Ready)
 				{
 					text += " - Bereit!";
 				}
