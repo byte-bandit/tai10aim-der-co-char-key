@@ -70,7 +70,7 @@ namespace Adventure_Prototype
 
 		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST ; // Set to not logged in for initial start screen
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
-
+		public float musicVolume = 1.0f;	//Use this to mute music for testing purposes
 
 
 
