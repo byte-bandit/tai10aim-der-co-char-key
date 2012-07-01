@@ -23,7 +23,7 @@ namespace Classes.IO
 		public static void playBackgroundMusic(String assetName, bool loop)
 		{
 			SoundEffect music = GameRef.Game.Content.Load<SoundEffect>(assetName);
-			//music.Play();
+			music.Play(GameRef.Game.musicVolume, 0.0f, 0.0f);
 		}
 
 		public static void Click()

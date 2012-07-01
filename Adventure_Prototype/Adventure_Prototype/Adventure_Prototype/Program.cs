@@ -18,6 +18,11 @@ namespace Adventure_Prototype
 					{
 						game._EDITOR = true;
 					}
+
+					if (s == "-noMusic")
+					{
+						game.musicVolume  = 0.0f;
+					}
 				}
                 game.Run();
             }
