@@ -312,23 +312,30 @@ namespace Classes
 
 		public override void Draw(GameTime gameTime)
 		{
-			GraphicsManager.spriteBatch.Begin();
-			GraphicsManager.spriteBatch.Draw(background, backPos, Color.White);
-			GraphicsManager.spriteBatch.Draw(front, frontPos, Color.White);
-			GraphicsManager.spriteBatch.End();
+			try
+			{
+				GraphicsManager.spriteBatch.Begin();
+				GraphicsManager.spriteBatch.Draw(background, backPos, Color.White);
+				GraphicsManager.spriteBatch.Draw(front, frontPos, Color.White);
+				GraphicsManager.spriteBatch.End();
 
-			foreach (Button b in buttons)
-			{
-				b.Draw(gameTime);
-			}
+				foreach (Button b in buttons)
+				{
+					b.Draw(gameTime);
+				}
 
-			if (this.state == MenuStates.HOST )
-			{
-				DrawLobby();
+				if (this.state == MenuStates.HOST)
+				{
+					DrawLobby();
+				}
+				else if (this.state == MenuStates.JOIN)
+				{
+					DrawAvailibleSessions();
+				}
 			}
-			else if(this.state == MenuStates.JOIN)
+			catch (Exception ex)
 			{
-				DrawAvailibleSessions();
+				System.Diagnostics.Debug.Print(ex.ToString());
 			}
 
 			base.Draw(gameTime);

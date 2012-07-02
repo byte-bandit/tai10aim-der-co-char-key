@@ -16,13 +16,13 @@ namespace ServerSoftware
 
 		public NetServer server;
 		public BackgroundWorker worker;
+		public List<Peer> connectedPeers = new List<Peer>();
 
 
 		public Form1()
 		{
 			InitializeComponent();
 		}
-
 
 
 
@@ -100,6 +100,8 @@ namespace ServerSoftware
 					gb_cc.ForeColor = Color.Red;
 					gb_cc.Text = "Server offline";
 
+					lb_cp.Items.Clear();
+
 					onlineIndicator.BackColor = Color.Red;
 
 					btnStartServer.ForeColor = Color.Black;
@@ -133,7 +135,7 @@ namespace ServerSoftware
 				NetIncomingMessage inc;
 				if ((inc = server.ReadMessage()) != null)
 				{
-					Postman.checkMails(inc);
+					Postman.checkMails(inc, this);
 				}
 
 				//Now go to sleep
