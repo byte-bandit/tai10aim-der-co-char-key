@@ -3,3 +3,4 @@ D:\ProjectCandy\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeConte
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
 D:\Programme\svn\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
 Q:\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\SVN\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\ResolveAssemblyReference.cache

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure_PrototypeContent"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "Adventure_Prototype\GameServer\GameServer.csproj", "{27E010EF-E204-4053-82CF-D70A886C46C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSoftware", "ServerSoftware\ServerSoftware.csproj", "{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,16 @@ Global
 		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|x86.ActiveCfg = Debug|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|x86.Build.0 = Debug|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Release|Any CPU.ActiveCfg = Release|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Release|Mixed Platforms.Build.0 = Release|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Release|x86.ActiveCfg = Release|x86
+		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

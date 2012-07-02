@@ -90,6 +90,9 @@ namespace Adventure_Prototype
 		/// </summary>
 		public Game1()
 		{
+			GraphicsAdapter.UseNullDevice = true;
+			GraphicsAdapter.UseReferenceDevice = true;
+
 			graphics = new GraphicsDeviceManager(this);		//Initialize our Graphics Card Interface
 			Content.RootDirectory = "Content";				//Setting up our Content-Root Directory
 			
