@@ -9,35 +9,57 @@ namespace ServerSoftware
 {
 	class Doorguard
 	{
-		public static void CheckIn(NetIncomingMessage inc)
+
+
+
+
+		public static bool CheckIn(NetIncomingMessage inc, Form1 parent)
 		{
 			try
 			{
-				//Form1.print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
+				parent.print(inc.SenderEndpoint.Address.ToString() + " trying to connect...");
 
-				//inc.SenderConnection.Approve();
+				inc.SenderConnection.Approve();
 
 				////Initialize Player here
-				//Gamer tmp = new Gamer(inc.ReadString(), inc.SenderConnection);
-				//tmp.Ready = false;
-				//connectedGamers.Add(tmp);
+				Peer tmp = new Peer(inc.ReadString(), inc.SenderConnection);
+				tmp.Ready = false;
+				parent.connectedPeers.Add(tmp);
 
-				//NetOutgoingMessage outmsg = Server.CreateMessage();
+				NetOutgoingMessage outmsg = parent.server.CreateMessage();
 
 				//outmsg.Write((byte)PacketTypes.LOGIN);
-				//outmsg.Write(Server.Connections.Length);
-				//outmsg.WriteAllProperties(tmp);
+				outmsg.Write(parent.server.Connections.Length);
+				outmsg.Write(tmp.Token);
+				outmsg.Write(tmp.Name);
 
-				//Server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
+				parent.server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
 
-				//return true;
+				parent.lb_cp.Items.Add(tmp.Name);
+
+				return true;
 
 			}
 			catch (Exception ex)
 			{
-				//print("Login failed: " + ex.ToString());
-				//return false;
+				parent.print(ex.ToString());
+				return false;
 			}
+		}
+
+
+
+
+
+
+		public static void CheckTheDoor(NetIncomingMessage inc, Form1 parent)
+		{
+			parent.print(inc.SenderEndpoint.Address.ToString() + " pinged me!");
+
+			NetOutgoingMessage outmsg = parent.server.CreateMessage();
+			outmsg.Write("Speak friend and enter");
+
+			parent.server.SendDiscoveryResponse(outmsg, inc.SenderEndpoint);
 		}
 	}
 }

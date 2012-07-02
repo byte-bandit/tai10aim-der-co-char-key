@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			this.gb_cc = new System.Windows.Forms.GroupBox();
+			this.onlineIndicator = new System.Windows.Forms.Panel();
 			this.btnStartServer = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.lb_cp = new System.Windows.Forms.ListBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.rtb_log = new System.Windows.Forms.RichTextBox();
-			this.onlineIndicator = new System.Windows.Forms.Panel();
 			this.gb_cc.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -50,6 +50,13 @@
 			this.gb_cc.TabIndex = 0;
 			this.gb_cc.TabStop = false;
 			this.gb_cc.Text = "Server Controls";
+			// 
+			// onlineIndicator
+			// 
+			this.onlineIndicator.Location = new System.Drawing.Point(6, 19);
+			this.onlineIndicator.Name = "onlineIndicator";
+			this.onlineIndicator.Size = new System.Drawing.Size(23, 23);
+			this.onlineIndicator.TabIndex = 2;
 			// 
 			// btnStartServer
 			// 
@@ -97,13 +104,6 @@
 			this.rtb_log.TabIndex = 0;
 			this.rtb_log.Text = "";
 			// 
-			// onlineIndicator
-			// 
-			this.onlineIndicator.Location = new System.Drawing.Point(6, 19);
-			this.onlineIndicator.Name = "onlineIndicator";
-			this.onlineIndicator.Size = new System.Drawing.Size(23, 23);
-			this.onlineIndicator.TabIndex = 2;
-			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,10 +127,10 @@
 		private System.Windows.Forms.GroupBox gb_cc;
 		private System.Windows.Forms.Button btnStartServer;
 		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.ListBox lb_cp;
 		private System.Windows.Forms.GroupBox groupBox3;
-		private System.Windows.Forms.RichTextBox rtb_log;
 		private System.Windows.Forms.Panel onlineIndicator;
+		public System.Windows.Forms.RichTextBox rtb_log;
+		public System.Windows.Forms.ListBox lb_cp;
 	}
 }
 
