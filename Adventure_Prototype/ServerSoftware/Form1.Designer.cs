@@ -29,12 +29,12 @@
 		private void InitializeComponent()
 		{
 			this.gb_cc = new System.Windows.Forms.GroupBox();
-			this.btnClearLog = new System.Windows.Forms.Button();
 			this.btnStartServer = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.lb_cp = new System.Windows.Forms.ListBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.rtb_log = new System.Windows.Forms.RichTextBox();
+			this.onlineIndicator = new System.Windows.Forms.Panel();
 			this.gb_cc.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			this.groupBox3.SuspendLayout();
@@ -42,29 +42,20 @@
 			// 
 			// gb_cc
 			// 
-			this.gb_cc.Controls.Add(this.btnClearLog);
+			this.gb_cc.Controls.Add(this.onlineIndicator);
 			this.gb_cc.Controls.Add(this.btnStartServer);
 			this.gb_cc.Location = new System.Drawing.Point(12, 12);
 			this.gb_cc.Name = "gb_cc";
-			this.gb_cc.Size = new System.Drawing.Size(200, 80);
+			this.gb_cc.Size = new System.Drawing.Size(200, 51);
 			this.gb_cc.TabIndex = 0;
 			this.gb_cc.TabStop = false;
 			this.gb_cc.Text = "Server Controls";
 			// 
-			// btnClearLog
-			// 
-			this.btnClearLog.Location = new System.Drawing.Point(6, 48);
-			this.btnClearLog.Name = "btnClearLog";
-			this.btnClearLog.Size = new System.Drawing.Size(188, 23);
-			this.btnClearLog.TabIndex = 1;
-			this.btnClearLog.Text = "BTN_CLEAR_LOG";
-			this.btnClearLog.UseVisualStyleBackColor = true;
-			// 
 			// btnStartServer
 			// 
-			this.btnStartServer.Location = new System.Drawing.Point(6, 19);
+			this.btnStartServer.Location = new System.Drawing.Point(35, 19);
 			this.btnStartServer.Name = "btnStartServer";
-			this.btnStartServer.Size = new System.Drawing.Size(188, 23);
+			this.btnStartServer.Size = new System.Drawing.Size(159, 23);
 			this.btnStartServer.TabIndex = 0;
 			this.btnStartServer.Text = "BTN_START_SERVER";
 			this.btnStartServer.UseVisualStyleBackColor = true;
@@ -73,9 +64,9 @@
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.lb_cp);
-			this.groupBox2.Location = new System.Drawing.Point(12, 98);
+			this.groupBox2.Location = new System.Drawing.Point(12, 69);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(200, 337);
+			this.groupBox2.Size = new System.Drawing.Size(200, 366);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Connected Players";
@@ -85,7 +76,7 @@
 			this.lb_cp.FormattingEnabled = true;
 			this.lb_cp.Location = new System.Drawing.Point(6, 19);
 			this.lb_cp.Name = "lb_cp";
-			this.lb_cp.Size = new System.Drawing.Size(188, 303);
+			this.lb_cp.Size = new System.Drawing.Size(188, 329);
 			this.lb_cp.TabIndex = 0;
 			// 
 			// groupBox3
@@ -105,6 +96,13 @@
 			this.rtb_log.Size = new System.Drawing.Size(427, 389);
 			this.rtb_log.TabIndex = 0;
 			this.rtb_log.Text = "";
+			// 
+			// onlineIndicator
+			// 
+			this.onlineIndicator.Location = new System.Drawing.Point(6, 19);
+			this.onlineIndicator.Name = "onlineIndicator";
+			this.onlineIndicator.Size = new System.Drawing.Size(23, 23);
+			this.onlineIndicator.TabIndex = 2;
 			// 
 			// Form1
 			// 
@@ -127,12 +125,12 @@
 		#endregion
 
 		private System.Windows.Forms.GroupBox gb_cc;
-		private System.Windows.Forms.Button btnClearLog;
 		private System.Windows.Forms.Button btnStartServer;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.ListBox lb_cp;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.RichTextBox rtb_log;
+		private System.Windows.Forms.Panel onlineIndicator;
 	}
 }
 
