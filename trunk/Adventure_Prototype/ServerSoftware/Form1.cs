@@ -15,6 +15,7 @@ namespace ServerSoftware
 	{
 
 		public NetServer server;
+		public BackgroundWorker worker;
 
 
 		public Form1()
@@ -32,11 +33,10 @@ namespace ServerSoftware
 			gb_cc.Text = "Server offline";
 			gb_cc.ForeColor = Color.Red;
 
-			btnClearLog.ForeColor = Color.Black;
-			btnClearLog.Text = "Clear Log";
-
 			btnStartServer.ForeColor = Color.Black;
 			btnStartServer.Text = "Start Server";
+
+			onlineIndicator.BackColor = Color.Red;
 		}
 
 
@@ -47,6 +47,7 @@ namespace ServerSoftware
 		{
 			if (server == null)
 			{
+				rtb_log.Clear();
 				NetPeerConfiguration config = new NetPeerConfiguration("Co-Char-Key");
 				config.Port = 14242;
 				config.MaximumConnections = 2;
@@ -60,13 +61,21 @@ namespace ServerSoftware
 					print("Server started!");
 					print("Listening on Port " + config.Port.ToString());
 
+					worker = new BackgroundWorker();
+					worker.WorkerSupportsCancellation = true;
+					worker.WorkerReportsProgress = true;
+					worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+					worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
+					worker.RunWorkerAsync();
+
+
 					gb_cc.ForeColor = Color.Green;
 					gb_cc.Text = "Server running...";
 
+					onlineIndicator.BackColor = Color.Green;
+
 					btnStartServer.ForeColor = Color.Black;
 					btnStartServer.Text = "Stop Server";
-
-					btnClearLog.ForeColor = Color.Black;
 				}
 				catch (Exception ex)
 				{
@@ -79,16 +88,23 @@ namespace ServerSoftware
 				try
 				{
 					print("Shutting down...");
+
+					worker.CancelAsync();
+					worker.Dispose();
+					worker = null;
+
+
 					server.Shutdown("Bye");
 					server = null;
 
 					gb_cc.ForeColor = Color.Red;
 					gb_cc.Text = "Server offline";
 
+					onlineIndicator.BackColor = Color.Red;
+
 					btnStartServer.ForeColor = Color.Black;
 					btnStartServer.Text = "Start Server";
 
-					btnClearLog.ForeColor = Color.Black;
 					print("Server is offline.");
 				}
 				catch (Exception ex)
@@ -102,10 +118,50 @@ namespace ServerSoftware
 
 
 
-		private void print(String text)
+
+		void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			try
+			{
+				//Is the worker still existant?
+				if (worker == null)
+				{
+					return;
+				}
+
+				//Do we have new packages?
+				NetIncomingMessage inc;
+				if ((inc = server.ReadMessage()) != null)
+				{
+					Postman.checkMails(inc);
+				}
+
+				//Now go to sleep
+				worker.RunWorkerAsync();
+			}
+			catch (Exception ex)
+			{
+				print(ex.ToString());
+			}
+		}
+
+
+
+
+		public void print(String text)
 		{
 			rtb_log.AppendText("\n" + DateTime.Now.ToString() + ": " + text);
 		}
+
+
+
+		private void worker_DoWork(object sender, DoWorkEventArgs e)
+		{
+			//Let thread sleep to give OS some time
+			System.Threading.Thread.Sleep(50);
+		}
+
+
 
 
 	}
