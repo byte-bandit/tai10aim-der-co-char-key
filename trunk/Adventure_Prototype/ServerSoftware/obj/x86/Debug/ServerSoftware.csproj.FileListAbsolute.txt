@@ -1,0 +1,9 @@
+D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\ServerSoftware.exe
+D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\ServerSoftware.pdb
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\ServerSoftware.Form1.resources
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\ServerSoftware.Properties.Resources.resources
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\ServerSoftware.exe
+D:\adventureprototype\ServerSoftware\obj\x86\Debug\ServerSoftware.pdb

@@ -1,0 +1,30 @@
+##############################################################################
+#This is the RoomEvent source file
+#
+#It´s designed to be parsed to an array or similiar data construct
+#To be dealt with in given order, that means starting at the top
+#Lines with a leading # will be ignored and can be used for comments
+#Spaces / Tabs should be fine and can be used for layout.
+##############################################################################
+
+
+@ROOM "RoomName"
+	EVENT "EventName" "interactedObject/AssetName1"(optional)  "interactedObject/AssetName2"(optional) "Player"(optional)
+		ACTION "ActionName" ""interactedObject"(optional)"
+		ACTION "ActionName" ""interactedObject"(optional)" "Parameter1"(optional) "Parameter2"(optional)
+
+@ROOM ExampleRoom
+	EVENT OnUse picture
+		ACTION ChangePosition picture "20,40"
+		ACTION ChangeVisibility Key 
+		ACTION ChangeUsable Key 
+	EVENT OnTake Key 
+		ACTION AddItem Key
+		ACTION DespawnObject Key	
+	EVENT OnCombine Key Door
+		ACTION ChangeUsable Door 
+		ACTION WAIT5
+	EVENT OnUse Door
+		ACTION NPCGoTo "20,40" Klaus
+		ACTION StartDialog RoomOpen
+		GOTO "NextRoom"

@@ -146,7 +146,7 @@ namespace Classes.Net
 
 
 
-		public static List<String> availibleServers
+		public static List<String> availableServers
 		{
 			get { return searchResults; }
 		}

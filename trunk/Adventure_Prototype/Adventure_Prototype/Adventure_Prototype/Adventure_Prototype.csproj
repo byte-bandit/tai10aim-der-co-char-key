@@ -114,6 +114,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Actions\Action.cs" />
+    <Compile Include="Classes\Actions\ActionList.cs" />
+    <Compile Include="Classes\Actions\ActionManager.cs" />
     <Compile Include="Classes\Animation.cs" />
     <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\Dev\Editor.cs" />
