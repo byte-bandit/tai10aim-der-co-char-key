@@ -16,22 +16,34 @@ namespace Classes.Inventory
 		private Vector2 position;
 		private Texture2D image;
 		private String id;
+		private Texture2D tooltip;
+		private bool visible;
 
-		public Item(int X, int Y, Texture2D Image, String ID) : base(GameRef.Game)
+		#region Properties
+		public bool Visible
 		{
-			this.position = new Vector2(X, Y);
-			this.image = Image;
-			this.id = ID;
-		}
-		public String ID
-		{
-			get { return this.id; }
+			get { return visible; }
+			set { this.visible = value; }
 		}
 
 		public Vector2 Position
 		{
-			get { return this.position; }
+			get { return position; }
 			set { this.position = value; }
+		}
+		public Texture2D Image
+		{
+			get { return image; }
+			set { this.image = value; }
+		}
+		public Texture2D Tooltip
+		{
+			get { return tooltip; }
+			set { this.tooltip = value; }
+		}
+		public String ID
+		{
+			get { return this.id; }
 		}
 
 		public int totalWidth
@@ -42,6 +54,16 @@ namespace Classes.Inventory
 		public int totalHeight
 		{
 			get { return (int)this.position.Y + this.image.Height; }
+		}
+		#endregion
+
+		public Item(int X, int Y, Texture2D Image, String ID)
+			: base(GameRef.Game)
+		{
+			this.position = new Vector2(X, Y);
+			this.image = Image;
+			this.id = ID;
+			this.visible = true;
 		}
 
 		public bool GetCollision(int X, int Y)
@@ -55,8 +77,11 @@ namespace Classes.Inventory
 
 		public override void Draw(GameTime gameTime)
 		{
-			GraphicsManager.spriteBatch.Draw(this.image, this.Position, Color.White);
-			base.Draw(gameTime);
+			if (this.visible)
+			{
+				GraphicsManager.spriteBatch.Draw(this.image, this.Position, Color.White);
+				base.Draw(gameTime);
+			}
 		}
 
 	}

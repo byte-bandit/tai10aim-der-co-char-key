@@ -156,7 +156,7 @@ namespace Classes
 				return;
 			}
 
-			for (int sessionIndex = 0; sessionIndex < NetworkManager.availibleServers.Count; sessionIndex++)
+			for (int sessionIndex = 0; sessionIndex < NetworkManager.availableServers.Count; sessionIndex++)
 			{
 
 				if (MouseEx.clickAt(new Rectangle(256, 192 + ((sessionIndex) * 192) + 32, 768, 192)))
@@ -178,7 +178,7 @@ namespace Classes
 				return null;
 			}
 
-			return NetworkManager.availibleServers[selectedSessionIndex];
+			return NetworkManager.availableServers[selectedSessionIndex];
 		}
 
 
@@ -275,10 +275,10 @@ namespace Classes
 
 
 
-		private void DrawAvailibleSessions()
+		private void DrawAvailableSessions()
 		{
 
-			if (NetworkManager.availibleServers.Count < 1)
+			if (NetworkManager.availableServers.Count < 1)
 			{
 				GraphicsManager.drawText("Keine Spiele gefunden.", new Vector2(640 - GraphicsManager.font03.MeasureString("Keine Spiele gefunden").X/2, 192+32), GraphicsManager.font03, Color.White, true);
 				GraphicsManager.spriteBatch.Begin(SpriteSortMode.Texture, BlendState.AlphaBlend);
@@ -286,7 +286,7 @@ namespace Classes
 				GraphicsManager.spriteBatch.End();
 			}
 
-			for (int sessionIndex = 0; sessionIndex < NetworkManager.availibleServers.Count; sessionIndex++)
+			for (int sessionIndex = 0; sessionIndex < NetworkManager.availableServers.Count; sessionIndex++)
 			{
 				Color c = Color.White;
 
@@ -299,7 +299,7 @@ namespace Classes
 				GraphicsManager.spriteBatch.Draw(playerspace, new Vector2(256, 192 + ((sessionIndex) * 192) + 32), Color.White);
 				GraphicsManager.spriteBatch.End();
 
-				GraphicsManager.drawText(NetworkManager.availibleServers[sessionIndex] + "'s Spiel", new Vector2(288, 192 + ((sessionIndex) * 192) + 32 + 72), GraphicsManager.font03, c, true);
+				GraphicsManager.drawText(NetworkManager.availableServers[sessionIndex] + "'s Spiel", new Vector2(288, 192 + ((sessionIndex) * 192) + 32 + 72), GraphicsManager.font03, c, true);
 
 
 			}
@@ -328,7 +328,7 @@ namespace Classes
 			}
 			else if(this.state == MenuStates.JOIN)
 			{
-				DrawAvailibleSessions();
+				DrawAvailableSessions();
 			}
 
 			base.Draw(gameTime);

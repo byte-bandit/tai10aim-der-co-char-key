@@ -81,7 +81,8 @@ namespace Adventure_Prototype
 			MAIN_MENU_HOST,
 			MAIN_MENU_CONNECT,
 			GAME,
-			GAME_MENU
+			GAME_MENU,
+			GAME_INVENTORY
 		}
 
 
@@ -278,10 +279,7 @@ namespace Adventure_Prototype
 			// WILL BE CHANGED TO INPUTMANAGER EVENTUALLY
 			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME)
 			{
-
-
 				NetworkManager.Profile.Puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
-
 			}
 
 

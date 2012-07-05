@@ -18,9 +18,10 @@ namespace Classes.IO
 		static bool hitButton;
 
 
-
-
-
+		/// <summary>
+		/// Checks whether the mouse in the game window.
+		/// </summary>
+		/// <returns></returns>
         private static bool isInGameWindow()
         {
             if ((int)Mouse.GetState().X < 0 || (int)Mouse.GetState().X > 1280)
@@ -89,11 +90,6 @@ namespace Classes.IO
 			}
 		}
 
-
-
-
-
-
 		public static bool inPolygon(Classes.Pathfinding.Polygon polygon)
 		{
             if (!isInGameWindow())
@@ -117,11 +113,6 @@ namespace Classes.IO
 			}
 		}
 
-
-
-
-
-
 		public static bool ReleaseButton(Classes.UI.Button button)
 		{
             if (!isInGameWindow())
@@ -136,13 +127,6 @@ namespace Classes.IO
 
 			return false;
 		}
-
-
-
-
-
-
-
 
 		public static bool clickOnButton(Classes.UI.Button button)
 		{

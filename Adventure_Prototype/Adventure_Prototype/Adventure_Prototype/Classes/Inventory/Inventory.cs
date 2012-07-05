@@ -45,6 +45,10 @@ namespace Classes.Inventory
 			GraphicsManager.spriteBatch.End();
 			base.Draw(gameTime);
 		}
+
+
+
+
 		public Inventory(): base(GameRef.Game)
 		{}
 	}
