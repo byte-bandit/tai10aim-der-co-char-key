@@ -1,10 +1,10 @@
 # Brunnen-G Adventure Engine Room File
-# Created: 22.04.2012 16:32:01
-# By: Kna - alias: Kna-Abakus
-# On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
-# 64Bit: True
-# Number of Processors: 4
-# Mapped Memory: 64696320
+# Created: 05.07.2012 17:52:43
+# By: lhildebr - alias: IBAHEALTH
+# On: DEPC1004006 - Microsoft Windows NT 5.1.2600 Service Pack 3
+# 64Bit: False
+# Number of Processors: 2
+# Mapped Memory: 74199040
 # This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
 
 BEGIN
@@ -13,29 +13,69 @@ ID:room01,TEXTURE:Graphics/Backgrounds/room01
 SCALING:False
 ENDROOM
 BEGINWALK
-X:19,Y:392,WIDTH:216,HEIGHT:82
+X:247,Y:486
 ENDWALK
 BEGINWALK
-X:179,Y:401,WIDTH:611,HEIGHT:82
+X:602,Y:492
 ENDWALK
 BEGINWALK
-X:629,Y:386,WIDTH:158,HEIGHT:58
+X:601,Y:520
+ENDWALK
+BEGINWALK
+X:780,Y:518
+ENDWALK
+BEGINWALK
+X:781,Y:490
+ENDWALK
+BEGINWALK
+X:825,Y:491
+ENDWALK
+BEGINWALK
+X:1028,Y:717
+ENDWALK
+BEGINWALK
+X:2,Y:713
+ENDWALK
+BEGINWALK
+X:2,Y:691
+ENDWALK
+BEGINWALK
+X:247,Y:486
 ENDWALK
 BEGINWO
-X:40,Y:196
-TEXTURE:Graphics/Sprites/room01_door
-NAME:Door
-ONLOOK:Nice door
-ONUSE:Na.. locked
-ONTALK:Hello Door
+X:963,Y:396
+TEXTURE:Graphics/Sprites/Key
+NAME:key
+ONLOOK:Ein Schlüssel
+ONUSE:geht nicht
+ONTALK:Der will nicht mitmir reden
+ENDWO
+BEGINWO
+X:937,Y:361
+TEXTURE:Graphics/Sprites/picture
+NAME:picture
+ONLOOK:Ein Bild
+ONUSE:machen wirnicht
+ONTALK:geht nicht
 ENDWO
 BEGINNPC
-X:650,Y:264
+X:44,Y:514
 TEXTURE:afroGB
-MIRROR:True
-NAME:Horsti
-ONLOOK:Oh its him
-ONUSE:Naaww...
-ONTALK:{D:Horst1}
+MIRROR:False
+NAME:Horst1
+ONLOOK:Das ist Horst
+ONUSE:geht nicht
+ONTALK:{D:Horst1
 ENDNPC
+BEGINPOI
+X:978,Y:431
+X:532,Y:241
+X:639,Y:143
+X:1037,Y:258
+X:978,Y:431
+NAME:
+ONLOOK:
+ONUSE:
+ONTALK:
+ENDPOI
 END

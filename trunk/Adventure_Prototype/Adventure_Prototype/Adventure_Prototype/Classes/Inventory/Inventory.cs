@@ -8,6 +8,9 @@ using System.Text;
 
 using Classes.Pipeline;
 using Classes.Graphics;
+using Classes.IO;
+using Classes.Actions;
+
 
 namespace Classes.Inventory
 {
@@ -46,7 +49,17 @@ namespace Classes.Inventory
 			base.Draw(gameTime);
 		}
 
-
+		public static void ToolTip()
+		{
+			foreach (Item t in items)
+			{
+				if(MouseEx.inBoundaries(t.Tooltip.Bounds))
+				{
+					Actions.Action.Wait((long)0.2);
+					//to be completed...
+				}
+			}
+		}
 
 
 		public Inventory(): base(GameRef.Game)
