@@ -272,13 +272,44 @@ namespace Classes.Pipeline
 					//Get trigger
 					n++;
 					String trigger = data[n].Substring(data[n].IndexOf("TRIGGER:") + 8);
-					tmp.
+					String trigger2 = string.Empty;
 					n++;
 					if (data[n].Contains("TRIGGER2:"))
 					{
-						String trigger2 = data[n].Substring(data[n].IndexOf("TRIGGER2:") + 9);
+						trigger2 = data[n].Substring(data[n].IndexOf("TRIGGER2:") + 9);
 					}
-					else
+
+					foreach (POI p in ret.POIS)
+					{
+						if (p.Name == trigger)
+						{
+							tmp.Trigger = p;
+						}
+						if(p.Name == trigger2)
+						{
+							tmp.Trigger2 = trigger2;
+						}
+						if (tmp.Trigger != String.Empty && trigger2 == String.Empty)
+						{
+							break;
+						}
+					}
+					foreach (WorldObject p in ret.getWorldObjects())	
+					{
+						if (p.Name == trigger)
+						{
+							tmp.Trigger = p;
+						}
+						if (p.Name == trigger2)
+						{
+							tmp.Trigger2 = trigger2;
+						}
+						if (tmp.Trigger != String.Empty && trigger2 == String.Empty)
+						{
+							break;
+						}
+					}
+
 					{
 						if (data[n].Contains("ACTION"))
 						{
