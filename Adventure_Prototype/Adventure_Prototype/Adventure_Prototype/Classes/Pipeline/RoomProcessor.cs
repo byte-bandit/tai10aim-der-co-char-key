@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Classes;
 using Classes.Graphics;
 using Classes.Pathfinding;
+using Classes.Action;
 
 namespace Classes.Pipeline
 {
@@ -259,6 +260,32 @@ namespace Classes.Pipeline
 
 					//Get next line
 					continue;
+				}
+
+				if (line.Trim().StartsWith("BEGINEVENT"))
+				{
+					n++;
+					//Get Id of the event
+					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
+					Actions tmp = new Actions(id);
+
+					//Get trigger
+					n++;
+					String trigger = data[n].Substring(data[n].IndexOf("TRIGGER:") + 8);
+					tmp.
+					n++;
+					if (data[n].Contains("TRIGGER2:"))
+					{
+						String trigger2 = data[n].Substring(data[n].IndexOf("TRIGGER2:") + 9);
+					}
+					else
+					{
+						if (data[n].Contains("ACTION"))
+						{
+
+						}
+					}
+
 				}
 
 

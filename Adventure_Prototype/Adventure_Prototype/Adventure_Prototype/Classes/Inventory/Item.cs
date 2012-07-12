@@ -11,7 +11,7 @@ using Classes.Graphics;
 
 namespace Classes.Inventory
 {
-	class Item :DrawableGameComponent
+	public class Item :DrawableGameComponent
 	{
 		private Vector2 position;
 		private Texture2D image;

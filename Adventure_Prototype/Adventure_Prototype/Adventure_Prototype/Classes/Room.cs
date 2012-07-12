@@ -13,7 +13,7 @@ using Classes.Graphics;
 using Classes.IO;
 
 using Classes.Pathfinding;
-
+using Classes.Action;
 namespace Classes
 {
 	public class Room : DrawableGameComponent
@@ -32,6 +32,8 @@ namespace Classes
 		private float scaleCharactersMax;
 		private Polygon walkAreas;
 		private String infoText;
+		private List<Actions> Events;
+
 
 		public Room(Game game, String id, String backgroundTexture)
 			: base(game)
@@ -45,6 +47,8 @@ namespace Classes
 			this.pois = new List<POI>();
 			this.LoadContent();
 		}
+
+		#region Properties
 
 		public Polygon WalkAreas
 		{
@@ -63,11 +67,11 @@ namespace Classes
 			set { this.pois = value; }
 		}
 
-
 		public String ID
 		{
 			get { return this.id; }
 		}
+		#endregion
 
 		/// <summary>
 		/// Adds a World Object to the room

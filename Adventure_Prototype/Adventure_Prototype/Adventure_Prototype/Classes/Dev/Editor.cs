@@ -810,6 +810,11 @@ namespace Classes.Dev
 			if (KeyboardEx.isKeyHit(Keys.Tab))
 			{
 				toggleMode();
+				System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+				stopwatch.Start();
+					while(stopwatch.ElapsedMilliseconds< (long)500)
+					{
+					}
 			}
 
 

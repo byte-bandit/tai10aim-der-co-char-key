@@ -1,20 +1,20 @@
-05.07.2012 15:52:39: Server started!
-05.07.2012 15:52:39: Binding to Port 14242
-05.07.2012 15:52:39: Server is up and running, we are ready to roll...
-05.07.2012 15:52:40: Debug Message, Length :23 Bytes
-05.07.2012 15:52:40: Network thread started
-05.07.2012 15:52:40: ------------------------------------------------------------------
-05.07.2012 15:52:40: Debug Message, Length :36 Bytes
-05.07.2012 15:52:40: Socket bound to 0.0.0.0:14242: True
-05.07.2012 15:52:40: ------------------------------------------------------------------
-05.07.2012 15:52:40: Error Message, Length :355 Bytes
-05.07.2012 15:52:40: Failed to send packet: System.Net.Sockets.SocketException (0x80004005): Die angeforderte Adresse ist in diesem Kontext ungültig
+05.07.2012 18:02:07: Server started!
+05.07.2012 18:02:07: Binding to Port 14242
+05.07.2012 18:02:07: Server is up and running, we are ready to roll...
+05.07.2012 18:02:08: Debug Message, Length :23 Bytes
+05.07.2012 18:02:08: Network thread started
+05.07.2012 18:02:08: ------------------------------------------------------------------
+05.07.2012 18:02:08: Debug Message, Length :36 Bytes
+05.07.2012 18:02:08: Socket bound to 0.0.0.0:14242: True
+05.07.2012 18:02:08: ------------------------------------------------------------------
+05.07.2012 18:02:08: Error Message, Length :355 Bytes
+05.07.2012 18:02:08: Failed to send packet: System.Net.Sockets.SocketException (0x80004005): Die angeforderte Adresse ist in diesem Kontext ungültig
    bei System.Net.Sockets.Socket.SendTo(Byte[] buffer, Int32 offset, Int32 size, SocketFlags socketFlags, EndPoint remoteEP)
    bei Lidgren.Network.NetPeer.ActuallySendPacket(Byte[] data, Int32 numBytes, IPEndPoint target)
-05.07.2012 15:52:40: ------------------------------------------------------------------
-05.07.2012 15:52:40: 127.0.0.1 trying to connect...
-05.07.2012 15:52:41: 127.0.0.1's Status changed to: Connecting
-05.07.2012 15:52:41: Debug Message, Length :81 Bytes
-05.07.2012 15:52:41: Initialized average roundtrip time to: 6,44 ms remote time diff to -13.153,73 ms
-05.07.2012 15:52:41: ------------------------------------------------------------------
-05.07.2012 15:52:41: 127.0.0.1's Status changed to: Connected
+05.07.2012 18:02:08: ------------------------------------------------------------------
+05.07.2012 18:02:08: 127.0.0.1 trying to connect...
+05.07.2012 18:02:08: 127.0.0.1's Status changed to: Connecting
+05.07.2012 18:02:08: Debug Message, Length :81 Bytes
+05.07.2012 18:02:08: Initialized average roundtrip time to: 6,03 ms remote time diff to -10.151,72 ms
+05.07.2012 18:02:08: ------------------------------------------------------------------
+05.07.2012 18:02:08: 127.0.0.1's Status changed to: Connected
