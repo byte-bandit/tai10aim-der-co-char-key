@@ -32,7 +32,7 @@ namespace Classes
 		private float scaleCharactersMax;
 		private Polygon walkAreas;
 		private String infoText;
-		private List<Actions> Events;
+		private List<Actions> events;
 
 
 		public Room(Game game, String id, String backgroundTexture)
@@ -49,6 +49,12 @@ namespace Classes
 		}
 
 		#region Properties
+
+		public List<Actions> Events
+		{
+			get { return events; }
+			set { this.events = value; }
+		}
 
 		public Polygon WalkAreas
 		{

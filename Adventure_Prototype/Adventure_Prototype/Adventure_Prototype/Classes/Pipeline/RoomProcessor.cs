@@ -277,6 +277,7 @@ namespace Classes.Pipeline
 					if (data[n].Contains("TRIGGER2:"))
 					{
 						trigger2 = data[n].Substring(data[n].IndexOf("TRIGGER2:") + 9);
+						n++;
 					}
 
 					foreach (POI p in ret.POIS)
@@ -294,7 +295,7 @@ namespace Classes.Pipeline
 							break;
 						}
 					}
-					foreach (WorldObject p in ret.getWorldObjects())	
+					foreach (WorldObject p in ret.getWorldObjects())
 					{
 						if (p.Name == trigger)
 						{
@@ -311,11 +312,21 @@ namespace Classes.Pipeline
 					}
 
 					{
-						if (data[n].Contains("ACTION"))
+						if (data[n].Contains("ACTION:"))
 						{
+							string effect = String.Empty;
+							while (data[n].Contains("ACTION:"))
+							{
+								effect = data[n].Substring(data[n].IndexOf("ACTION:") + 7);
+								tmp.Effects.Add(effect);
+								n++;
+							}
 
-						}
+						}	
 					}
+
+					ret.Events.Add(tmp);
+					continue;
 
 				}
 
