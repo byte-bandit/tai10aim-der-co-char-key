@@ -26,9 +26,27 @@ namespace Classes.Inventory
 				return items;
 			}
 		}
+		static public bool Visible
+		{
+			get { return Visible; }
+			set
+			{
+				foreach (Item p in items)
+				{
+					p.Visible = value;
+				}
+				Visible = value;
+			}
+		}
+
 
 		public static void AddItem(Item item)
 		{
+			if (Inventory.Visible)
+			{ item.Visible = true; }
+			else
+			{ item.Visible = false; }
+
 			items.Add(item);
 		}
 
@@ -41,25 +59,22 @@ namespace Classes.Inventory
 		public override void Draw(GameTime gameTime)
 		{
 			GraphicsManager.spriteBatch.Begin();
+			GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
 			foreach (Item t in items)
 			{
 				t.Draw(gameTime); 
+
+			}
+			foreach (Item t in items)
+			{
+				if (MouseEx.inBoundaries(t.Image.Bounds))
+				{
+					GraphicsManager.spriteBatch.Draw(t.Tooltip, MouseEx.Position(), Color.White);
+				}
 			}
 			GraphicsManager.spriteBatch.End();
 			base.Draw(gameTime);
 		}
-
-		public static void ToolTip()
-		{
-			foreach (Item t in items)
-			{
-				if(MouseEx.inBoundaries(t.Tooltip.Bounds))
-				{
-					//to be completed...
-				}
-			}
-		}
-
 
 		public Inventory(): base(GameRef.Game)
 		{}
@@ -67,7 +82,14 @@ namespace Classes.Inventory
 
 		public override void Update(GameTime gameTime)
 		{
-
+			if (GameRef.Inventory)
+			{
+				Visible = true;
+			}
+			else
+			{
+				Visible = false;
+			}
 
 			base.Update(gameTime);
 		}
