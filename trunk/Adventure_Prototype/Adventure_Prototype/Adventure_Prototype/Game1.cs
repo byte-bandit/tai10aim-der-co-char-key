@@ -82,7 +82,6 @@ namespace Adventure_Prototype
 			MAIN_MENU_CONNECT,
 			GAME,
 			GAME_MENU,
-			GAME_INVENTORY
 		}
 
 

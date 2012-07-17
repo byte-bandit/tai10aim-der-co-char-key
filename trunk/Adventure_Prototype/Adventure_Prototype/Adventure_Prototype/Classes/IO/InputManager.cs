@@ -15,6 +15,7 @@ namespace Classes.IO
 	class InputManager
 	{
 
+		
 
 		public static void Update(int gameMode)
 		{
@@ -23,7 +24,35 @@ namespace Classes.IO
 				return;
 			}
 
+			
+			
+			if ( GameRef.Game.gameMode == Adventure_Prototype.Game1.GameMode.GAME)
+			{
+				if (KeyboardEx.isKeyHit(Keys.Tab))
+				{
 
+					if (GameRef.Inventory)
+					{
+						GameRef.Inventory = false;
+						System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+						stopwatch.Start();
+						while (stopwatch.ElapsedMilliseconds < (long)200)
+						{
+						}
+					}
+					else
+					{
+						GameRef.Inventory = true;
+						System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+						stopwatch.Start();
+						while (stopwatch.ElapsedMilliseconds < (long)200)
+						{
+						}
+					}
+				}
+			}
+
+			
 			//Handling Mouse Scrolls
 			if (MouseEx.scrollDown())
 			{

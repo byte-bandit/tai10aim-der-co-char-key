@@ -14,14 +14,6 @@ namespace Classes.UI
 {
 	class Button : DrawableGameComponent
 	{
-		// Delegate definition of an event.
-		public delegate void FiredEvent(object sender);
-
-		// Instances of delegate event.
-		public FiredEvent OnMouseOver;
-		public FiredEvent OnMouseOut;
-		public FiredEvent OnMouseClick;
-
 		private Vector2 position;
 		private Texture2D gfx;
 		private Texture2D gfxDown;

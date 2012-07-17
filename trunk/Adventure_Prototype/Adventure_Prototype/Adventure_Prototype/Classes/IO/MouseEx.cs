@@ -24,16 +24,24 @@ namespace Classes.IO
 		/// <returns></returns>
         private static bool isInGameWindow()
         {
-            if ((int)Mouse.GetState().X < 0 || (int)Mouse.GetState().X > 1280)
-            {
-                return false;
-            }
-            if ((int)Mouse.GetState().Y < 0 || (int)Mouse.GetState().Y > 720)
-            {
-                return false;
-            }
+			if (GameRef.Game.IsActive)
+			{
+				if ((int)Mouse.GetState().X < 0 || (int)Mouse.GetState().X > 1280)
+				{
+					return false;
+				}
+				if ((int)Mouse.GetState().Y < 0 || (int)Mouse.GetState().Y > 720)
+				{
+					return false;
+				}
 
-            return true;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
         }
 
 

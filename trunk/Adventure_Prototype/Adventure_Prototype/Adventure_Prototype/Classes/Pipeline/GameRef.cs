@@ -39,6 +39,7 @@ namespace Classes.Pipeline
 	{
 		private static Game1 game;
 		private static Boolean editor;
+		private static Boolean inventory;
 		private static Vector2 resolution;
 		private static Vector2 animationFrames;
 		private static Player player1;
@@ -114,6 +115,12 @@ namespace Classes.Pipeline
 		{
 			get { return editor; }
 			set { editor = value; }
+		}
+
+		public static Boolean Inventory
+		{
+			get { return inventory; }
+			set { inventory = value; }
 		}
 	}
 }
