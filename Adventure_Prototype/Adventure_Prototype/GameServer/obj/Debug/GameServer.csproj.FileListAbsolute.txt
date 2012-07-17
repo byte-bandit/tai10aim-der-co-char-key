@@ -21,7 +21,6 @@ D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Cont
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\gb_sheet.xnb
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\room01_door.xnb
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\back001.xnb
-D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\music\title.xnb
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\ui\click.xnb
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\ui_font.xnb
 D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\big.xnb

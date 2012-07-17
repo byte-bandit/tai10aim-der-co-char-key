@@ -9,7 +9,7 @@ using System.Text;
 using Classes.Pipeline;
 using Classes.Graphics;
 using Classes.IO;
-using Classes.Actions;
+using Classes.Action;
 
 
 namespace Classes.Inventory
@@ -55,7 +55,6 @@ namespace Classes.Inventory
 			{
 				if(MouseEx.inBoundaries(t.Tooltip.Bounds))
 				{
-					Actions.Action.Wait((long)0.2);
 					//to be completed...
 				}
 			}
@@ -64,6 +63,14 @@ namespace Classes.Inventory
 
 		public Inventory(): base(GameRef.Game)
 		{}
+
+
+		public override void Update(GameTime gameTime)
+		{
+
+
+			base.Update(gameTime);
+		}
 	}
 
 	

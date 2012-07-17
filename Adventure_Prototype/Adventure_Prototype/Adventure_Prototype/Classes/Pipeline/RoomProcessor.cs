@@ -290,10 +290,6 @@ namespace Classes.Pipeline
 						{
 							tmp.Trigger2 = trigger2;
 						}
-						if (tmp.Trigger != String.Empty && trigger2 == String.Empty)
-						{
-							break;
-						}
 					}
 					foreach (WorldObject p in ret.getWorldObjects())
 					{
@@ -303,12 +299,9 @@ namespace Classes.Pipeline
 						}
 						if (p.Name == trigger2)
 						{
-							tmp.Trigger2 = trigger2;
+							tmp.Trigger2 = p;
 						}
-						if (tmp.Trigger != String.Empty && trigger2 == String.Empty)
-						{
-							break;
-						}
+
 					}
 
 					{

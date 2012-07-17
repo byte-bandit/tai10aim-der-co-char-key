@@ -68,7 +68,7 @@ namespace Adventure_Prototype
 		Texture2D p2Sprite;
 
 
-		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST ; // Set to not logged in for initial start screen
+		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST; // Set to not logged in for initial start screen
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
 		public float musicVolume = 1.0f;	//Use this to mute music for testing purposes
 
@@ -190,7 +190,7 @@ namespace Adventure_Prototype
 			// Assign it to the Graphics Manager
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			GraphicsManager.spriteBatch = spriteBatch;
-			SoundManager.LoadContent();
+			//SoundManager.LoadContent();
 			
 			
 
@@ -246,7 +246,7 @@ namespace Adventure_Prototype
 			// Allows the game to exit
 			if (KeyboardEx.isKeyHit(Keys.Escape))
 				this.Exit();
-
+			
 
 			//Update our Managers
 			UpdateManager.Update(gameTime);

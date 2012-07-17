@@ -13,19 +13,19 @@ namespace Classes.Inventory
 {
 	public class Item :DrawableGameComponent
 	{
+		public delegate void FiredEvent(object sender);
+
+		// Instances of delegate event.
+		public FiredEvent OnMouseOver;
+		public FiredEvent OnMouseOut;
+		public FiredEvent OnMouseClick;
+
 		private Vector2 position;
 		private Texture2D image;
 		private String id;
 		private Texture2D tooltip;
-		private bool visible;
 
 		#region Properties
-		public bool Visible
-		{
-			get { return visible; }
-			set { this.visible = value; }
-		}
-
 		public Vector2 Position
 		{
 			get { return position; }
@@ -63,7 +63,7 @@ namespace Classes.Inventory
 			this.position = new Vector2(X, Y);
 			this.image = Image;
 			this.id = ID;
-			this.visible = true;
+			this.Visible = true;
 		}
 
 		public bool GetCollision(int X, int Y)
@@ -77,7 +77,7 @@ namespace Classes.Inventory
 
 		public override void Draw(GameTime gameTime)
 		{
-			if (this.visible)
+			if (this.Visible)
 			{
 				GraphicsManager.spriteBatch.Draw(this.image, this.Position, Color.White);
 				base.Draw(gameTime);

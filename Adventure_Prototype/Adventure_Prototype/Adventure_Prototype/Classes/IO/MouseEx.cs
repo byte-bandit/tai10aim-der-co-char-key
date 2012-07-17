@@ -199,12 +199,12 @@ namespace Classes.IO
 		/// <returns></returns>
 		public static bool inBoundaries(Rectangle Boundaries)
 		{
+			Rectangle mouseRec = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
             if (!isInGameWindow())
             {
                 return false;
             }
-			if (Mouse.GetState().X >= Boundaries.X && Mouse.GetState().X <= Boundaries.X + Boundaries.Width && Mouse.GetState().Y >= Boundaries.Y &&
-				Mouse.GetState().Y <= Boundaries.Y + Boundaries.Height)
+			if (Boundaries.Intersects(mouseRec))
 			{
 				return true;
 			}

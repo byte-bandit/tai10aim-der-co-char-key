@@ -62,18 +62,14 @@ namespace Classes
 
 		public override void Initialize()
 		{
-			SoundManager.playBackgroundMusic("Audio/music/title", true);
+			//SoundManager.playBackgroundMusic("Audio/music/title", true);
 			this.LoadContent();
 			this.state = MenuStates.MAIN;
+
+
+			
 			//base.Initialize();
 		}
-
-
-
-
-
-
-
 
 		public override void Update(GameTime gameTime)
 		{
