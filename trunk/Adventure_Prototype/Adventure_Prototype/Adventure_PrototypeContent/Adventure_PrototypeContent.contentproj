@@ -104,11 +104,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Audio\music\title.wav">
-      <Name>title</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Audio\ui\click.WAV">
       <Name>click</Name>
       <Importer>WavImporter</Importer>
@@ -194,6 +189,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Audio\music\" />
     <Folder Include="Data\Rooms\" />
   </ItemGroup>
   <ItemGroup>

@@ -236,15 +236,6 @@
       <Time>2012-07-05T15:31:38.2109128+02:00</Time>
     </Item>
     <Item>
-      <Source>Audio\music\title.wav</Source>
-      <Name>Audio\music\title</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-      <Options>None</Options>
-      <Output>D:\adventureprototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\music\title.xnb</Output>
-      <Time>2012-07-05T15:33:52.2552141+02:00</Time>
-    </Item>
-    <Item>
       <Source>Audio\ui\click.WAV</Source>
       <Name>Audio\ui\click</Name>
       <Importer>WavImporter</Importer>

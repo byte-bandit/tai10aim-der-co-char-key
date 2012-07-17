@@ -18,6 +18,7 @@ namespace Classes
 		/// <param name="Item">The Item you want to add.</param>
 		public static void addItem(GameComponent  Item)
 		{
+		
 			updateList.Add(Item);
 		}
 

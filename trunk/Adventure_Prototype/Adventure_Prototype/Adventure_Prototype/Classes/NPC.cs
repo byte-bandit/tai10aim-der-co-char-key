@@ -41,17 +41,6 @@ namespace Classes
 		}
 
 
-
-		/// <summary>
-		/// Gets or sets the name of the NPC
-		/// </summary>
-		public String name
-		{
-			get { return this._name; }
-			set { this._name = value; }
-		}
-
-
 		/// <summary>
 		/// Gets or sets the ID of the NPC
 		/// </summary>

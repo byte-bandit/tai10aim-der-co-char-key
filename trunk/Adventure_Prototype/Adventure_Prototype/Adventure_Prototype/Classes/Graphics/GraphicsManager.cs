@@ -15,6 +15,7 @@ namespace Classes.Graphics
 		public static SpriteFont font02;
 		public static SpriteFont font03;
 		public static Texture2D dummyTexture;
+		
 
 		private static GraphicsDevice gd;
 

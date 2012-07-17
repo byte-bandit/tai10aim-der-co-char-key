@@ -20,7 +20,6 @@ Content\Graphics\UI\sad.xnb
 Content\Graphics\Charsets\gb_sheet.xnb
 Content\Graphics\Sprites\room01_door.xnb
 Content\Graphics\Backgrounds\back001.xnb
-Content\Audio\music\title.xnb
 Content\Audio\ui\click.xnb
 Content\ui_font.xnb
 Content\big.xnb

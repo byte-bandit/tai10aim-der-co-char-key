@@ -14,6 +14,13 @@ namespace Classes.UI
 {
 	class Button : DrawableGameComponent
 	{
+		// Delegate definition of an event.
+		public delegate void FiredEvent(object sender);
+
+		// Instances of delegate event.
+		public FiredEvent OnMouseOver;
+		public FiredEvent OnMouseOut;
+		public FiredEvent OnMouseClick;
 
 		private Vector2 position;
 		private Texture2D gfx;
@@ -23,6 +30,7 @@ namespace Classes.UI
 		private int btnState = 0; //0=normal, 1=mouseOver, 2=mouseClick
 		private String id;
 		private bool disabled = false;
+
 
 
 
@@ -105,7 +113,7 @@ namespace Classes.UI
 
 		public override void Update(GameTime gameTime)
 		{
-
+			
 			btnState = 0;
 
 			if (this.disabled)

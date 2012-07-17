@@ -207,6 +207,7 @@ namespace Classes
 			{
 				if (MouseEx.clickInRectangle(w.getDrawingRect()))
 				{
+					
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
