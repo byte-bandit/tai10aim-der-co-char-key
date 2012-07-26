@@ -34,6 +34,7 @@ namespace Classes.IO
 					if (GameRef.Inventory)
 					{
 						GameRef.Inventory = false;
+						Inventory.Inventory.Visible = false;
 						System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 						stopwatch.Start();
 						while (stopwatch.ElapsedMilliseconds < (long)200)
@@ -43,6 +44,7 @@ namespace Classes.IO
 					else
 					{
 						GameRef.Inventory = true;
+						Inventory.Inventory.Visible = true;
 						System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 						stopwatch.Start();
 						while (stopwatch.ElapsedMilliseconds < (long)200)

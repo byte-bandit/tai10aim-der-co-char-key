@@ -15,18 +15,18 @@ using Classes.Action;
 namespace Classes.Inventory
 {
 	   
-	class Inventory : DrawableGameComponent
+	public static class Inventory : DrawableGameComponent
 	{
-		static private Texture2D Image;
-		static private List<Item> items = new List<Item>();
-		static public List<Item> Items
+		private static Texture2D Image;
+		private static List<Item> items = new List<Item>();
+		public static List<Item> Items
 		{
 			get
 			{
 				return items;
 			}
 		}
-		static public bool Visible
+		public static bool Visible
 		{
 			get { return Visible; }
 			set
@@ -56,6 +56,20 @@ namespace Classes.Inventory
 		}
 
 
+		public override void Update(GameTime gameTime)
+		{
+			if (GameRef.Inventory)
+			{
+				Visible = true;
+			}
+			else
+			{
+				Visible = false;
+			}
+			base.Update(gameTime);
+		}
+
+
 		public override void Draw(GameTime gameTime)
 		{
 			GraphicsManager.spriteBatch.Begin();
@@ -80,19 +94,7 @@ namespace Classes.Inventory
 		{}
 
 
-		public override void Update(GameTime gameTime)
-		{
-			if (GameRef.Inventory)
-			{
-				Visible = true;
-			}
-			else
-			{
-				Visible = false;
-			}
 
-			base.Update(gameTime);
-		}
 	}
 
 	
