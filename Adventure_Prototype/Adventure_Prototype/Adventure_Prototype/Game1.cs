@@ -35,6 +35,7 @@ using Classes.IO;
 using Classes.Dev;
 using Classes.Pipeline;
 using Classes.Net;
+using Classes.Inventory;
 
 
 
@@ -71,6 +72,7 @@ namespace Adventure_Prototype
 		public GameMode gameMode = GameMode.MAIN_MENU_CONNECT_OR_HOST; // Set to not logged in for initial start screen
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
 		public float musicVolume = 1.0f;	//Use this to mute music for testing purposes
+		
 
 
 
@@ -159,12 +161,14 @@ namespace Adventure_Prototype
 			GameRef.Resolution = new Vector2(1280, 720);
 			GameRef.AnimationFrames = new Vector2(6, 3);
 			
+			
 
 			//Generic Initializing Procedure
 			RoomProcessor.Initialize(this);		//Builds our room from source files [.bmap]
 			KeyboardEx.Initialize();			//A more powerful keyboard class
 			DialogueManager.Initialize();		//Get all Dialogues
 			NetworkManager.Initialize();
+			Components.Add(Inventory);
 			
 			//Load up all our fonts
 			GraphicsManager.initializeFonts(Content.Load<SpriteFont>("ui_font"), Content.Load<SpriteFont>("big"), Content.Load<SpriteFont>("menu_font"), GraphicsDevice);
@@ -227,6 +231,7 @@ namespace Adventure_Prototype
 		/// </summary>
 		protected override void UnloadContent()
 		{
+			
 			// TODO: Unload any non ContentManager content here
 		}
 
@@ -249,7 +254,15 @@ namespace Adventure_Prototype
 
 			//Update our Managers
 			UpdateManager.Update(gameTime);
-			if (this.gameMode == GameMode.GAME) { InputManager.Update(1); } else { InputManager.Update(0); }
+			if (this.gameMode == GameMode.GAME) 
+			{ 
+				InputManager.Update(1); 
+			
+			} 
+			else 
+			{ 
+				InputManager.Update(0); 
+			}
 			
 			DialogueManager.Update();
 

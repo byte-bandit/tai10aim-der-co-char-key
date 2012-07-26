@@ -265,9 +265,14 @@ namespace Classes.Pipeline
 				if (line.Trim().StartsWith("BEGINEVENT"))
 				{
 					n++;
+					
 					//Get Id of the event
 					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
 					Actions tmp = new Actions(id);
+
+					n++;
+					//Get Level of the Event
+					int level =  Int32.Parse(data[n].Substring(data[n].IndexOf("Level:") + 6));
 
 					//Get trigger
 					n++;
@@ -317,8 +322,12 @@ namespace Classes.Pipeline
 
 						}	
 					}
-
-					ret.Events.Add(tmp);
+					
+					if(ret.Events.Count < level)
+					{
+						ret.Events.Capacity = level + 1;
+					}
+					ret.Events[level].Add(tmp);
 					continue;
 
 				}
