@@ -168,6 +168,7 @@ namespace Adventure_Prototype
 			KeyboardEx.Initialize();			//A more powerful keyboard class
 			DialogueManager.Initialize();		//Get all Dialogues
 			NetworkManager.Initialize();
+			Inventory Inventory = new Inventory();
 			Components.Add(Inventory);
 			
 			//Load up all our fonts

@@ -195,9 +195,61 @@ namespace Classes
 			base.Update(gameTime);
 		}
 
+		/// <summary>
+		/// Checks whether an object is declared as an triggerobject of the current List of Actions
+		/// </summary>
+		/// <param name="w"></param>
+		/// <param name="typ"></param>
+		private void CheckForEvents(Object w, Cursor.CursorAction typ)
+		{
+			List<Actions> eventlist = this.Events.First<List<Actions>>();
+			foreach (Actions a in eventlist)
+			{
+				if ((a.Trigger == w) && (a.Typ == typ))
+				{
+					TriggerEvent(a.Effects);
+					eventlist.Remove(a);
+				}
+			}
+		}
+		/// <summary>
+		/// Triggers an Event and therefor all effects
+		/// </summary>
+		/// <param name="effects"></param>
+		private void TriggerEvent(List<string> effects)
+		{
+			foreach (string t in effects)
+			{
+				t.Trim();
+				switch (t.Substring(0, t.IndexOf(" ")))
+				{
 
+					case "AddNPC":
+						{
+							break;
+						}
+					case "RemoveNPC":
+						{
 
-
+							break;
+						}
+						// to be continued...
+					default:
+						{
+							break;
+						}
+				}
+			}
+		}
+		/// <summary>
+		/// Is called, when Inventory focus is not null and Cursor is set at Use. 
+		/// Checks if the two Objects are combinable.
+		/// </summary>
+		/// <param name="w"></param>
+		private void CheckForCombination(object w)
+		{
+			// to be continued...
+		}
 
 
 		private void MouseClickStuff()
@@ -207,20 +259,31 @@ namespace Classes
 			{
 				if (MouseEx.clickInRectangle(w.getDrawingRect()))
 				{
-					
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
+							CheckForEvents(w, Cursor.CursorAction.look);
 							Dialogues.DialogueManager.PlayerSay(w.OnLook);
+							
 							break;
 
 						case Cursor.CursorAction.talk:
+							CheckForEvents(w, Cursor.CursorAction.talk);
 							Dialogues.DialogueManager.PlayerSay(w.OnTalk);
 							break;
 
 						case Cursor.CursorAction.use:
+							if (Inventory.Inventory.Focus != null)
+							{
+								CheckForCombination(w);
+							}
+							else
+							{
+								CheckForEvents(w, Cursor.CursorAction.use);
+							}
 							Dialogues.DialogueManager.PlayerSay(w.OnUse);
 							break;
+							
 					}
 					return;
 				}

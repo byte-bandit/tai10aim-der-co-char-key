@@ -15,8 +15,6 @@ namespace Classes.IO
 	class InputManager
 	{
 
-		
-
 		public static void Update(int gameMode)
 		{
 			if (gameMode == 0)
