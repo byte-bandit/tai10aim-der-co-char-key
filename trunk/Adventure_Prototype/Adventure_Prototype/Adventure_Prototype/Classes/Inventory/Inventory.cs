@@ -15,10 +15,12 @@ using Classes.Action;
 namespace Classes.Inventory
 {
 	   
-	public static class Inventory : DrawableGameComponent
+	public class Inventory : DrawableGameComponent
 	{
 		private static Texture2D Image;
+		private static Item focus = new Item(0, 0, null, "focus");
 		private static List<Item> items = new List<Item>();
+		#region Properties
 		public static List<Item> Items
 		{
 			get
@@ -38,6 +40,13 @@ namespace Classes.Inventory
 				Visible = value;
 			}
 		}
+
+		public static Item Focus
+		{
+			get { return focus; }
+			set { focus = value; }
+		}
+		#endregion
 
 
 		public static void AddItem(Item item)

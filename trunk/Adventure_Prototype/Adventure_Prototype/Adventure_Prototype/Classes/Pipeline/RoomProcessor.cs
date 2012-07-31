@@ -269,6 +269,24 @@ namespace Classes.Pipeline
 					//Get Id of the event
 					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
 					Actions tmp = new Actions(id);
+					id.ToLower();
+					if (id.Contains("use"))
+					{
+						tmp.Typ = IO.Cursor.CursorAction.use;
+					}
+					if (id.Contains("look"))
+					{
+						tmp.Typ = IO.Cursor.CursorAction.look;
+					}
+					if (id.Contains("talk"))
+					{
+						tmp.Typ = IO.Cursor.CursorAction.talk;
+					}
+					if (id.Contains("walk"))
+					{
+						tmp.Typ = IO.Cursor.CursorAction.walk;
+					}
+					
 
 					n++;
 					//Get Level of the Event
