@@ -33,11 +33,11 @@ namespace Classes.Inventory
 			get { return Visible; }
 			set
 			{
-				foreach (Item p in items)
+				/*foreach (Item p in items)
 				{
 					p.Visible = value;
 				}
-				Visible = value;
+				Visible = value;*/
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace Classes.Inventory
 		public override void Draw(GameTime gameTime)
 		{
 			GraphicsManager.spriteBatch.Begin();
-			GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
+			//GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
 			foreach (Item t in items)
 			{
 				t.Draw(gameTime); 
