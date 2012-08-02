@@ -268,7 +268,7 @@ namespace Classes.Pipeline
 					
 					//Get Id of the event
 					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
-					Actions tmp = new Actions(id);
+					Actions tmp = new Actions();
 					id.ToLower();
 					if (id.Contains("use"))
 					{

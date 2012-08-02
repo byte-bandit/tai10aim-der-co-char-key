@@ -34,7 +34,12 @@ namespace Classes
 		private String infoText;
 		private List<List<Actions>> events;
 
-
+		/// <summary>
+		/// Constructor for Room
+		/// </summary>
+		/// <param name="game"></param>
+		/// <param name="id"></param>
+		/// <param name="backgroundTexture"></param>
 		public Room(Game game, String id, String backgroundTexture)
 			: base(game)
 		{
@@ -80,6 +85,21 @@ namespace Classes
 		#endregion
 
 		/// <summary>
+		/// Helper Method
+		/// Generates a Pause between actions
+		/// </summary>
+		/// <param name="_time">the time to wait</param>
+		public static void Wait(int _duration)
+		{
+			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			stopwatch.Start();
+			while (stopwatch.ElapsedMilliseconds < (long)1000 * _duration)
+			{
+			}
+			stopwatch.Stop();
+		}
+
+		/// <summary>
 		/// Adds a World Object to the room
 		/// </summary>
 		/// <param name="wObject">The World Object to add to the Room</param>
@@ -88,7 +108,10 @@ namespace Classes
 			this.objects.Add(wObject);
 		}
 
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public Vector4 getScalingParams()
 		{
 			if (this.ScaleCharacters == false)
@@ -175,7 +198,9 @@ namespace Classes
 			return this.npcs;
 		}
 
-
+		/// <summary>
+		/// Loads the necessary content for the room 
+		/// </summary>
 		protected override void LoadContent()
 		{
 			this.background = game.Content.Load<Texture2D>(backgroundTString);
@@ -209,38 +234,108 @@ namespace Classes
 				{
 					TriggerEvent(a.Effects);
 					eventlist.Remove(a);
+					
 				}
 			}
 		}
+
+		/// <summary>
+		/// Helper Method to find an NPC by his name
+		/// </summary>
+		/// <param name="name">name of the NPC</param>
+		/// <returns></returns>
+		private NPC FindNPCbyName(string name)
+		{
+			foreach (NPC npc in this.npcs)
+			{
+				if (npc.Name.ToLower().Equals(name.ToLower()))
+				{
+					return npc;
+				}
+			}
+
+			return null;
+		}
+
 		/// <summary>
 		/// Triggers an Event and therefor all effects
 		/// </summary>
 		/// <param name="effects"></param>
 		private void TriggerEvent(List<string> effects)
 		{
+			string help = String.Empty;
 			foreach (string t in effects)
 			{
 				t.Trim();
 				switch (t.Substring(0, t.IndexOf(" ")))
 				{
-
 					case "AddNPC":
+						{
+							effects.Remove(t);
+							break;
+						}
+
+					case "ChangeTalk":
 						{
 							break;
 						}
+
+					case "ChangeTUse":
+						{
+							break;
+						}
+					case "ChangeWalk":
+						{
+							break;
+						}
+					case "ChangeTake":
+						{
+							break;
+						}
+
+					case "NPCWalk":
+						{
+							help = t.Substring(t.IndexOf(" ") + 1);
+							string position = help.Substring(help.IndexOf(" ") + 1);
+							Vector2 target = new Vector2(Int32.Parse(position.Substring(0, position.IndexOf(";")+1)), Int32.Parse(position.Substring(position.IndexOf(";")+1)));
+							if (FindNPCbyName(help.Substring(0, help.IndexOf(" "))) != null)
+							{
+								FindNPCbyName(help.Substring(0, help.IndexOf(" "))).setWalkingTarget(target);
+							}
+
+							break;
+						}
+
 					case "RemoveNPC":
 						{
+							help = t.Substring(t.IndexOf(" ")+1);
+							if (FindNPCbyName(help) != null)
+							{
+								this.removeNPC(FindNPCbyName(help));
+							}
+							effects.Remove(t);
+							break;
+						}
 
+					case "Wait":
+						{
+							help = t.Substring(0, t.IndexOf(" ")+1);
+							help.Replace(" ", "");
+							Wait(int.Parse(help));
+							effects.Remove(t);
 							break;
 						}
 						// to be continued...
 					default:
 						{
+							// to clean up the mess
+							effects.Remove(t);
 							break;
 						}
 				}
 			}
 		}
+
 		/// <summary>
 		/// Is called, when Inventory focus is not null and Cursor is set at Use. 
 		/// Checks if the two Objects are combinable.
@@ -251,7 +346,9 @@ namespace Classes
 			// to be continued...
 		}
 
-
+		/// <summary>
+		/// Checks all World Objects, POI´s and NPC if the mouse has been clicked on them
+		/// </summary>
 		private void MouseClickStuff()
 		{
 			//Mouse Click World Object?
@@ -288,10 +385,6 @@ namespace Classes
 					return;
 				}
 			}
-
-
-
-
 
 			//Mouse Click POI?
 			foreach (POI w in this.pois)
@@ -347,10 +440,9 @@ namespace Classes
 			}
 		}
 
-
-
-
-
+		/// <summary>
+		/// Checks if the mouse hovers over any WOrld Object, POI or NPC and displays accordingly an infotext
+		/// </summary>
 		private void MouseOverStuff()
 		{
 
@@ -393,7 +485,10 @@ namespace Classes
 
 
 
-
+		/// <summary>
+		/// helper method for drawing an infotext at the mouseposition
+		/// </summary>
+		/// <param name="text">text to be displayed</param>
 		private void displayInfoText(String text)
 		{
 			Graphics.GraphicsManager.drawText(text, Vector2.Add(MouseEx.Position(), new Vector2(-10, -30)), Graphics.GraphicsManager.font02, Color.Yellow, true);
