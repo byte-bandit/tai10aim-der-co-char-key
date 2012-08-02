@@ -20,7 +20,7 @@ namespace Classes.Graphics
 		private String sName;
 		private String sOnLook;
 		private String sOnUse;
-		private string sOnTalk;
+		private String sOnTalk;
 
 
 

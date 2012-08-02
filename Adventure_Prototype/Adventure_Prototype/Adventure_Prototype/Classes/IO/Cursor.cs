@@ -11,7 +11,7 @@ using Classes.Graphics;
 
 namespace Classes.IO
 {
-	static class Cursor
+	public static class Cursor
 	{
 
 		private static Texture2D c_walk;

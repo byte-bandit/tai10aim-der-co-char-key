@@ -13,7 +13,6 @@ namespace Classes
 	 public class NPC : Character
 	{
 		private String _ID;
-		private String _name;
 
 
 		/// <summary>
