@@ -109,7 +109,7 @@ namespace Classes
 		}
 
 		/// <summary>
-		/// 
+		///		
 		/// </summary>
 		/// <returns></returns>
 		public Vector4 getScalingParams()
@@ -234,7 +234,8 @@ namespace Classes
 				{
 					TriggerEvent(a.Effects);
 					eventlist.Remove(a);
-					
+					// MAybe potential problem
+					break;
 				}
 			}
 		}
@@ -264,6 +265,7 @@ namespace Classes
 		private void TriggerEvent(List<string> effects)
 		{
 			string help = String.Empty;
+			List<string> copy = new List<string>();
 			foreach (string t in effects)
 			{
 				t.Trim();
@@ -271,7 +273,7 @@ namespace Classes
 				{
 					case "AddNPC":
 						{
-							effects.Remove(t);
+							copy.Add(t);
 							break;
 						}
 
@@ -280,7 +282,7 @@ namespace Classes
 							break;
 						}
 
-					case "ChangeTUse":
+					case "ChangeUse":
 						{
 							break;
 						}
@@ -302,6 +304,7 @@ namespace Classes
 							{
 								FindNPCbyName(help.Substring(0, help.IndexOf(" "))).setWalkingTarget(target);
 							}
+							copy.Add(t);
 
 							break;
 						}
@@ -313,7 +316,7 @@ namespace Classes
 							{
 								this.removeNPC(FindNPCbyName(help));
 							}
-							effects.Remove(t);
+							copy.Add(t);
 							break;
 						}
 
@@ -322,16 +325,27 @@ namespace Classes
 							help = t.Substring(0, t.IndexOf(" ")+1);
 							help.Replace(" ", "");
 							Wait(int.Parse(help));
-							effects.Remove(t);
+							copy.Add(t);
 							break;
 						}
 						// to be continued...
 					default:
 						{
 							// to clean up the mess
-							effects.Remove(t);
+							copy.Add(t);
 							break;
 						}
+				}
+			}
+			foreach (string l in copy)
+			{
+				foreach (string t in effects)
+				{
+					if (l.Equals(t))
+					{
+						effects.Remove(t);
+						break;
+					}
 				}
 			}
 		}
