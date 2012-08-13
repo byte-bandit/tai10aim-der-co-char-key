@@ -17,41 +17,35 @@ namespace Classes.Inventory
 	   
 	public class Inventory : DrawableGameComponent
 	{
-		private static Texture2D Image;
-		private static Item focus = new Item(0, 0, null, "focus");
-		private static List<Item> items = new List<Item>();
+		private Texture2D Image;
+		private Item focus = new Item(0, 0, null, "focus");
+		private List<Item> items = new List<Item>();
+		private bool status;
+
 		#region Properties
-		public static List<Item> Items
+		public List<Item> Items
 		{
 			get
 			{
 				return items;
 			}
 		}
-		public static bool Visible
+		public bool Status
 		{
-			get { return Visible; }
-			set
-			{
-				/*foreach (Item p in items)
-				{
-					p.Visible = value;
-				}
-				Visible = value;*/
-			}
+			get { return this.status;	}
+			set	{this.status = value;	}
 		}
 
-		public static Item Focus
+		public Item Focus
 		{
 			get { return focus; }
 			set { focus = value; }
 		}
 		#endregion
 
-
-		public static void AddItem(Item item)
+		public  void AddItem(Item item)
 		{
-			if (Inventory.Visible)
+			if (this.Status)
 			{ item.Visible = true; }
 			else
 			{ item.Visible = false; }
@@ -59,7 +53,7 @@ namespace Classes.Inventory
 			items.Add(item);
 		}
 
-		public static bool RemoveItem(Item item)
+		public bool RemoveItem(Item item)
 		{
 			return items.Remove(item);
 		}
@@ -67,43 +61,56 @@ namespace Classes.Inventory
 
 		public override void Update(GameTime gameTime)
 		{
-			if (GameRef.Inventory)
+			if (GameRef.Inventory.Status)
 			{
-				Visible = true;
+				Status = true;
 			}
 			else
 			{
-				Visible = false;
+				Status = false;
 			}
 			base.Update(gameTime);
 		}
 
 
+
+
 		public override void Draw(GameTime gameTime)
 		{
+			if (this.status)
+			{
 			GraphicsManager.spriteBatch.Begin();
-			//GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
-			foreach (Item t in items)
-			{
-				t.Draw(gameTime); 
-
-			}
-			foreach (Item t in items)
-			{
-				if (MouseEx.inBoundaries(t.Image.Bounds))
+			
+				GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
+				foreach (Item t in items)
 				{
-					GraphicsManager.spriteBatch.Draw(t.Tooltip, MouseEx.Position(), Color.White);
+					t.Draw(gameTime);
+					if (MouseEx.inBoundaries(t.Image.Bounds))
+					{
+						GraphicsManager.spriteBatch.Draw(t.Tooltip, MouseEx.Position(), Color.White);
+					}
 				}
-			}
+			
 			GraphicsManager.spriteBatch.End();
+			}
 			base.Draw(gameTime);
 		}
 
 		public Inventory(): base(GameRef.Game)
-		{}
+		{
+			this.status = false;
+		}
 
 
 
+
+
+		protected override void LoadContent()
+		{
+			Image = GameRef.Game.Content.Load<Texture2D>("Graphics/Backgrounds/funn");
+
+			base.LoadContent();
+		}
 	}
 
 	

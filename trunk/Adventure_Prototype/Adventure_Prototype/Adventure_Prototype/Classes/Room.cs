@@ -13,6 +13,7 @@ using Classes.Graphics;
 using Classes.IO;
 
 using Classes.Pathfinding;
+using Classes.Pipeline;
 using Classes.Action;
 namespace Classes
 {
@@ -384,7 +385,7 @@ namespace Classes
 							break;
 
 						case Cursor.CursorAction.use:
-							if (Inventory.Inventory.Focus != null)
+							if (GameRef.Inventory.Focus != null)
 							{
 								CheckForCombination(w);
 							}
