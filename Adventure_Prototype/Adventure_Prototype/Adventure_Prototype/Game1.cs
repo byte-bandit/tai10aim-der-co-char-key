@@ -157,6 +157,7 @@ namespace Adventure_Prototype
 
 			//Setup our Game Reference for use with Instances
 			GameRef.Game = this;
+			GameRef.Inventory = new Inventory();
 			GameRef._EDITOR = this._EDITOR;
 			GameRef.Resolution = new Vector2(1280, 720);
 			GameRef.AnimationFrames = new Vector2(6, 3);
@@ -168,8 +169,7 @@ namespace Adventure_Prototype
 			KeyboardEx.Initialize();			//A more powerful keyboard class
 			DialogueManager.Initialize();		//Get all Dialogues
 			NetworkManager.Initialize();
-			Inventory Inventory = new Inventory();
-			Components.Add(Inventory);
+			Components.Add(GameRef.Inventory);
 			
 			//Load up all our fonts
 			GraphicsManager.initializeFonts(Content.Load<SpriteFont>("ui_font"), Content.Load<SpriteFont>("big"), Content.Load<SpriteFont>("menu_font"), GraphicsDevice);
