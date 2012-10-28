@@ -293,6 +293,7 @@ namespace Adventure_Prototype
 			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME)
 			{
 				NetworkManager.Profile.Puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
+				NetworkManager.setPlayerWaypoint(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
 			}
 
 
