@@ -16,6 +16,7 @@ namespace ServerSoftware
 		private NetConnection connection;
 		private float x;
 		private float y;
+		private byte anim_byte;
 
 
 
@@ -78,6 +79,15 @@ namespace ServerSoftware
 		}
 
 
+
+		/// <summary>
+		/// Gets or sets the animation cycle byte
+		/// </summary>
+		public byte Animation_Cycle
+		{
+			get { return this.anim_byte; }
+			set { this.anim_byte = value; }
+		}
 
 
 

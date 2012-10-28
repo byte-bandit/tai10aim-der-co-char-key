@@ -359,6 +359,15 @@ namespace Adventure_Prototype
 				DialogueManager.draw(GraphicsManager.font02, gameTime );
 			}
 
+			//Draw some debug info
+			if (gameMode == GameMode.GAME)
+			{
+				GraphicsManager.drawText("Puppet: " + NetworkManager.Profile.Puppet.Name, new Vector2(20, 20), GraphicsManager.font02, Color.White, true);
+				GraphicsManager.drawText("X: " + NetworkManager.Profile.Puppet.Position.X.ToString() + ", Y: " + NetworkManager.Profile.Puppet.Position.Y.ToString(), new Vector2(20, 40), GraphicsManager.font02, Color.White, true);
+				GraphicsManager.drawText("Name: " + NetworkManager.Profile.Name, new Vector2(20, 60), GraphicsManager.font02, Color.White, true);
+				//GraphicsManager.drawText("Token: " + NetworkManager.Profile.Token, new Vector2(20, 74), GraphicsManager.font02, Color.White, true);
+			}
+
 			//Draw Cursor at last
 			if(!_EDITOR && this.IsActive && MouseEx.inBoundaries(new Rectangle(0,0,1280,720)))
 				Cursor.Draw();
