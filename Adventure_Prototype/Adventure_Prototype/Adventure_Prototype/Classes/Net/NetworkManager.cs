@@ -33,8 +33,9 @@ public enum PacketTypes
 
 namespace Classes.Net
 {
-	class NetworkManager
+	public class NetworkManager
 	{
+
 		/*
 		 * Client, and config files
 		 */
@@ -164,7 +165,8 @@ namespace Classes.Net
 		public static void createSession()
 		{
             ProcessStartInfo start = new ProcessStartInfo();
-            start.FileName = "GameServer.exe";
+            start.FileName = "ServerSoftware.exe";
+			start.Arguments = "-autostart";
             start.WindowStyle = System.Diagnostics.ProcessWindowStyle.Normal ;
             hostProcess = Process.Start(start);
 
@@ -197,7 +199,7 @@ namespace Classes.Net
 			try
 			{
 				NetOutgoingMessage outmsg = client.CreateMessage();
-				outmsg.Write((byte)PacketTypes.LOGIN);
+				//outmsg.Write((byte)PacketTypes.LOGIN);
 				outmsg.Write(profile.Name);
 				con = client.Connect(ip, 14242, outmsg);
 				return true;
@@ -217,6 +219,8 @@ namespace Classes.Net
 			try
 			{
 				client.Disconnect("Bye");
+				Debug.Print("Sending Bye Message...");
+				Debug.Print("Con Status = " + con.Status.ToString());
 			}
 			catch (Exception ex)
 			{
@@ -279,6 +283,7 @@ namespace Classes.Net
 			NetIncomingMessage inc;
 			while ((inc = client.ReadMessage()) != null)
 			{
+				Debug.Print("Incomming " + inc.MessageType.ToString());
 				switch (inc.MessageType)
 				{
 					//Ping Response
@@ -309,17 +314,43 @@ namespace Classes.Net
 						break;
 
 
+					case NetIncomingMessageType.StatusChanged:
+						try
+						{
+							byte new_state_byte = inc.ReadByte();
+							NetConnectionStatus new_state = (NetConnectionStatus)new_state_byte;
+							Debug.Print("Status Change: " + new_state.ToString());
+
+							if (new_state == NetConnectionStatus.Disconnected)
+							{
+								leaveSession();
+								GameRef.GetMenu.state = Menu.MenuStates.MAIN;
+							}
+						}
+						catch (Exception ex)
+						{
+							System.Diagnostics.Debug.Print(ex.ToString());
+						}
+
+						break;
+
+
+
 
 					//DATA TYPES
 					case NetIncomingMessageType.Data :
 						byte packetidentifier = inc.ReadByte();
+
+						Debug.Print("PacketIdentifier is " + ((PacketTypes)packetidentifier).ToString() + " [" + packetidentifier.ToString() + "]");
 
 						if ((PacketTypes)packetidentifier == PacketTypes.LOGIN)
                         {
                             try
                             {
                                 connectedGamersAmount  = inc.ReadInt32();
-								inc.ReadAllProperties(profile);
+								profile.Token = inc.ReadString();
+								profile.Name = inc.ReadString();
+								Debug.Print("Profile.Token=" + profile.Token + ", Profile.Name=" + profile.Name);
                             }
                             catch (Exception ex)
                             {
@@ -333,7 +364,26 @@ namespace Classes.Net
 						{
 							try
 							{
-								
+								connectedGamersAmount = inc.ReadInt32();
+
+								for (var n = 0; n < connectedGamersAmount; n++)
+								{
+									String n_token = inc.ReadString();
+									float n_X = inc.ReadFloat();
+									float n_Y = inc.ReadFloat();
+
+									if (n_token != Profile.Token)
+									{
+										if (profile.Puppet == SceneryManager.Player1)
+										{
+											SceneryManager.Player2.Position = new Vector2(n_X, n_Y);
+										}
+										else
+										{
+											SceneryManager.Player1.Position = new Vector2(n_X, n_Y);
+										}
+									}
+								}
 							}
 							catch (Exception ex)
 							{
@@ -350,11 +400,15 @@ namespace Classes.Net
 								connectedGamersAmount  = inc.ReadInt32();
 								connectedGamers = new List<Gamer>();
 
-								Gamer tmp = new Gamer("",null);
-
 								for (var n = 0; n < connectedGamersAmount; n++)
 								{
-									inc.ReadAllProperties(tmp);
+									String n_name = inc.ReadString();
+									String n_token = inc.ReadString();
+									Boolean n_ready = inc.ReadBoolean();
+									Gamer tmp = new Gamer(n_name, null);
+									tmp.Token = n_token;
+									tmp.Ready = n_ready;
+
 									connectedGamers.Add(tmp);
 								}
 							}
@@ -410,13 +464,23 @@ namespace Classes.Net
 					UpdateStep = 0;
 					NetOutgoingMessage msg = client.CreateMessage();
 					msg.Write((byte)PacketTypes.LOBBY);
+					msg.Write(profile.Token);
 					msg.Write(Profile.Name);
 					msg.Write(Profile.Ready);
 					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 				}
 				else
 				{
-
+					if (gameState == ServerStatus.GAME && profile != null)
+					{
+						UpdateStep = 0;
+						NetOutgoingMessage msg = client.CreateMessage();
+						msg.Write((byte)PacketTypes.BROADCAST);
+						msg.Write(profile.Token);
+						msg.Write(Profile.Puppet.Position.X);
+						msg.Write(Profile.Puppet.Position.Y);
+						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+					}
 				}
 			}
 		}

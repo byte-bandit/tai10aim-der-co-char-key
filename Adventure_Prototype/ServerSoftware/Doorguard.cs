@@ -5,6 +5,8 @@ using System.Text;
 
 using Lidgren.Network;
 
+using Classes.Net;
+
 namespace ServerSoftware
 {
 	class Doorguard
@@ -27,8 +29,8 @@ namespace ServerSoftware
 				parent.connectedPeers.Add(tmp);
 
 				NetOutgoingMessage outmsg = parent.server.CreateMessage();
-
-				//outmsg.Write((byte)PacketTypes.LOGIN);
+				
+				outmsg.Write((byte)PacketTypes.LOGIN);
 				outmsg.Write(parent.server.Connections.Length);
 				outmsg.Write(tmp.Token);
 				outmsg.Write(tmp.Name);
@@ -36,6 +38,7 @@ namespace ServerSoftware
 				parent.server.SendMessage(outmsg, inc.SenderConnection, NetDeliveryMethod.ReliableOrdered, 0);
 
 				parent.lb_cp.Items.Add(tmp.Name);
+				parent.print(tmp.Name + " [" + inc.SenderEndpoint.Address.ToString() + "] connected to the Server!");
 
 				return true;
 
@@ -47,6 +50,28 @@ namespace ServerSoftware
 			}
 		}
 
+
+
+
+		public static void CheckState(NetIncomingMessage inc, Form1 parent)
+		{
+			parent.print(inc.SenderEndpoint.Address.ToString() + " has reported a status change!");
+
+
+			byte new_status_byte = inc.ReadByte();
+			NetConnectionStatus new_status = (NetConnectionStatus) new_status_byte;
+
+			parent.print(inc.SenderEndpoint.Address.ToString() + "'s new status: " + new_status.ToString());
+
+			switch(new_status)
+			{
+				case NetConnectionStatus.Disconnecting:
+					inc.SenderConnection.Disconnect("Bye");
+					break;
+			}
+
+			
+		}
 
 
 

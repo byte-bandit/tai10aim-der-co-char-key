@@ -64,7 +64,7 @@ namespace Adventure_Prototype
 		SpriteBatch spriteBatch;			//Global spriteBatch used for Drawing
 		//public Player player1;						//Link to Player1
 		//public Player player2;						//Link to Player2
-		Menu menu = new Menu();				//Main Menu Variable
+		public Menu menu = new Menu();				//Main Menu Variable
 		Texture2D p1Sprite;
 		Texture2D p2Sprite;
 
@@ -73,8 +73,6 @@ namespace Adventure_Prototype
 		public Boolean _EDITOR = false;		//Boot up in Editor mode? [SUPPOSED TO BE FALSE FOR RELEASE]
 		public float musicVolume = 1.0f;	//Use this to mute music for testing purposes
 		
-
-
 
 
 		public enum GameMode
@@ -176,7 +174,7 @@ namespace Adventure_Prototype
 				
 			//Initialize Parent
 			base.Initialize();
-			//LoadContent();
+			LoadContent();
 		}
 
 
@@ -194,7 +192,7 @@ namespace Adventure_Prototype
 			// Assign it to the Graphics Manager
 			spriteBatch = new SpriteBatch(GraphicsDevice);
 			GraphicsManager.spriteBatch = spriteBatch;
-			//SoundManager.LoadContent();
+			SoundManager.LoadContent();
 			
 			
 
@@ -221,6 +219,7 @@ namespace Adventure_Prototype
 			}
 
 		}
+
 		
 	
 		
@@ -247,6 +246,7 @@ namespace Adventure_Prototype
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update(GameTime gameTime)
 		{
+			base.Update(gameTime);
 
 			// Allows the game to exit
 			if (KeyboardEx.isKeyHit(Keys.Escape))
@@ -296,7 +296,7 @@ namespace Adventure_Prototype
 			}
 
 
-			base.Update(gameTime);
+			
 		}
 
 
@@ -308,7 +308,7 @@ namespace Adventure_Prototype
 			this.gameMode = GameMode.GAME;
 			this.menu = null;
 
-			SceneryManager.CurrentRoom = RoomProcessor.createRoomFromFile("Data/Rooms/start0.bmap");
+			SceneryManager.CurrentRoom = RoomProcessor.createRoomFromFile("Data/Rooms/room01.bmap");
 
 			SceneryManager.Player1 = new Player(this, SceneryManager.CurrentRoom , "p1", "Spieler 1", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
 			SceneryManager.Player2 = new Player(this, SceneryManager.CurrentRoom , "p2", "Spieler 2", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
