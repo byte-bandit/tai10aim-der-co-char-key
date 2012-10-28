@@ -17,11 +17,24 @@ namespace ServerSoftware
 		public NetServer server;
 		public BackgroundWorker worker;
 		public List<Peer> connectedPeers = new List<Peer>();
+		public ServerStatus serverMode = ServerStatus.LOBBY;
+
+		private bool autostart = false;
 
 
-		public Form1()
+
+		public Form1(string[] args)
 		{
 			InitializeComponent();
+
+			foreach (string s in args)
+			{
+				if (s == "-autostart")
+				{
+					autostart = true;
+				}
+			}
+
 		}
 
 
@@ -37,6 +50,8 @@ namespace ServerSoftware
 			btnStartServer.Text = "Start Server";
 
 			onlineIndicator.BackColor = Color.Red;
+
+			btnStartServer_Click(null, null);
 		}
 
 
@@ -48,7 +63,7 @@ namespace ServerSoftware
 			if (server == null)
 			{
 				rtb_log.Clear();
-				NetPeerConfiguration config = new NetPeerConfiguration("Co-Char-Key");
+				NetPeerConfiguration config = new NetPeerConfiguration("CoCharKey");
 				config.Port = 14242;
 				config.MaximumConnections = 2;
 				config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
@@ -136,6 +151,40 @@ namespace ServerSoftware
 				if ((inc = server.ReadMessage()) != null)
 				{
 					Postman.checkMails(inc, this);
+				}
+
+				//Broadcast to players
+				if (server.ConnectionsCount > 0)
+				{
+					Radio.update(this);
+				}
+
+				//Update Form
+				gbCon.Text = "Connected Players: " + server.ConnectionsCount.ToString();
+				lb_cp.Items.Clear();
+				List<Peer> Peers_to_be_removed = new List<Peer>();
+
+				foreach(Peer n in connectedPeers)
+				{
+					if (!server.Connections.Contains<NetConnection>(n.Connection))
+					{
+						System.Diagnostics.Debug.Print("Server can't find peer " + n.Name + ". Removing from peer list.");
+						Peers_to_be_removed.Add(n);
+					}
+					if (serverMode == ServerStatus.LOBBY)
+					{
+						lb_cp.Items.Add(n.Name);
+					}
+					else
+					{
+						lb_cp.Items.Add(n.Name + "(X:" + n.X.ToString() + ", Y:" + n.Y.ToString() + ")");
+					}
+					
+				}
+
+				foreach (Peer n in Peers_to_be_removed)
+				{
+					connectedPeers.Remove(n);
 				}
 
 				//Now go to sleep

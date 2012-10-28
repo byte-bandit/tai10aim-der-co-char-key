@@ -14,6 +14,8 @@ namespace ServerSoftware
 		private bool ready;
 		private String token;
 		private NetConnection connection;
+		private float x;
+		private float y;
 
 
 
@@ -86,6 +88,23 @@ namespace ServerSoftware
 		{
 			get { return this.token; }
 			set { this.token = value; }
+		}
+
+
+
+
+		public float X
+		{
+			get { return this.x; }
+			set { this.x = value; }
+		}
+
+
+
+		public float Y
+		{
+			get { return this.y; }
+			set { this.y = value; }
 		}
 
 

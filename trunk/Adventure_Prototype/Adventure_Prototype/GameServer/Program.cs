@@ -131,7 +131,7 @@ namespace GameServer
                 if ((inc = Server.ReadMessage()) != null)
                 {
 
-
+					print(inc.MessageType.ToString());
 					
 
                     switch (inc.MessageType)
@@ -168,6 +168,7 @@ namespace GameServer
 
 						case NetIncomingMessageType.UnconnectedData:		//Logout | Connection Lost
 							inc.SenderConnection.Disconnect("Bye");
+							print(inc.SenderConnection.ToString() + " disconnected.");
 							break;
 
                         case NetIncomingMessageType.StatusChanged:			//Status Changed

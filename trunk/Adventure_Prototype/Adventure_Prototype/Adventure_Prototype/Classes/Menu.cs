@@ -16,7 +16,7 @@ using Classes.Net;
 
 namespace Classes
 {
-	class Menu : DrawableGameComponent
+	public class Menu : DrawableGameComponent
 	{
 
 		Texture2D background;
@@ -28,11 +28,11 @@ namespace Classes
 		Texture2D sad;
 		List<Button> buttons;
 		int selectedSessionIndex;
-		MenuStates state;
+		public MenuStates state;
 
 
 
-		enum MenuStates
+		public enum MenuStates
 		{
 			MAIN,
 			HOST,
@@ -62,7 +62,7 @@ namespace Classes
 
 		public override void Initialize()
 		{
-			//SoundManager.playBackgroundMusic("Audio/music/title", true);
+			SoundManager.playBackgroundMusic("Audio/music/title", true);
 			this.LoadContent();
 			this.state = MenuStates.MAIN;
 
@@ -264,6 +264,8 @@ namespace Classes
 
 				x++;
 			}
+
+			GraphicsManager.drawText("Connects: " + NetworkManager.ConnectedGamers.Count.ToString(), new Vector2(20, 20), GraphicsManager.font02, Color.White, true);
 		}
 
 

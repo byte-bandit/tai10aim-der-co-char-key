@@ -60,6 +60,13 @@ namespace Classes.Pipeline
 
 
 
+		public static Menu GetMenu
+		{
+			get { return game.menu; }
+		}
+
+
+
 		/// <summary>
 		/// Gets or sets the MaxFramesX and MaxFramesY for animations
 		/// </summary>

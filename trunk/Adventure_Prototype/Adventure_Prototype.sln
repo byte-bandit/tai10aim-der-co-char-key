@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure_Prototype", "Adve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventure_PrototypeContent", "Adventure_Prototype\Adventure_PrototypeContent\Adventure_PrototypeContent.contentproj", "{142109E0-9F57-458C-96DC-266457B4EEA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameServer", "Adventure_Prototype\GameServer\GameServer.csproj", "{27E010EF-E204-4053-82CF-D70A886C46C6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerSoftware", "ServerSoftware\ServerSoftware.csproj", "{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}"
 EndProject
 Global
@@ -35,16 +33,6 @@ Global
 		{142109E0-9F57-458C-96DC-266457B4EEA1}.Release|Any CPU.ActiveCfg = Release|x86
 		{142109E0-9F57-458C-96DC-266457B4EEA1}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{142109E0-9F57-458C-96DC-266457B4EEA1}.Release|x86.ActiveCfg = Release|x86
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{27E010EF-E204-4053-82CF-D70A886C46C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{B6D875E0-CAF7-4997-AA13-A1C68DE65CF8}.Debug|Mixed Platforms.Build.0 = Debug|x86

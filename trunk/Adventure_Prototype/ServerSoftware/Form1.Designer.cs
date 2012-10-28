@@ -31,12 +31,12 @@
 			this.gb_cc = new System.Windows.Forms.GroupBox();
 			this.onlineIndicator = new System.Windows.Forms.Panel();
 			this.btnStartServer = new System.Windows.Forms.Button();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.gbCon = new System.Windows.Forms.GroupBox();
 			this.lb_cp = new System.Windows.Forms.ListBox();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.rtb_log = new System.Windows.Forms.RichTextBox();
 			this.gb_cc.SuspendLayout();
-			this.groupBox2.SuspendLayout();
+			this.gbCon.SuspendLayout();
 			this.groupBox3.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -68,15 +68,15 @@
 			this.btnStartServer.UseVisualStyleBackColor = true;
 			this.btnStartServer.Click += new System.EventHandler(this.btnStartServer_Click);
 			// 
-			// groupBox2
+			// gbCon
 			// 
-			this.groupBox2.Controls.Add(this.lb_cp);
-			this.groupBox2.Location = new System.Drawing.Point(12, 69);
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(200, 366);
-			this.groupBox2.TabIndex = 1;
-			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Connected Players";
+			this.gbCon.Controls.Add(this.lb_cp);
+			this.gbCon.Location = new System.Drawing.Point(12, 69);
+			this.gbCon.Name = "gbCon";
+			this.gbCon.Size = new System.Drawing.Size(200, 366);
+			this.gbCon.TabIndex = 1;
+			this.gbCon.TabStop = false;
+			this.gbCon.Text = "Connected Players";
 			// 
 			// lb_cp
 			// 
@@ -110,13 +110,13 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(669, 447);
 			this.Controls.Add(this.groupBox3);
-			this.Controls.Add(this.groupBox2);
+			this.Controls.Add(this.gbCon);
 			this.Controls.Add(this.gb_cc);
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.Load += new System.EventHandler(this.Form1_Load);
 			this.gb_cc.ResumeLayout(false);
-			this.groupBox2.ResumeLayout(false);
+			this.gbCon.ResumeLayout(false);
 			this.groupBox3.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -126,7 +126,7 @@
 
 		private System.Windows.Forms.GroupBox gb_cc;
 		private System.Windows.Forms.Button btnStartServer;
-		private System.Windows.Forms.GroupBox groupBox2;
+		private System.Windows.Forms.GroupBox gbCon;
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.Panel onlineIndicator;
 		public System.Windows.Forms.RichTextBox rtb_log;
