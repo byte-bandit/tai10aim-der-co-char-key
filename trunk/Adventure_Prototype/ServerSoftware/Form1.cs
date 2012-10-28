@@ -168,7 +168,7 @@ namespace ServerSoftware
 				{
 					if (!server.Connections.Contains<NetConnection>(n.Connection))
 					{
-						System.Diagnostics.Debug.Print("Server can't find peer " + n.Name + ". Removing from peer list.");
+						print("Server can't find peer " + n.Name + ". Removing from peer list.");
 						Peers_to_be_removed.Add(n);
 					}
 					if (serverMode == ServerStatus.LOBBY)
@@ -184,6 +184,7 @@ namespace ServerSoftware
 
 				foreach (Peer n in Peers_to_be_removed)
 				{
+					n.Connection.Disconnect("Bye");
 					connectedPeers.Remove(n);
 				}
 

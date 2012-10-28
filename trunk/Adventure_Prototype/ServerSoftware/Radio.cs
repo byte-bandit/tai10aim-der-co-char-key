@@ -51,6 +51,7 @@ namespace ServerSoftware
 						msg.Write(p2.Token);
 						msg.Write(p2.X);
 						msg.Write(p2.Y);
+						msg.Write(p2.Animation_Cycle);
 					}
 
 					p.Connection.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);

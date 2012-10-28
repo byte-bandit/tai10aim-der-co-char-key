@@ -277,13 +277,56 @@ namespace Classes.Net
 
 
 
+
+
+			//+++
+			//POST
+			//+++
+			if (UpdateStep < UpdateInterval)
+			{
+				UpdateStep++;
+			}
+			else
+			{
+				if (gameState == ServerStatus.LOBBY && profile != null)
+				{
+					UpdateStep = 0;
+					NetOutgoingMessage msg = client.CreateMessage();
+					msg.Write((byte)PacketTypes.LOBBY);
+					msg.Write(profile.Token);
+					msg.Write(Profile.Name);
+					msg.Write(Profile.Ready);
+					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+				}
+				else
+				{
+					if (gameState == ServerStatus.GAME && profile != null)
+					{
+						UpdateStep = 0;
+						NetOutgoingMessage msg = client.CreateMessage();
+						msg.Write((byte)PacketTypes.BROADCAST);
+						msg.Write(profile.Token);
+						msg.Write(Profile.Puppet.Position.X);
+						msg.Write(Profile.Puppet.Position.Y);
+						msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
+						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+						Debug.Print("SENDING MESSAGE!!!");
+					}
+				}
+			}
+
+
+
+
+
+
 			//+++
 			//GET
 			//+++
 			NetIncomingMessage inc;
 			while ((inc = client.ReadMessage()) != null)
 			{
-				Debug.Print("Incomming " + inc.MessageType.ToString());
+				//Debug.Print("Incomming " + inc.MessageType.ToString());
 				switch (inc.MessageType)
 				{
 					//Ping Response
@@ -341,7 +384,7 @@ namespace Classes.Net
 					case NetIncomingMessageType.Data :
 						byte packetidentifier = inc.ReadByte();
 
-						Debug.Print("PacketIdentifier is " + ((PacketTypes)packetidentifier).ToString() + " [" + packetidentifier.ToString() + "]");
+						//Debug.Print("PacketIdentifier is " + ((PacketTypes)packetidentifier).ToString() + " [" + packetidentifier.ToString() + "]");
 
 						if ((PacketTypes)packetidentifier == PacketTypes.LOGIN)
                         {
@@ -371,16 +414,19 @@ namespace Classes.Net
 									String n_token = inc.ReadString();
 									float n_X = inc.ReadFloat();
 									float n_Y = inc.ReadFloat();
+									byte anim_byte = inc.ReadByte();
 
 									if (n_token != Profile.Token)
 									{
 										if (profile.Puppet == SceneryManager.Player1)
 										{
 											SceneryManager.Player2.Position = new Vector2(n_X, n_Y);
+											SceneryManager.Player2.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
 										}
 										else
 										{
 											SceneryManager.Player1.Position = new Vector2(n_X, n_Y);
+											SceneryManager.Player1.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
 										}
 									}
 								}
@@ -426,6 +472,7 @@ namespace Classes.Net
 							{
 								//gameState = (ServerStatus)inc.ReadByte();
 								ServerStatus newState = (ServerStatus)inc.ReadByte();
+								gameState = newState;
 								switch (newState)
 								{
 									case ServerStatus.GAME:
@@ -450,39 +497,8 @@ namespace Classes.Net
 
 
 
-			//+++
-			//POST
-			//+++
-			if (UpdateStep < UpdateInterval )
-			{
-				UpdateStep ++;
-			}
-			else
-			{
-				if (gameState  == ServerStatus.LOBBY && profile != null)
-				{
-					UpdateStep = 0;
-					NetOutgoingMessage msg = client.CreateMessage();
-					msg.Write((byte)PacketTypes.LOBBY);
-					msg.Write(profile.Token);
-					msg.Write(Profile.Name);
-					msg.Write(Profile.Ready);
-					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
-				}
-				else
-				{
-					if (gameState == ServerStatus.GAME && profile != null)
-					{
-						UpdateStep = 0;
-						NetOutgoingMessage msg = client.CreateMessage();
-						msg.Write((byte)PacketTypes.BROADCAST);
-						msg.Write(profile.Token);
-						msg.Write(Profile.Puppet.Position.X);
-						msg.Write(Profile.Puppet.Position.Y);
-						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
-					}
-				}
-			}
+			
+			
 		}
 	}
 }

@@ -73,17 +73,19 @@ namespace ServerSoftware
 				case PacketTypes.BROADCAST:
 
 					String n_token_2 = inc.ReadString();
-
+					parent.print("Got BROADCAST Message");
 					foreach (Peer p in parent.connectedPeers)
 					{
 						if (p.Token == n_token_2)
 						{
+							parent.print("From: " + p.Name);
 							p.X = inc.ReadFloat();
 							p.Y = inc.ReadFloat();
+							p.Animation_Cycle = inc.ReadByte();
 							break;
 						}
 					}
-
+					parent.print("------------");
 					break;
 
 
