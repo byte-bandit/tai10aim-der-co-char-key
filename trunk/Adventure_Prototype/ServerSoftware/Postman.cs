@@ -68,6 +68,28 @@ namespace ServerSoftware
 
 
 
+				case PacketTypes.ENV_INFO:
+
+					String n_token_w = inc.ReadString();
+					float w_X = inc.ReadFloat();
+					float w_Y = inc.ReadFloat();
+
+					foreach (Peer p in parent.connectedPeers)
+					{
+						if (p.Token != n_token_w)
+						{
+							NetOutgoingMessage outm = parent.server.CreateMessage();
+							outm.Write((byte)PacketTypes.ENV_INFO);
+							outm.Write(n_token_w);
+							outm.Write(w_X);
+							outm.Write(w_Y);
+
+							p.Connection.SendMessage(outm, NetDeliveryMethod.ReliableOrdered);
+						}
+					}
+
+					break;
+
 
 
 				case PacketTypes.BROADCAST:

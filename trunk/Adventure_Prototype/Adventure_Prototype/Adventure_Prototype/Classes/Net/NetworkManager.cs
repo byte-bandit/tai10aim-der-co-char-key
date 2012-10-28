@@ -247,6 +247,16 @@ namespace Classes.Net
 
 
 
+		public static void setPlayerWaypoint(Vector2 WP)
+		{
+			NetOutgoingMessage msg = client.CreateMessage();
+			msg.Write((byte)PacketTypes.ENV_INFO);
+			msg.Write(profile.Token);
+			msg.Write((float)WP.X);
+			msg.Write((float)WP.Y);
+			client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+		}
+
 
 
 
@@ -277,46 +287,51 @@ namespace Classes.Net
 
 
 
-
-
-			//+++
-			//POST
-			//+++
-			if (UpdateStep < UpdateInterval)
+			try
 			{
-				UpdateStep++;
-			}
-			else
-			{
-				if (gameState == ServerStatus.LOBBY && profile != null)
+
+				//+++
+				//POST
+				//+++
+				if (UpdateStep < UpdateInterval)
 				{
-					UpdateStep = 0;
-					NetOutgoingMessage msg = client.CreateMessage();
-					msg.Write((byte)PacketTypes.LOBBY);
-					msg.Write(profile.Token);
-					msg.Write(Profile.Name);
-					msg.Write(Profile.Ready);
-					client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+					UpdateStep++;
 				}
 				else
 				{
-					if (gameState == ServerStatus.GAME && profile != null)
+					if (gameState == ServerStatus.LOBBY && profile != null)
 					{
 						UpdateStep = 0;
 						NetOutgoingMessage msg = client.CreateMessage();
-						msg.Write((byte)PacketTypes.BROADCAST);
+						msg.Write((byte)PacketTypes.LOBBY);
 						msg.Write(profile.Token);
-						msg.Write(Profile.Puppet.Position.X);
-						msg.Write(Profile.Puppet.Position.Y);
-						msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
+						msg.Write(Profile.Name);
+						msg.Write(Profile.Ready);
 						client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
-						Debug.Print("SENDING MESSAGE!!!");
+					}
+					else
+					{
+						if (gameState == ServerStatus.GAME && profile != null)
+						{
+							UpdateStep = 0;
+							NetOutgoingMessage msg = client.CreateMessage();
+							msg.Write((byte)PacketTypes.BROADCAST);
+							msg.Write(profile.Token);
+							msg.Write(Profile.Puppet.Position.X);
+							msg.Write(Profile.Puppet.Position.Y);
+							msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
+							client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+							Debug.Print("SENDING MESSAGE!!!");
+						}
 					}
 				}
+
+
 			}
-
-
-
+			catch (Exception ex)
+			{
+				Debug.Print(ex.ToString());
+			}
 
 
 
@@ -403,6 +418,34 @@ namespace Classes.Net
                         }
 
 
+						if ((PacketTypes)packetidentifier == PacketTypes.ENV_INFO)
+						{
+							try
+							{
+								String n_token = inc.ReadString();
+								if (profile.Token == n_token)
+								{
+									return;
+								}
+								float n_X = inc.ReadFloat();
+								float n_Y = inc.ReadFloat();
+								if (profile.Puppet == SceneryManager.Player1)
+								{
+									SceneryManager.Player2.setWalkingTarget(new Vector2(n_X, n_Y));
+								}
+								else
+								{
+									SceneryManager.Player1.setWalkingTarget(new Vector2(n_X, n_Y));
+								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+							return;
+						}
+
+
 						if ((PacketTypes)packetidentifier == PacketTypes.BROADCAST)
 						{
 							try
@@ -420,13 +463,13 @@ namespace Classes.Net
 									{
 										if (profile.Puppet == SceneryManager.Player1)
 										{
-											SceneryManager.Player2.Position = new Vector2(n_X, n_Y);
-											SceneryManager.Player2.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
+											//SceneryManager.Player2.Position = new Vector2(n_X, n_Y);
+											//SceneryManager.Player2.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
 										}
 										else
 										{
-											SceneryManager.Player1.Position = new Vector2(n_X, n_Y);
-											SceneryManager.Player1.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
+											//SceneryManager.Player1.Position = new Vector2(n_X, n_Y);
+											//SceneryManager.Player1.GFXInfo.AnimationState = (Animation.AnimationCycle)anim_byte;
 										}
 									}
 								}
