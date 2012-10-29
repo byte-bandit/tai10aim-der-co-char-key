@@ -366,9 +366,9 @@ namespace Adventure_Prototype
 			//Draw some debug info
 			if (gameMode == GameMode.GAME)
 			{
-				GraphicsManager.drawText("Puppet: " + NetworkManager.Profile.Puppet.Name, new Vector2(20, 20), GraphicsManager.font02, Color.White, true);
-				GraphicsManager.drawText("X: " + NetworkManager.Profile.Puppet.Position.X.ToString() + ", Y: " + NetworkManager.Profile.Puppet.Position.Y.ToString(), new Vector2(20, 40), GraphicsManager.font02, Color.White, true);
-				GraphicsManager.drawText("Name: " + NetworkManager.Profile.Name, new Vector2(20, 60), GraphicsManager.font02, Color.White, true);
+				GraphicsManager.drawText("Puppet: " + NetworkManager.Profile.Puppet.Name, new Vector2(1100, 660), GraphicsManager.font01, Color.White, true);
+				GraphicsManager.drawText("X: " + ((int)NetworkManager.Profile.Puppet.Position.X).ToString() + ", Y: " + ((int)NetworkManager.Profile.Puppet.Position.Y).ToString(), new Vector2(1100, 672), GraphicsManager.font01, Color.White, true);
+				GraphicsManager.drawText("Name: " + NetworkManager.Profile.Name, new Vector2(1100, 684), GraphicsManager.font01, Color.White, true);
 				//GraphicsManager.drawText("Token: " + NetworkManager.Profile.Token, new Vector2(20, 74), GraphicsManager.font02, Color.White, true);
 			}
 

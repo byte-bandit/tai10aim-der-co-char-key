@@ -24,7 +24,7 @@ namespace Classes.Dialogues
 		private static State state = State.topics;
 		private static Topic currentTopic;
 		private static String currentInfoLine;
-		private static Dialogue currentChoice;
+		private static List<Topic> currentChoice;
 		private static List<Dialogue> DialogueLibrary;
 		private static List<FloatingLine> FloatingLines;
 
@@ -198,9 +198,9 @@ namespace Classes.Dialogues
 					break;
 
 				case State.choice:
-					for (int n = 0; n < currentChoice.Topics.Count; n++)
+					for (int n = 0; n < currentChoice.Count; n++)
 					{
-						Graphics.GraphicsManager.drawText(currentChoice.Topics[n].getText(), new Vector2(10, (n + 1) * LINEBREAK), font, currentChoice.Topics[n].color);
+						Graphics.GraphicsManager.drawText(currentChoice[n].getText(), new Vector2(10, (n + 1) * LINEBREAK), font, currentChoice[n].color);
 					}
 					break;
 
@@ -276,13 +276,13 @@ namespace Classes.Dialogues
 						{
 							Net.NetworkManager.PlayerSay(currentInfoLine, partner.GetFloatingLinePosition(), partner.GetFloatingLineColor());
 						}
-						String n = currentTopic.TopicInfo.getNextLine();
+						String n = currentTopic.getNextInfoLine();
 						if (n == "" || n == null)
 						{
-							if (currentTopic.TopicInfo.isChoiceTrigger)
+							if (currentTopic.Choice.Count > 0)
 							{
 								state = State.choice;
-								currentChoice = currentTopic.TopicInfo.getChoice();
+								currentChoice = currentTopic.Choice;
 							}
 							else
 							{
@@ -297,27 +297,27 @@ namespace Classes.Dialogues
 					break;
 
 				case State.choice:
-					for (int n = 0; n < currentChoice.Topics.Count; n++)
+					for (int n = 0; n < currentChoice.Count; n++)
 					{
 						if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 						{
-							currentChoice.Topics[n].color = Color.Red;
+							currentChoice[n].color = Color.Red;
 						}
 						else
 						{
-							currentChoice.Topics[n].color = Color.White;
+							currentChoice[n].color = Color.White;
 						}
 					}
 
 					if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
 					{
 						//Click Detected
-						for (int n = 0; n < currentChoice.Topics.Count; n++)
+						for (int n = 0; n < currentChoice.Count; n++)
 						{
 							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 							{
-								topicClick(currentChoice.Topics[n]);
-								Net.NetworkManager.PlayerSay(currentChoice.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+								topicClick(currentChoice[n]);
+								Net.NetworkManager.PlayerSay(currentChoice[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							}
 						}
 					}
@@ -337,7 +337,7 @@ namespace Classes.Dialogues
 
 		private static void topicDone()
 		{
-			if (currentTopic.TopicInfo.isGoodbye && currentChoice == null)
+			if (currentTopic.isGoodbye() && currentChoice == null)
 			{
 				dialogue = null;
 				isBusy = false;
@@ -355,7 +355,7 @@ namespace Classes.Dialogues
 		{
 			currentTopic = t;
 			state = State.info;
-			currentInfoLine = t.TopicInfo.getNextLine();
+			currentInfoLine = t.getNextInfoLine();
 		}
 
 
@@ -365,9 +365,6 @@ namespace Classes.Dialogues
 		public static void Initialize()
 		{
 			String[] txt;
-			Dialogue cDia = null;
-			Topic cTop = null;
-			Info cInf = null;
 			DialogueLibrary = new List<Dialogue>();
 			FloatingLines = new List<FloatingLine>();
 
@@ -381,73 +378,170 @@ namespace Classes.Dialogues
 				return;
 			}
 
-			foreach (String line in txt)
+			Dialogue cuD = null;
+			Topic cuT = null;
+			List<KeyValuePair<Topic,String>> choices = new List<KeyValuePair<Topic, String>>();
+
+			foreach (String line_raw in txt)
 			{
+
+				String line = line_raw.Replace("\t", "");
+				line = line.Replace("\"", Convert.ToString('"'));
+
 				//Check for Comments
 				if (line.Trim().StartsWith("#"))
 				{
 					continue;
 				}
 
+				String[] lines = line.Split(Convert.ToChar('"'));
 
-				if (line.Trim().StartsWith("@DIALOGUE"))
+
+				if (lines.Length == 1)
 				{
-					DialogueLibrary.Add(new Dialogue(line.Substring(9).Trim()));
-					cDia = DialogueLibrary[DialogueLibrary.Count - 1];
-					continue;
-				}
+					//Dialogue, Goto or Trigger
+					String[] parts = lines[0].Split(' ');
 
-
-				if (line.Trim().StartsWith("ASK"))
-				{
-					if (cDia == null)
+					if (parts[0] == "@DIALOGUE")
 					{
+						loadInChoices(choices, cuD);
+						choices.Clear();
+
+						cuD = new Dialogue(parts[1]);
+						DialogueLibrary.Add(cuD);
 						continue;
 					}
-					cInf = new Info();
-					cTop = new Topic(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1), cInf);
-					cDia.addTopic(cTop);
-					continue;
-				}
 
 
-
-
-
-				if (line.Trim().StartsWith("SAY"))
-				{
-					if (cDia == null || cTop == null)
+					if (parts[0] == "@CHOICE")
 					{
+						for (int o = 1; o < parts.Length; o++)
+						{
+							choices.Add(new KeyValuePair<Topic, String>(cuT, parts[o]));
+						}
 						continue;
 					}
-					cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-					continue;
+
 				}
-
-
-
-
-				if (line.Trim().StartsWith("GOODBYE"))
+				else
 				{
-					if (cDia == null || cTop == null)
+					//Topic, info or goodbye
+					String cmd = lines[0];
+					String param = lines[1];
+					String[] cmdParts = cmd.Split(' ');
+
+					if (cmdParts[0] == "@TOPIC")
 					{
+						cuT = new Topic(cmdParts[1], param);
+						cuD.Topics.Add(cuT);
 						continue;
 					}
-					cTop.TopicInfo.isGoodbye = true;
-					cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-					continue;
-				}
 
-
-
-				if (line.Trim().StartsWith("GOTO"))
-				{
-					if (cDia == null || cTop == null)
+					if (cmdParts[0] == "@INFO")
 					{
+						cuT.Info.Add(new Info(param, false));
 						continue;
 					}
-					cTop.TopicInfo.setChoice(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-					continue;
+
+					if (cmdParts[0] == "@GOODBYE")
+					{
+						cuT.Info.Add(new Info(param, true));
+						continue;
+					}
+				}
+
+				loadInChoices(choices, cuD);
+
+
+				//if (line.Trim().StartsWith("@DIALOGUE"))
+				//{
+				//    String[] pts = line.Split(Convert.ToChar(" "));
+
+				//    DialogueLibrary.Add(new Dialogue(line.Substring(9).Trim()));
+				//    cDia = DialogueLibrary[DialogueLibrary.Count - 1];
+				//    continue;
+				//}
+
+
+				//if (line.Trim().StartsWith("@TOPIC"))
+				//{
+				//    if (cDia == null)
+				//    {
+				//        continue;
+				//    }
+				//    cInf = new Info();
+				//    cTop = new Topic(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1), cInf);
+				//    cDia.addTopic(cTop);
+				//    continue;
+				//}
+
+
+
+
+
+				//if (line.Trim().StartsWith("SAY"))
+				//{
+				//    if (cDia == null || cTop == null)
+				//    {
+				//        continue;
+				//    }
+				//    cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
+				//    continue;
+				//}
+
+
+
+
+				//if (line.Trim().StartsWith("GOODBYE"))
+				//{
+				//    if (cDia == null || cTop == null)
+				//    {
+				//        continue;
+				//    }
+				//    cTop.TopicInfo.isGoodbye = true;
+				//    cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
+				//    continue;
+				//}
+
+
+
+				//if (line.Trim().StartsWith("GOTO"))
+				//{
+				//    if (cDia == null || cTop == null)
+				//    {
+				//        continue;
+				//    }
+				//    cTop.TopicInfo.setChoice(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
+				//    continue;
+				//}
+			}
+		}
+
+
+
+
+
+
+
+		private static void loadInChoices(List<KeyValuePair<Topic, String>> choices, Dialogue cuD)
+		{
+			if (choices.Count > 0)
+			{
+				foreach (KeyValuePair<Topic, String> kv in choices)
+				{
+					foreach (Topic t in cuD.Topics)
+					{
+						if (t == kv.Key)
+						{
+							foreach (Topic t2 in cuD.Topics)
+							{
+								if (t2.ID == kv.Value)
+								{
+									t.Choice.Add(t2);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
