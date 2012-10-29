@@ -97,7 +97,7 @@ namespace Classes.Dialogues
 			if (isBusy && feedbackTimer > 1)
 			{
 				feedbackTimer--;
-				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(GameRef.Player1.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Color.SkyBlue, true);
+				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(Net.NetworkManager.Profile.Puppet.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Color.SkyBlue, true);
 			}
 			else if(feedbackTimer == 1)
 			{

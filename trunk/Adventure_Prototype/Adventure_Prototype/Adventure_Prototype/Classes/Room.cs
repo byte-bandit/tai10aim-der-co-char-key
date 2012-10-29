@@ -52,6 +52,7 @@ namespace Classes
 			this.npcs = new List<NPC>();
 			this.pois = new List<POI>();
 			this.LoadContent();
+			this.events = new List<List<Actions>>();
 		}
 
 		#region Properties
@@ -228,16 +229,23 @@ namespace Classes
 		/// <param name="typ"></param>
 		private void CheckForEvents(Object w, Cursor.CursorAction typ)
 		{
-			List<Actions> eventlist = this.Events.First<List<Actions>>();
-			foreach (Actions a in eventlist)
+			try
 			{
-				if ((a.Trigger == w) && (a.Typ == typ))
+				List<Actions> eventlist = this.Events.First<List<Actions>>();
+				foreach (Actions a in eventlist)
 				{
-					TriggerEvent(a.Effects);
-					eventlist.Remove(a);
-					// MAybe potential problem
-					break;
+					if ((a.Trigger == w) && (a.Typ == typ))
+					{
+						TriggerEvent(a.Effects);
+						eventlist.Remove(a);
+						// MAybe potential problem
+						break;
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				System.Diagnostics.Debug.Print(ex.ToString());
 			}
 		}
 

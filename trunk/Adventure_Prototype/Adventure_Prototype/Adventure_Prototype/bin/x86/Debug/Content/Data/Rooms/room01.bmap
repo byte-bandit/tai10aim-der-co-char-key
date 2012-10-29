@@ -65,7 +65,7 @@ MIRROR:False
 NAME:Horst1
 ONLOOK:Das ist Horst
 ONUSE:geht nicht
-ONTALK:{D:Horst1
+ONTALK:{D:Horst1}
 ENDNPC
 BEGINPOI
 X:978,Y:431
