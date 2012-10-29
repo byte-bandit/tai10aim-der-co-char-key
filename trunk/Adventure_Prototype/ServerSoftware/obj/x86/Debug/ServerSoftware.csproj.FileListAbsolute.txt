@@ -32,5 +32,9 @@ D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\ui_font.xnb
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\big.xnb
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb
-D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\WorldObjects.txt
-D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Dialogues.txt
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01.xnb
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01_closed.xnb
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02.xnb
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02_closed.xnb
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\01_Information.xnb
+D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\bottle.xnb

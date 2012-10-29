@@ -24,5 +24,11 @@ Content\Audio\ui\click.xnb
 Content\ui_font.xnb
 Content\big.xnb
 Content\menu_font.xnb
+Content\Graphics\Sprites\door01.xnb
+Content\Graphics\Sprites\door01_closed.xnb
+Content\Graphics\Sprites\door02.xnb
+Content\Graphics\Sprites\door02_closed.xnb
+Content\Graphics\Backgrounds\01_Information.xnb
+Content\Graphics\Sprites\bottle.xnb
 Content\WorldObjects.txt
 Content\Dialogues.txt

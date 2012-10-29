@@ -1005,7 +1005,7 @@ namespace Classes.Dev
 
 
 
-			switch (Microsoft.VisualBasic.Interaction.MsgBox("Yes = New Room, No = Open Room, Cancel = Quit", Microsoft.VisualBasic.MsgBoxStyle.YesNoCancel))
+			 switch (Microsoft.VisualBasic.Interaction.MsgBox("Yes = New Room, No = Open Room, Cancel = Quit", Microsoft.VisualBasic.MsgBoxStyle.YesNoCancel))
 			{
 				case Microsoft.VisualBasic.MsgBoxResult.Yes:
 					createNewRoom(game);

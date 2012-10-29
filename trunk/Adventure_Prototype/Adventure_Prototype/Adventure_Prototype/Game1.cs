@@ -174,7 +174,7 @@ namespace Adventure_Prototype
 				
 			//Initialize Parent
 			base.Initialize();
-			LoadContent();
+			//LoadContent();
 		}
 
 
@@ -215,7 +215,7 @@ namespace Adventure_Prototype
 			}
 			else
 			{
-				Editor.Initialize(this);
+				Editor.Initialize(this); //- WTF is this doing here?!
 			}
 
 		}
@@ -309,7 +309,7 @@ namespace Adventure_Prototype
 			this.gameMode = GameMode.GAME;
 			this.menu = null;
 
-			SceneryManager.CurrentRoom = RoomProcessor.createRoomFromFile("Data/Rooms/room01.bmap");
+			SceneryManager.CurrentRoom = RoomProcessor.createRoomFromFile("Data/Rooms/DE_INFORMATION.bmap");
 
 			SceneryManager.Player1 = new Player(this, SceneryManager.CurrentRoom , "p1", "Spieler 1", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
 			SceneryManager.Player2 = new Player(this, SceneryManager.CurrentRoom , "p2", "Spieler 2", new Animation(p1Sprite.Width, p1Sprite.Height, 6, 3, 0, 0, false), p1Sprite, 1.5f);
@@ -317,8 +317,8 @@ namespace Adventure_Prototype
 			SceneryManager.Player1.Position = new Vector2(200, 600);
 			SceneryManager.Player2.Position = new Vector2(400, 600);
 
-			SceneryManager.Player1.FloatingLineColor = Color.LightGreen;
-			SceneryManager.Player2.FloatingLineColor = Color.Orange;
+			SceneryManager.Player1.SetFloatingLineColor(Color.LightGreen);
+			SceneryManager.Player2.SetFloatingLineColor(Color.Orange);
 
 			if (NetworkManager.IsHost)
 			{

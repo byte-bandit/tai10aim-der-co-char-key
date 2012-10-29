@@ -8,7 +8,7 @@ using Classes.Graphics;
 
 namespace Classes.Graphics
 {
-	public class WorldObject : DrawableGameComponent
+	public class WorldObject : Entity
 	{
 
 		private String textureString;
@@ -21,6 +21,8 @@ namespace Classes.Graphics
 		private String sOnLook;
 		private String sOnUse;
 		private String sOnTalk;
+
+		private Color floatingLineColor = default(Color);
 
 
 
@@ -41,6 +43,30 @@ namespace Classes.Graphics
 
 
 
+		public override Vector2 GetFloatingLinePosition()
+		{
+			return this.Position;
+		}
+
+
+
+		public override Color GetFloatingLineColor()
+		{
+			return this.floatingLineColor;
+		}
+
+		public override void SetFloatingLineColor(Color color)
+		{
+			this.floatingLineColor = color;
+		}
+
+
+
+
+
+
+
+
 		/// <summary>
 		/// Gets or sets the String or Function for the Look Action
 		/// </summary>
@@ -49,6 +75,9 @@ namespace Classes.Graphics
 			get { return this.sOnLook; }
 			set { this.sOnLook = value; }
 		}
+
+
+
 
 
 

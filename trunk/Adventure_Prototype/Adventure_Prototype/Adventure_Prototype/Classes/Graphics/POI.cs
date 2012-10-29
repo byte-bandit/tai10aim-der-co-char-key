@@ -27,7 +27,6 @@ namespace Classes.Graphics
 
 
 
-
 		public string Name
 		{
 			get { return this.sName; }

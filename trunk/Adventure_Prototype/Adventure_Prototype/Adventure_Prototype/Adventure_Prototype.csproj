@@ -125,6 +125,7 @@
     <Compile Include="Classes\Dialogues\Topic.cs" />
     <Compile Include="Classes\Events\Event.cs" />
     <Compile Include="Classes\Events\EventManager.cs" />
+    <Compile Include="Classes\Graphics\Entity.cs" />
     <Compile Include="Classes\Graphics\GraphicsManager.cs" />
     <Compile Include="Classes\Graphics\LineOverlay.cs" />
     <Compile Include="Classes\Graphics\POI.cs" />

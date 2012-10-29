@@ -31,7 +31,7 @@ namespace Classes.Dialogues
 		private static String playerFeedback;
 		private static int feedbackTimer;
 
-		private static NPC partner;
+		private static Entity partner;
 
 
 		private enum State
@@ -46,7 +46,7 @@ namespace Classes.Dialogues
 		/// Starts a new Dialogue with the given specs.
 		/// </summary>
 		/// <returns></returns>
-		public static bool startDialogue(String identifier, NPC _partner = null)
+		public static bool startDialogue(String identifier, Entity _partner = null)
 		{
 			if (!isBusy)
 			{
@@ -166,7 +166,7 @@ namespace Classes.Dialogues
 			if (isBusy && feedbackTimer > 1)
 			{
 				feedbackTimer--;
-				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(Net.NetworkManager.Profile.Puppet.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Net.NetworkManager.Profile.Puppet.FloatingLineColor, true);
+				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(Net.NetworkManager.Profile.Puppet.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor(), true);
 			}
 			else if(feedbackTimer == 1)
 			{
@@ -259,7 +259,7 @@ namespace Classes.Dialogues
 							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 							{
 								topicClick(dialogue.Topics[n]);
-								Net.NetworkManager.PlayerSay(dialogue.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
+								Net.NetworkManager.PlayerSay(dialogue.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							}
 						}
 					}
@@ -270,11 +270,11 @@ namespace Classes.Dialogues
 					{
 						if (partner == null)
 						{
-							Net.NetworkManager.PlayerSay(currentInfoLine, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
+							Net.NetworkManager.PlayerSay(currentInfoLine, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 						}
 						else
 						{
-							Net.NetworkManager.PlayerSay(currentInfoLine, partner.Position, partner.FloatingLineColor);
+							Net.NetworkManager.PlayerSay(currentInfoLine, partner.GetFloatingLinePosition(), partner.GetFloatingLineColor());
 						}
 						String n = currentTopic.TopicInfo.getNextLine();
 						if (n == "" || n == null)
@@ -317,7 +317,7 @@ namespace Classes.Dialogues
 							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 							{
 								topicClick(currentChoice.Topics[n]);
-								Net.NetworkManager.PlayerSay(currentChoice.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
+								Net.NetworkManager.PlayerSay(currentChoice.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							}
 						}
 					}

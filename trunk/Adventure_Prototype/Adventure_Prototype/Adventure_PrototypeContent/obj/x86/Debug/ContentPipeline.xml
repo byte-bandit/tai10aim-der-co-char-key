@@ -271,6 +271,60 @@
       <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
       <Time>2012-07-03T17:28:14.3575147+02:00</Time>
     </Item>
+    <Item>
+      <Source>Graphics\Sprites\door01.png</Source>
+      <Name>Graphics\Sprites\door01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01.xnb</Output>
+      <Time>2012-10-29T19:09:27.1158083+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Sprites\door01_closed.png</Source>
+      <Name>Graphics\Sprites\door01_closed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01_closed.xnb</Output>
+      <Time>2012-10-29T19:09:27.1338093+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Sprites\door02.png</Source>
+      <Name>Graphics\Sprites\door02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02.xnb</Output>
+      <Time>2012-10-29T19:09:27.1368095+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Sprites\door02_closed.png</Source>
+      <Name>Graphics\Sprites\door02_closed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02_closed.xnb</Output>
+      <Time>2012-10-29T19:09:27.1398097+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Backgrounds\01_Information.png</Source>
+      <Name>Graphics\Backgrounds\01_Information</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\01_Information.xnb</Output>
+      <Time>2012-10-29T19:27:09.4805721+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Graphics\Sprites\bottle.png</Source>
+      <Name>Graphics\Sprites\bottle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\bottle.xnb</Output>
+      <Time>2012-10-29T19:27:17.6270381+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>
