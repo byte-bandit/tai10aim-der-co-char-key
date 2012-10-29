@@ -118,6 +118,7 @@ namespace ServerSoftware
 					String n_text = inc.ReadString();
 					float n_X = inc.ReadFloat();
 					float n_Y = inc.ReadFloat();
+					uint n_c = inc.ReadUInt32();
 
 					foreach (Peer p in parent.connectedPeers)
 					{
@@ -129,6 +130,7 @@ namespace ServerSoftware
 							msg.Write(n_text);
 							msg.Write(n_X);
 							msg.Write(n_Y);
+							msg.Write((uint)n_c);
 							p.Connection.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 						}
 					}

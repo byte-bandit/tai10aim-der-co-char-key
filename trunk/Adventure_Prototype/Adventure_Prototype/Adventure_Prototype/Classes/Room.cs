@@ -384,13 +384,13 @@ namespace Classes
 						case Cursor.CursorAction.look:
 							CheckForEvents(w, Cursor.CursorAction.look);
 							Dialogues.DialogueManager.PlayerSay(w.OnLook);
-							Net.NetworkManager.PlayerSay(w.OnLook, Net.NetworkManager.Profile.Puppet.Position);
+							Net.NetworkManager.PlayerSay(w.OnLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 
 						case Cursor.CursorAction.talk:
 							CheckForEvents(w, Cursor.CursorAction.talk);
 							Dialogues.DialogueManager.PlayerSay(w.OnTalk);
-							Net.NetworkManager.PlayerSay(w.OnTalk, Net.NetworkManager.Profile.Puppet.Position);
+							Net.NetworkManager.PlayerSay(w.OnTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 
 						case Cursor.CursorAction.use:
@@ -402,7 +402,7 @@ namespace Classes
 							{
 								CheckForEvents(w, Cursor.CursorAction.use);
 							}
-							Net.NetworkManager.PlayerSay(w.OnUse, Net.NetworkManager.Profile.Puppet.Position);
+							Net.NetworkManager.PlayerSay(w.OnUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							Dialogues.DialogueManager.PlayerSay(w.OnUse);
 							break;
 							
@@ -420,14 +420,17 @@ namespace Classes
 					{
 						case Cursor.CursorAction.look:
 							Dialogues.DialogueManager.PlayerSay(w.onLook);
+							Net.NetworkManager.PlayerSay(w.onLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 
 						case Cursor.CursorAction.talk:
 							Dialogues.DialogueManager.PlayerSay(w.onTalk);
+							Net.NetworkManager.PlayerSay(w.onTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 
 						case Cursor.CursorAction.use:
 							Dialogues.DialogueManager.PlayerSay(w.onUse);
+							Net.NetworkManager.PlayerSay(w.onUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 					}
 					return;
@@ -443,22 +446,25 @@ namespace Classes
 					{
 						case Cursor.CursorAction.look:
 							Dialogues.DialogueManager.PlayerSay(n.OnLook);
+							Net.NetworkManager.PlayerSay(n.OnLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 
 						case Cursor.CursorAction.talk:
 							if (n.OnTalk.Trim().StartsWith("{D:"))
 							{
-								Dialogues.DialogueManager.startDialogue(n.OnTalk.Trim().Substring(3, n.OnTalk.Trim().Length - 4));
+								Dialogues.DialogueManager.startDialogue(n.OnTalk.Trim().Substring(3, n.OnTalk.Trim().Length - 4), n);
 							}
 							else
 							{
 								Dialogues.DialogueManager.PlayerSay(n.OnTalk);
+								Net.NetworkManager.PlayerSay(n.OnTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							}
 
 							break;
 
 						case Cursor.CursorAction.use:
 							Dialogues.DialogueManager.PlayerSay(n.OnUse);
+							Net.NetworkManager.PlayerSay(n.OnUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							break;
 					}
 				}

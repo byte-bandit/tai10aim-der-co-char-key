@@ -317,6 +317,9 @@ namespace Adventure_Prototype
 			SceneryManager.Player1.Position = new Vector2(200, 600);
 			SceneryManager.Player2.Position = new Vector2(400, 600);
 
+			SceneryManager.Player1.FloatingLineColor = Color.LightGreen;
+			SceneryManager.Player2.FloatingLineColor = Color.Orange;
+
 			if (NetworkManager.IsHost)
 			{
 				NetworkManager.Profile.Puppet = SceneryManager.Player1;
