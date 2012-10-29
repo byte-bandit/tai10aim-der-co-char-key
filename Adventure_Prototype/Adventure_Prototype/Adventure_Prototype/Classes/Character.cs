@@ -30,6 +30,8 @@ namespace Classes
 		private String sOnUse;
 		private string sOnTalk;
 
+		private Color floatingLineColor = default(Color);
+
 		private Color highlight = Color.White;
 
 		private bool isMirrored;
@@ -128,6 +130,16 @@ namespace Classes
 		}
 
 
+
+
+
+
+
+		public Color FloatingLineColor
+		{
+			get { return this.floatingLineColor; }
+			set { this.floatingLineColor = value; }
+		}
 
 
 

@@ -31,6 +31,8 @@ namespace Classes.Dialogues
 		private static String playerFeedback;
 		private static int feedbackTimer;
 
+		private static NPC partner;
+
 
 		private enum State
 		{
@@ -44,13 +46,14 @@ namespace Classes.Dialogues
 		/// Starts a new Dialogue with the given specs.
 		/// </summary>
 		/// <returns></returns>
-		public static bool startDialogue(String identifier)
+		public static bool startDialogue(String identifier, NPC _partner = null)
 		{
 			if (!isBusy)
 			{
 				isBusy = true;
 				state = State.topics;
 				dialogue = getDialogueByID(identifier);
+				partner = _partner;
 
 				if (dialogue == null)
 				{
@@ -100,7 +103,7 @@ namespace Classes.Dialogues
 		/// <param name="f"></param>
 		public static void AddFloatingLine(FloatingLine f)
 		{
-			CheckForExistingFloatingLineAtPoint(f.Position.X, f.Position.Y)
+			CheckForExistingFloatingLineAtPoint(f.Position.X, f.Position.Y);
 			FloatingLines.Add(f);
 		}
 
@@ -113,10 +116,10 @@ namespace Classes.Dialogues
 		/// <param name="n_text"></param>
 		/// <param name="X"></param>
 		/// <param name="Y"></param>
-		public static void AddFloatingLine(String n_text, float X, float Y)
+		public static void AddFloatingLine(String n_text, float X, float Y, Color c = default(Color))
 		{
 			CheckForExistingFloatingLineAtPoint(X, Y);
-			FloatingLine f = new FloatingLine(n_text, X, Y);
+			FloatingLine f = new FloatingLine(n_text, X, Y, c);
 			FloatingLines.Add(f);
 		}
 
@@ -163,7 +166,7 @@ namespace Classes.Dialogues
 			if (isBusy && feedbackTimer > 1)
 			{
 				feedbackTimer--;
-				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(Net.NetworkManager.Profile.Puppet.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Color.SkyBlue, true);
+				Graphics.GraphicsManager.drawText(playerFeedback, Vector2.Add(Net.NetworkManager.Profile.Puppet.Position, new Vector2(10, -30)), Graphics.GraphicsManager.font02, Net.NetworkManager.Profile.Puppet.FloatingLineColor, true);
 			}
 			else if(feedbackTimer == 1)
 			{
@@ -256,6 +259,7 @@ namespace Classes.Dialogues
 							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 							{
 								topicClick(dialogue.Topics[n]);
+								Net.NetworkManager.PlayerSay(dialogue.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							}
 						}
 					}
@@ -264,6 +268,14 @@ namespace Classes.Dialogues
 				case State.info:
 					if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
 					{
+						if (partner == null)
+						{
+							Net.NetworkManager.PlayerSay(currentInfoLine, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
+						}
+						else
+						{
+							Net.NetworkManager.PlayerSay(currentInfoLine, partner.Position, partner.FloatingLineColor);
+						}
 						String n = currentTopic.TopicInfo.getNextLine();
 						if (n == "" || n == null)
 						{
@@ -305,6 +317,7 @@ namespace Classes.Dialogues
 							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
 							{
 								topicClick(currentChoice.Topics[n]);
+								Net.NetworkManager.PlayerSay(currentChoice.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.FloatingLineColor);
 							}
 						}
 					}

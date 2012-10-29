@@ -262,7 +262,7 @@ namespace Classes.Net
 
 
 
-		public static void PlayerSay(String text, Vector2 position)
+		public static void PlayerSay(String text, Vector2 position, Color color = default(Color))
 		{
 			NetOutgoingMessage msg = client.CreateMessage();
 			msg.Write((byte)PacketTypes.PLAYER_SAY);
@@ -270,6 +270,7 @@ namespace Classes.Net
 			msg.Write(text);
 			msg.Write((float)position.X);
 			msg.Write((float)position.Y);
+			msg.Write(color.PackedValue);
 			client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 		}
 
@@ -473,7 +474,15 @@ namespace Classes.Net
 								String n_text = inc.ReadString();
 								float n_X = inc.ReadFloat();
 								float n_Y = inc.ReadFloat();
-								Dialogues.DialogueManager.AddFloatingLine(n_text, n_X, n_Y);
+								uint n_c = inc.ReadUInt32();
+
+								Color unpackedColor = new Color();
+								unpackedColor.B = (byte)(n_c);
+								unpackedColor.G = (byte)(n_c >> 8);
+								unpackedColor.R = (byte)(n_c >> 16);
+								unpackedColor.A = (byte)(n_c >> 24);
+
+								Dialogues.DialogueManager.AddFloatingLine(n_text, n_X, n_Y, unpackedColor);
 								
 							}
 							catch (Exception ex)
