@@ -8,18 +8,33 @@ namespace Classes.Dialogues
 	class Info
 	{
 
-		private List<String> lines;			//Holding all the lines for the program
-		private int iterator;				//Used to iterate through the lines
+		//private List<String> lines;			//Holding all the lines for the program
+		//private int iterator;				//Used to iterate through the lines
 		private bool goodbye;				//Wether to end the conversation after this dialog option
-		private String choice_t;
+		private String text;
+		//private String choice_t;
 
 		/// <summary>
 		/// Info is used as a return value for all topics featuring the answer text of the NPCs
 		/// </summary>
-		public Info()
+		public Info(String text)
 		{
-			this.lines = new List<String>();
-			this.iterator = 0;
+			this.text = text;
+			this.goodbye = false;
+		}
+
+
+
+		public String Text
+		{
+			get { return this.text; }
+		}
+
+
+		public Info(String text, Boolean isGoodbye)
+		{
+			this.text = text;
+			this.goodbye = isGoodbye;
 		}
 
 
@@ -27,20 +42,20 @@ namespace Classes.Dialogues
 		/// Add a new Line for the Info. Each Line will be printed seperately.
 		/// </summary>
 		/// <param name="line">The new Line you want the Info to say.</param>
-		public void addLine(String line)
-		{
-			this.lines.Add(line);
-		}
+		//public void addLine(String line)
+		//{
+		//    this.lines.Add(line);
+		//}
 
 
 		/// <summary>
 		/// Sets a Choice to be displayed after the Info.
 		/// </summary>
 		/// <param name="choice"></param>
-		public void setChoice(String choice)
-		{
-			this.choice_t = choice;
-		}
+		//public void setChoice(String choice)
+		//{
+		//    this.choice_t = choice;
+		//}
 
 
 
@@ -48,29 +63,29 @@ namespace Classes.Dialogues
 		/// Gets the Choice to be displayed after the Info.
 		/// </summary>
 		/// <param name="choice"></param>
-		public Dialogue getChoice()
-		{
-			return DialogueManager.getDialogueByID(this.choice_t);
-		}
+		//public Dialogue getChoice()
+		//{
+		//    return DialogueManager.getDialogueByID(this.choice_t);
+		//}
 
 
 		/// <summary>
 		/// Returns line - by - line, starting at line 0. Returns empty String when done.
 		/// </summary>
 		/// <returns></returns>
-		public String getNextLine()
-		{
-			if (this.iterator < this.lines.Count)
-			{
-				this.iterator++;
-				return this.lines[this.iterator - 1];
-			}
-			else
-			{
-				this.iterator = 0;
-				return "";
-			}
-		}
+		//public String getNextLine()
+		//{
+		//    if (this.iterator < this.lines.Count)
+		//    {
+		//        this.iterator++;
+		//        return this.lines[this.iterator - 1];
+		//    }
+		//    else
+		//    {
+		//        this.iterator = 0;
+		//        return "";
+		//    }
+		//}
 
 
 
@@ -78,10 +93,10 @@ namespace Classes.Dialogues
 		/// Returns all Lines of the Info.
 		/// </summary>
 		/// <returns></returns>
-		public List<String> getAllLines()
-		{
-			return this.lines;
-		}
+		//public List<String> getAllLines()
+		//{
+		//    return this.lines;
+		//}
 
 
 
@@ -90,17 +105,17 @@ namespace Classes.Dialogues
 		/// </summary>
 		/// <param name="index">The index to look for the line.</param>
 		/// <returns></returns>
-		public String getLineAt(int index)
-		{
-			if (index < this.lines.Count)
-			{
-				return this.lines[index];
-			}
-			else
-			{
-				return "";
-			}
-		}
+		//public String getLineAt(int index)
+		//{
+		//    if (index < this.lines.Count)
+		//    {
+		//        return this.lines[index];
+		//    }
+		//    else
+		//    {
+		//        return "";
+		//    }
+		//}
 
 
 		/// <summary>
@@ -116,9 +131,9 @@ namespace Classes.Dialogues
 		/// <summary>
 		/// Returns true wether the Info triggers a Choice or not.
 		/// </summary>
-		public bool isChoiceTrigger
-		{
-			get { if (this.choice_t != null) { return true; } else { return false; } }
-		}
+		//public bool isChoiceTrigger
+		//{
+		//    get { if (this.choice_t != null) { return true; } else { return false; } }
+		//}
 	}
 }

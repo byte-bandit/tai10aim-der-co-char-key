@@ -28,6 +28,7 @@ namespace Classes.Dialogues
 		public String ID
 		{
 			get { return this.id; }
+			set { this.id = value; }
 		}
 
 
@@ -36,11 +37,11 @@ namespace Classes.Dialogues
 		/// </summary>
 		/// <param name="topic">The Topic to be added to the Dialogue.</param>
 		/// <returns></returns>
-		public bool addTopic(Topic topic)
-		{
-			this.topics.Add(topic);
-			return true;
-		}
+		//public bool addTopic(Topic topic)
+		//{
+		//    this.topics.Add(topic);
+		//    return true;
+		//}
 
 
 		/// <summary>
@@ -49,11 +50,11 @@ namespace Classes.Dialogues
 		/// <param name="text">The text of the new Topic</param>
 		/// <param name="info">The Info of the Topic</param>
 		/// <returns></returns>
-		public bool addTopic(String text, Info info)
-		{
-			this.topics.Add(new Topic(text, info));
-			return true;
-		}
+		//public bool addTopic(String text, Info info)
+		//{
+		//    this.topics.Add(new Topic(text, info));
+		//    return true;
+		//}
 
 
 
@@ -63,6 +64,7 @@ namespace Classes.Dialogues
 		public List<Topic> Topics
 		{
 			get { return this.topics; }
+			set { this.topics = value; }
 		}
 
 
@@ -74,19 +76,19 @@ namespace Classes.Dialogues
 		/// <param name="lines">A List of Strings you want the NPC to answer.</param>
 		/// <param name="goodbye">Wether to end the Dialogue after the last line has been said.</param>
 		/// <returns></returns>
-		public bool addTopic(String text, List<String> lines, bool goodbye)
-		{
-			Info tmpInfo = new Info();
+		//public bool addTopic(String text, List<String> lines, bool goodbye)
+		//{
+		//    Info tmpInfo = new Info();
 
-			foreach (String n in lines)
-			{
-				tmpInfo.addLine(n);
-			}
+		//    foreach (String n in lines)
+		//    {
+		//        tmpInfo.addLine(n);
+		//    }
 
-			tmpInfo.isGoodbye = goodbye;
+		//    tmpInfo.isGoodbye = goodbye;
 
-			this.topics.Add(new Topic(text, tmpInfo));
-			return true;
-		}
+		//    this.topics.Add(new Topic(text, tmpInfo));
+		//    return true;
+		//}
 	}
 }
