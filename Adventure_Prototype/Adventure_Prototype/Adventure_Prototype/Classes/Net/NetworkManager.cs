@@ -321,7 +321,6 @@ namespace Classes.Net
 							msg.Write(Profile.Puppet.Position.Y);
 							msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
 							client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
-							Debug.Print("SENDING MESSAGE!!!");
 						}
 					}
 				}
