@@ -26,6 +26,7 @@ namespace Classes.Dialogues
 		private static String currentInfoLine;
 		private static Dialogue currentChoice;
 		private static List<Dialogue> DialogueLibrary;
+		private static List<FloatingLine> FloatingLines;
 
 		private static String playerFeedback;
 		private static int feedbackTimer;
@@ -90,8 +91,73 @@ namespace Classes.Dialogues
 
 
 
+
+
+
+		/// <summary>
+		/// Adds a floating line to the Dialogue Manager
+		/// </summary>
+		/// <param name="f"></param>
+		public static void AddFloatingLine(FloatingLine f)
+		{
+			CheckForExistingFloatingLineAtPoint(f.Position.X, f.Position.Y)
+			FloatingLines.Add(f);
+		}
+
+
+
+
+		/// <summary>
+		/// Adds a floating line to the Dialogue Manager
+		/// </summary>
+		/// <param name="n_text"></param>
+		/// <param name="X"></param>
+		/// <param name="Y"></param>
+		public static void AddFloatingLine(String n_text, float X, float Y)
+		{
+			CheckForExistingFloatingLineAtPoint(X, Y);
+			FloatingLine f = new FloatingLine(n_text, X, Y);
+			FloatingLines.Add(f);
+		}
+
+
+
+
+		/// <summary>
+		/// Checks whether a Floating line is already existing at the given point
+		/// </summary>
+		/// <param name="X">X Value of the Point</param>
+		/// <param name="Y">Y Value of the Point - Duh</param>
+		/// <returns></returns>
+		private static Boolean CheckForExistingFloatingLineAtPoint(float X, float Y, bool kill = true)
+		{
+			Vector2 v = new Vector2(X, Y);
+
+			foreach (FloatingLine f in FloatingLines)
+			{
+				if (f.Position == v)
+				{
+					if (kill)
+					{
+						f.Kill();
+					}
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+
+
+
 		public static void draw(SpriteFont font, GameTime gametime)
 		{
+
+			foreach (FloatingLine f in FloatingLines)
+			{
+				f.Draw();
+			}
 
 
 			if (isBusy && feedbackTimer > 1)
@@ -148,6 +214,16 @@ namespace Classes.Dialogues
 
 		public static void Update()
 		{
+
+			for (int n = 0; n < FloatingLines.Count; n++)
+			{
+				FloatingLines[n].Update();
+				if (FloatingLines[n].RemainingTime < 1)
+				{
+					FloatingLines.Remove(FloatingLines[n]);
+				}
+			}
+
 
 			if (dialogue == null)
 			{
@@ -280,6 +356,7 @@ namespace Classes.Dialogues
 			Topic cTop = null;
 			Info cInf = null;
 			DialogueLibrary = new List<Dialogue>();
+			FloatingLines = new List<FloatingLine>();
 
 			try
 			{

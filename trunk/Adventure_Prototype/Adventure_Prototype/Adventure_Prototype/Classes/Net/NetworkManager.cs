@@ -26,7 +26,8 @@ public enum PacketTypes
 	PLAYER_INFO,
 	BROADCAST,
 	LOBBY,
-	GAME_STATE_CHANGED
+	GAME_STATE_CHANGED,
+	PLAYER_SAY
 }
 
 
@@ -261,6 +262,20 @@ namespace Classes.Net
 
 
 
+		public static void PlayerSay(String text, Vector2 position)
+		{
+			NetOutgoingMessage msg = client.CreateMessage();
+			msg.Write((byte)PacketTypes.PLAYER_SAY);
+			msg.Write(profile.Token);
+			msg.Write(text);
+			msg.Write((float)position.X);
+			msg.Write((float)position.Y);
+			client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+		}
+
+
+
+
 		public static void Update()
 		{
 
@@ -313,14 +328,14 @@ namespace Classes.Net
 					{
 						if (gameState == ServerStatus.GAME && profile != null)
 						{
-							UpdateStep = 0;
-							NetOutgoingMessage msg = client.CreateMessage();
-							msg.Write((byte)PacketTypes.BROADCAST);
-							msg.Write(profile.Token);
-							msg.Write(Profile.Puppet.Position.X);
-							msg.Write(Profile.Puppet.Position.Y);
-							msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
-							client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+							//UpdateStep = 0;
+							//NetOutgoingMessage msg = client.CreateMessage();
+							//msg.Write((byte)PacketTypes.BROADCAST);
+							//msg.Write(profile.Token);
+							//msg.Write(Profile.Puppet.Position.X);
+							//msg.Write(Profile.Puppet.Position.Y);
+							//msg.Write((byte)Profile.Puppet.GFXInfo.AnimationState);
+							//client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
 						}
 					}
 				}
@@ -436,6 +451,30 @@ namespace Classes.Net
 								{
 									SceneryManager.Player1.setWalkingTarget(new Vector2(n_X, n_Y));
 								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+							return;
+						}
+
+
+
+						if ((PacketTypes)packetidentifier == PacketTypes.PLAYER_SAY)
+						{
+							try
+							{
+								String n_token = inc.ReadString();
+								if (profile.Token == n_token)
+								{
+									return;
+								}
+								String n_text = inc.ReadString();
+								float n_X = inc.ReadFloat();
+								float n_Y = inc.ReadFloat();
+								Dialogues.DialogueManager.AddFloatingLine(n_text, n_X, n_Y);
+								
 							}
 							catch (Exception ex)
 							{
