@@ -384,12 +384,13 @@ namespace Classes
 						case Cursor.CursorAction.look:
 							CheckForEvents(w, Cursor.CursorAction.look);
 							Dialogues.DialogueManager.PlayerSay(w.OnLook);
-							
+							Net.NetworkManager.PlayerSay(w.OnLook, Net.NetworkManager.Profile.Puppet.Position);
 							break;
 
 						case Cursor.CursorAction.talk:
 							CheckForEvents(w, Cursor.CursorAction.talk);
 							Dialogues.DialogueManager.PlayerSay(w.OnTalk);
+							Net.NetworkManager.PlayerSay(w.OnTalk, Net.NetworkManager.Profile.Puppet.Position);
 							break;
 
 						case Cursor.CursorAction.use:
@@ -401,6 +402,7 @@ namespace Classes
 							{
 								CheckForEvents(w, Cursor.CursorAction.use);
 							}
+							Net.NetworkManager.PlayerSay(w.OnUse, Net.NetworkManager.Profile.Puppet.Position);
 							Dialogues.DialogueManager.PlayerSay(w.OnUse);
 							break;
 							

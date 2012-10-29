@@ -120,6 +120,7 @@
     <Compile Include="Classes\Dev\Editor.cs" />
     <Compile Include="Classes\Dialogues\Dialogue.cs" />
     <Compile Include="Classes\Dialogues\DialogueManager.cs" />
+    <Compile Include="Classes\Dialogues\FloatingLine.cs" />
     <Compile Include="Classes\Dialogues\Info.cs" />
     <Compile Include="Classes\Dialogues\Topic.cs" />
     <Compile Include="Classes\Events\Event.cs" />

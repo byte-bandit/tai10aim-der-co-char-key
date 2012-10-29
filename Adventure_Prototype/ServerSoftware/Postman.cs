@@ -50,7 +50,6 @@ namespace ServerSoftware
 			switch (packet_type)
 			{
 
-
 				//Gets send peers info
 				case PacketTypes.LOBBY:
 					String n_token = inc.ReadString();
@@ -64,7 +63,7 @@ namespace ServerSoftware
 							break;
 						}
 					}
-					break;
+				break;
 
 
 
@@ -88,7 +87,7 @@ namespace ServerSoftware
 						}
 					}
 
-					break;
+				break;
 
 
 
@@ -105,10 +104,36 @@ namespace ServerSoftware
 							break;
 						}
 					}
+				break;
+
+
+
+
+
+
+
+				case PacketTypes.PLAYER_SAY:
+
+					String n_token_s = inc.ReadString();
+					String n_text = inc.ReadString();
+					float n_X = inc.ReadFloat();
+					float n_Y = inc.ReadFloat();
+
+					foreach (Peer p in parent.connectedPeers)
+					{
+						if (p.Token != n_token_s)
+						{
+							NetOutgoingMessage msg = parent.server.CreateMessage();
+							msg.Write((byte)PacketTypes.PLAYER_SAY);
+							msg.Write(n_token_s);
+							msg.Write(n_text);
+							msg.Write(n_X);
+							msg.Write(n_Y);
+							p.Connection.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+						}
+					}
+
 					break;
-
-
-
 
 
 
