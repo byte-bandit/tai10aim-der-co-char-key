@@ -15,9 +15,10 @@ using Classes.Graphics;
 
 namespace Classes.Pathfinding
 {
-	public class Polygon : DrawableGameComponent
+	public class Polygon : Entity
 	{
 		private bool changeable;
+		private Color floatingLineColor = default(Color);
 		public List<Vector2> Nodes = new List<Vector2>();
 
 		public Polygon(Boolean change, Game game)
@@ -25,6 +26,21 @@ namespace Classes.Pathfinding
 		{
 			this.changeable = change;
 		}
+
+
+
+
+		public override Color GetFloatingLineColor()
+		{
+			return this.floatingLineColor;
+		}
+
+		public override void SetFloatingLineColor(Color color)
+		{
+			this.floatingLineColor = color;
+		}
+
+
 
 		public bool Changeable
 		{
@@ -44,6 +60,11 @@ namespace Classes.Pathfinding
 				return true;
 			}
 			return false;
+		}
+
+		public override Vector2 GetFloatingLinePosition()
+		{
+			return new Vector2(Nodes[0].X, Nodes[0].Y);
 		}
 
 		public override void Draw(GameTime gameTime)

@@ -6,10 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 using Classes.Pipeline;
+using Classes.Graphics;
 
 namespace Classes
 {
-	public abstract class Character : DrawableGameComponent 
+	public abstract class Character : Entity 
 	{
 		protected Vector2 position;
 		protected Vector2 target;
@@ -102,6 +103,13 @@ namespace Classes
 
 
 
+		public override Vector2 GetFloatingLinePosition()
+		{
+			return this.position;
+		}
+
+
+
 		public override void Draw(GameTime gameTime)
 		{
 			SpriteEffects se = new SpriteEffects();
@@ -134,11 +142,14 @@ namespace Classes
 
 
 
-
-		public Color FloatingLineColor
+		public override Color GetFloatingLineColor()
 		{
-			get { return this.floatingLineColor; }
-			set { this.floatingLineColor = value; }
+			return this.floatingLineColor;
+		}
+
+		public override void SetFloatingLineColor(Color color)
+		{
+			this.floatingLineColor = color;
 		}
 
 
