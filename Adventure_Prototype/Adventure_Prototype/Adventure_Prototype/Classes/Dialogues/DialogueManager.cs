@@ -184,14 +184,17 @@ namespace Classes.Dialogues
 			RectangleOverlay fancyBG = new RectangleOverlay(new Rectangle(0, 0, (int)GameRef.Resolution.X, (dialogue.Topics.Count + 2) * LINEBREAK), new Color(0,0,0,128), GameRef.Game);
 			fancyBG.Draw(gametime);
 
+			int lineIt = 0;
+
 			switch (state)
 			{
 				case State.topics:
 					for (int n = 0; n < dialogue.Topics.Count; n++)
 					{
-						if (!dialogue.Topics[n].isGoodbye())
+						if (!dialogue.Topics[n].isChoice)
 						{
-							Graphics.GraphicsManager.drawText(dialogue.Topics[n].getText(), new Vector2(10, (n + 1) * LINEBREAK), font, dialogue.Topics[n].color);
+							Graphics.GraphicsManager.drawText(dialogue.Topics[n].getText(), new Vector2(10, (lineIt + 1) * LINEBREAK), font, dialogue.Topics[n].color);
+							lineIt++;
 						}
 					}
 					break;
@@ -238,31 +241,42 @@ namespace Classes.Dialogues
 
 			mouseState = Mouse.GetState();
 
+			int LineIt = 0;
 
 			switch (state)
 			{
 				case State.topics:
 					for (int n = 0; n < dialogue.Topics.Count; n++)
 					{
-						if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
+						if (!dialogue.Topics[n].isChoice)
 						{
-							dialogue.Topics[n].color = Color.Red;
-						}
-						else
-						{
-							dialogue.Topics[n].color = Color.White;
+							if (mouseState.Y > (LineIt + 1) * LINEBREAK && mouseState.Y < (LineIt + 2) * LINEBREAK)
+							{
+								dialogue.Topics[n].color = Color.Red;
+							}
+							else
+							{
+								dialogue.Topics[n].color = Color.White;
+							}
+							LineIt ++;
 						}
 					}
+
+					LineIt = 0;
 
 					if (mouseState.LeftButton == ButtonState.Pressed && prevMouseState.LeftButton == ButtonState.Released)
 					{
 						//Click Detected
 						for (int n = 0; n < dialogue.Topics.Count; n++)
 						{
-							if (mouseState.Y > (n + 1) * LINEBREAK && mouseState.Y < (n + 2) * LINEBREAK)
+							if (!dialogue.Topics[n].isChoice)
 							{
-								topicClick(dialogue.Topics[n]);
-								Net.NetworkManager.PlayerSay(dialogue.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+								if (mouseState.Y > (LineIt + 1) * LINEBREAK && mouseState.Y < (LineIt + 2) * LINEBREAK)
+								{
+									topicClick(dialogue.Topics[n]);
+									Net.NetworkManager.PlayerSay(dialogue.Topics[n].getText(), Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+								}
+								LineIt++;
 							}
 						}
 					}
@@ -340,11 +354,12 @@ namespace Classes.Dialogues
 
 		private static void topicDone()
 		{
-			if (currentTopic.isGoodbye() && currentChoice == null)
+			if (currentTopic.isGoodbye())
 			{
 				dialogue = null;
 				isBusy = false;
 			}
+
 			if (currentChoice != null)
 			{
 				currentChoice = null;
@@ -450,71 +465,10 @@ namespace Classes.Dialogues
 					}
 				}
 
-				loadInChoices(choices, cuD);
-
-
-				//if (line.Trim().StartsWith("@DIALOGUE"))
-				//{
-				//    String[] pts = line.Split(Convert.ToChar(" "));
-
-				//    DialogueLibrary.Add(new Dialogue(line.Substring(9).Trim()));
-				//    cDia = DialogueLibrary[DialogueLibrary.Count - 1];
-				//    continue;
-				//}
-
-
-				//if (line.Trim().StartsWith("@TOPIC"))
-				//{
-				//    if (cDia == null)
-				//    {
-				//        continue;
-				//    }
-				//    cInf = new Info();
-				//    cTop = new Topic(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1), cInf);
-				//    cDia.addTopic(cTop);
-				//    continue;
-				//}
-
-
-
-
-
-				//if (line.Trim().StartsWith("SAY"))
-				//{
-				//    if (cDia == null || cTop == null)
-				//    {
-				//        continue;
-				//    }
-				//    cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-				//    continue;
-				//}
-
-
-
-
-				//if (line.Trim().StartsWith("GOODBYE"))
-				//{
-				//    if (cDia == null || cTop == null)
-				//    {
-				//        continue;
-				//    }
-				//    cTop.TopicInfo.isGoodbye = true;
-				//    cTop.TopicInfo.addLine(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-				//    continue;
-				//}
-
-
-
-				//if (line.Trim().StartsWith("GOTO"))
-				//{
-				//    if (cDia == null || cTop == null)
-				//    {
-				//        continue;
-				//    }
-				//    cTop.TopicInfo.setChoice(line.Substring(line.IndexOf("\"") + 1, line.LastIndexOf("\"") - line.IndexOf("\"") - 1));
-				//    continue;
-				//}
+				
 			}
+
+			loadInChoices(choices, cuD);
 		}
 
 
@@ -533,6 +487,7 @@ namespace Classes.Dialogues
 								if (t2.ID == kv.Value)
 								{
 									t.Choice.Add(t2);
+									t2.isChoice = true;
 								}
 							}
 						}

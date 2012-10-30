@@ -4,3 +4,8 @@
 #Lines with a leading # will be ignored and can be used for comments
 #Spaces / Tabs should be fine and can be used for layout.
 ##############################################################################
+BEGINEVENT
+ID:DE_RAUM01_GETKEY
+ACTION:REMOVE_OBJECT, key_id_bla
+ACTION:ADD_ITEM, item_key_id
+ENDEVENT

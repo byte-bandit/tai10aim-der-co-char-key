@@ -152,7 +152,8 @@ namespace Classes.Events
                                 break; 
                             }
                         case Action.type.StartDialogue:
-                            { 
+                            {
+								Dialogues.DialogueManager.startDialogue(a.TargetID, a.TargetCharacter);
                                 break; 
                             }
                         case Action.type.WalkTo:
