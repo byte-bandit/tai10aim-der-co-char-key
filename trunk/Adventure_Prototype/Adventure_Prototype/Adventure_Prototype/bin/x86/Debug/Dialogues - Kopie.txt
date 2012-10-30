@@ -1,0 +1,5 @@
+@DIALOGUE DE_SKELLETON
+	@TOPIC GREETING ""
+		@INFO "Hallöchen!"
+	@TOPIC dialog1 "Ein sprechendes Skelett?"
+		@GOODBYE "Problem?"
