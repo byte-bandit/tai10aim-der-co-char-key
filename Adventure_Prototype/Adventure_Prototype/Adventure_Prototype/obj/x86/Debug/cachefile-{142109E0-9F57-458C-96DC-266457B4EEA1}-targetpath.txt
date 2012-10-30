@@ -17,6 +17,12 @@ Content\Graphics\UI\menu_player_space.xnb
 Content\Graphics\UI\noGamePic.xnb
 Content\Graphics\UI\button_disabled.xnb
 Content\Graphics\UI\sad.xnb
+Content\Graphics\Sprites\door01.xnb
+Content\Graphics\Sprites\door01_closed.xnb
+Content\Graphics\Sprites\door02.xnb
+Content\Graphics\Sprites\door02_closed.xnb
+Content\Graphics\Backgrounds\01_Information.xnb
+Content\Graphics\Sprites\bottle.xnb
 Content\Graphics\Charsets\gb_sheet.xnb
 Content\Graphics\Sprites\room01_door.xnb
 Content\Graphics\Backgrounds\back001.xnb
@@ -24,9 +30,3 @@ Content\Audio\ui\click.xnb
 Content\ui_font.xnb
 Content\big.xnb
 Content\menu_font.xnb
-Content\Graphics\Sprites\door01.xnb
-Content\Graphics\Sprites\door01_closed.xnb
-Content\Graphics\Sprites\door02.xnb
-Content\Graphics\Sprites\door02_closed.xnb
-Content\Graphics\Backgrounds\01_Information.xnb
-Content\Graphics\Sprites\bottle.xnb

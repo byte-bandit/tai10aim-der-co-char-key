@@ -55,7 +55,7 @@ namespace Classes.Events
 		{
 			foreach (Event e in events)
 			{
-				e.check();
+				//e.check(); <=== Was not found?
 			}
 		}
 
