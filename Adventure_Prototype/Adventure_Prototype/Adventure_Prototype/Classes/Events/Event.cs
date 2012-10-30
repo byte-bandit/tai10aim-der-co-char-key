@@ -2,54 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Classes.Events;
 
 namespace Classes.Events
 {
 	class Event
 	{
+        private string id;
+        private List<Action> actions;
+        private List<Event> dependencies;
+        private Boolean executed;
+        private string alternative;
 
-		private Object sender;
-		private Type myType;
+        #region Properties
 
+        public string ID
+        {
+            get { return this.id; }
+            set { this.id = value; }
+        }
 
-		public enum Type
-		{
-			CLICK,
-			DOUBLECLICK,
-			RIGHTCLICK
-		}
-		
-		/// <summary>
-		/// Creates a new Event
-		/// </summary>
-		public Event(Object sender, Type _type)
-		{
-			this.myType = _type;
-			this.sender = sender;
-		}
+        public List<Action> Actions
+        {
+            get {return this.actions; }
+            set {this.actions = value;}
+        }
 
+        public List<Event> Dependencies
+        {
+            get { return this.dependencies; }
+            set { this.dependencies = value; }
+        }
 
+        public Boolean Executed
+        {
+            get { return this.executed; }
+            set { this.executed = false; }
+        }
 
-		public bool check()
-		{
-			switch (this.myType)
-			{
-				case Type.CLICK:
-					
-					break;
+        public string Alternative
+        {
+            get { return this.alternative; }
+            set { this.alternative = value; }
+        }
 
+        #endregion
 
-				case Type.DOUBLECLICK:
-					//NO DOUBLE CLICK SUPPORT SO FAR
-					break;
+        public Event()
+        {
+            this.executed = true;
+            this.alternative = "Geht nicht.";
+        }
 
+        public Event(string id)
+        {
+            this.id = id;
+            this.executed = true;
+            this.alternative = "Geht nicht.";
+        }
 
-				case Type.RIGHTCLICK:
-
-					break;
-			}
-			return false;
-		}
-
-	}
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        private Boolean checkDependencies()
+        {
+            Boolean check = true ; 
+            foreach(Event e in this.dependencies)
+            {
+                check = check && e.executed;
+            }
+                return check;
+        }
+    }
 }

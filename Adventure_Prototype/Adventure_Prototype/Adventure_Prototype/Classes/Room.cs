@@ -14,7 +14,7 @@ using Classes.IO;
 
 using Classes.Pathfinding;
 using Classes.Pipeline;
-using Classes.Action;
+using Classes.Events;
 namespace Classes
 {
 	public class Room : DrawableGameComponent
@@ -33,7 +33,7 @@ namespace Classes
 		private float scaleCharactersMax;
 		private Polygon walkAreas;
 		private String infoText;
-		private List<List<Actions>> events;
+		private List<Event> events;
 
 		/// <summary>
 		/// Constructor for Room
@@ -52,12 +52,12 @@ namespace Classes
 			this.npcs = new List<NPC>();
 			this.pois = new List<POI>();
 			this.LoadContent();
-			this.events = new List<List<Actions>>();
+            this.events = new List<Event>();
 		}
 
 		#region Properties
 
-		public List<List<Actions>> Events
+        public List<Event> Events
 		{
 			get { return events; }
 			set { this.events = value; }
@@ -227,27 +227,6 @@ namespace Classes
 		/// </summary>
 		/// <param name="w"></param>
 		/// <param name="typ"></param>
-		private void CheckForEvents(Object w, Cursor.CursorAction typ)
-		{
-			try
-			{
-				List<Actions> eventlist = this.Events.First<List<Actions>>();
-				foreach (Actions a in eventlist)
-				{
-					if ((a.Trigger == w) && (a.Typ == typ))
-					{
-						TriggerEvent(a.Effects);
-						eventlist.Remove(a);
-						// MAybe potential problem
-						break;
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				System.Diagnostics.Debug.Print(ex.ToString());
-			}
-		}
 
 		/// <summary>
 		/// Helper Method to find an NPC by his name
@@ -267,107 +246,7 @@ namespace Classes
 			return null;
 		}
 
-		/// <summary>
-		/// Triggers an Event and therefor all effects
-		/// </summary>
-		/// <param name="effects"></param>
-		private void TriggerEvent(List<string> effects)
-		{
-			string help = String.Empty;
-			List<string> copy = new List<string>();
-			foreach (string t in effects)
-			{
-				t.Trim();
-				switch (t.Substring(0, t.IndexOf(" ")))
-				{
-					case "AddNPC":
-						{
-							copy.Add(t);
-							break;
-						}
 
-					case "ChangeTalk":
-						{
-							break;
-						}
-
-					case "ChangeUse":
-						{
-							break;
-						}
-					case "ChangeWalk":
-						{
-							break;
-						}
-					case "ChangeTake":
-						{
-							break;
-						}
-
-					case "NPCWalk":
-						{
-							help = t.Substring(t.IndexOf(" ") + 1);
-							string position = help.Substring(help.IndexOf(" ") + 1);
-							Vector2 target = new Vector2(Int32.Parse(position.Substring(0, position.IndexOf(";")+1)), Int32.Parse(position.Substring(position.IndexOf(";")+1)));
-							if (FindNPCbyName(help.Substring(0, help.IndexOf(" "))) != null)
-							{
-								FindNPCbyName(help.Substring(0, help.IndexOf(" "))).setWalkingTarget(target);
-							}
-							copy.Add(t);
-
-							break;
-						}
-
-					case "RemoveNPC":
-						{
-							help = t.Substring(t.IndexOf(" ")+1);
-							if (FindNPCbyName(help) != null)
-							{
-								this.removeNPC(FindNPCbyName(help));
-							}
-							copy.Add(t);
-							break;
-						}
-
-					case "Wait":
-						{
-							help = t.Substring(0, t.IndexOf(" ")+1);
-							help.Replace(" ", "");
-							Wait(int.Parse(help));
-							copy.Add(t);
-							break;
-						}
-						// to be continued...
-					default:
-						{
-							// to clean up the mess
-							copy.Add(t);
-							break;
-						}
-				}
-			}
-			foreach (string l in copy)
-			{
-				foreach (string t in effects)
-				{
-					if (l.Equals(t))
-					{
-						effects.Remove(t);
-						break;
-					}
-				}
-			}
-		}
-
-		/// <summary>
-		/// Is called, when Inventory focus is not null and Cursor is set at Use. 
-		/// Checks if the two Objects are combinable.
-		/// </summary>
-		/// <param name="w"></param>
-		private void CheckForCombination(object w)
-		{
-			// to be continued...
-		}
 
 		/// <summary>
 		/// Checks all World Objects, POI´s and NPC if the mouse has been clicked on them
@@ -382,26 +261,16 @@ namespace Classes
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
-							CheckForEvents(w, Cursor.CursorAction.look);
 							Dialogues.DialogueManager.PlayerSay(w.OnLook);
 							Net.NetworkManager.PlayerSay(w.OnLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							break;
 
 						case Cursor.CursorAction.talk:
-							CheckForEvents(w, Cursor.CursorAction.talk);
 							Dialogues.DialogueManager.PlayerSay(w.OnTalk);
 							Net.NetworkManager.PlayerSay(w.OnTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							break;
 
 						case Cursor.CursorAction.use:
-							if (GameRef.Inventory.Focus != null)
-							{
-								CheckForCombination(w);
-							}
-							else
-							{
-								CheckForEvents(w, Cursor.CursorAction.use);
-							}
 							Net.NetworkManager.PlayerSay(w.OnUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
 							Dialogues.DialogueManager.PlayerSay(w.OnUse);
 							break;

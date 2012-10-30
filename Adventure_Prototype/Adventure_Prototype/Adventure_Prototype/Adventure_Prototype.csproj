@@ -114,7 +114,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Action\Actions.cs" />
     <Compile Include="Classes\Animation.cs" />
     <Compile Include="Classes\Character.cs" />
     <Compile Include="Classes\Dev\Editor.cs" />
@@ -123,6 +122,7 @@
     <Compile Include="Classes\Dialogues\FloatingLine.cs" />
     <Compile Include="Classes\Dialogues\Info.cs" />
     <Compile Include="Classes\Dialogues\Topic.cs" />
+    <Compile Include="Classes\Events\Action.cs" />
     <Compile Include="Classes\Events\Event.cs" />
     <Compile Include="Classes\Events\EventManager.cs" />
     <Compile Include="Classes\Graphics\Entity.cs" />
