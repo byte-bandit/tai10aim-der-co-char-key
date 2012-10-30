@@ -255,18 +255,15 @@ namespace Classes
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
-							Dialogues.DialogueManager.PlayerSay(w.OnLook);
-							Net.NetworkManager.PlayerSay(w.OnLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(w.OnLook.Trim(), w);
 							break;
 
 						case Cursor.CursorAction.talk:
-							Dialogues.DialogueManager.PlayerSay(w.OnTalk);
-							Net.NetworkManager.PlayerSay(w.OnTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(w.OnTalk.Trim(), w);
 							break;
 
 						case Cursor.CursorAction.use:
-							Net.NetworkManager.PlayerSay(w.OnUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
-							Dialogues.DialogueManager.PlayerSay(w.OnUse);
+							infoRoute(w.OnUse.Trim(), w);
 							break;
 							
 					}
@@ -282,25 +279,15 @@ namespace Classes
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
-							Dialogues.DialogueManager.PlayerSay(w.onLook);
-							Net.NetworkManager.PlayerSay(w.onLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(w.onLook.Trim(), w);
 							break;
 
 						case Cursor.CursorAction.talk:
-							if (w.onTalk.Trim().StartsWith("{D:"))
-							{
-								Dialogues.DialogueManager.startDialogue(w.onTalk.Trim().Substring(3, w.onTalk.Trim().Length - 4), w);
-							}
-							else
-							{
-								Dialogues.DialogueManager.PlayerSay(w.onTalk);
-								Net.NetworkManager.PlayerSay(w.onTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
-							}
+							infoRoute(w.onTalk.Trim(), w);
 							break;
 
 						case Cursor.CursorAction.use:
-							Dialogues.DialogueManager.PlayerSay(w.onUse);
-							Net.NetworkManager.PlayerSay(w.onUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(w.onUse.Trim(), w);
 							break;
 					}
 					return;
@@ -315,26 +302,15 @@ namespace Classes
 					switch (Cursor.CurrentAction)
 					{
 						case Cursor.CursorAction.look:
-							Dialogues.DialogueManager.PlayerSay(n.OnLook);
-							Net.NetworkManager.PlayerSay(n.OnLook, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(n.OnLook.Trim(), n);
 							break;
 
 						case Cursor.CursorAction.talk:
-							if (n.OnTalk.Trim().StartsWith("{D:"))
-							{
-								Dialogues.DialogueManager.startDialogue(n.OnTalk.Trim().Substring(3, n.OnTalk.Trim().Length - 4), n);
-							}
-							else
-							{
-								Dialogues.DialogueManager.PlayerSay(n.OnTalk);
-								Net.NetworkManager.PlayerSay(n.OnTalk, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
-							}
-
+							infoRoute(n.OnTalk.Trim(), n);
 							break;
 
 						case Cursor.CursorAction.use:
-							Dialogues.DialogueManager.PlayerSay(n.OnUse);
-							Net.NetworkManager.PlayerSay(n.OnUse, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+							infoRoute(n.OnUse.Trim(), n);
 							break;
 					}
 				}
@@ -382,6 +358,30 @@ namespace Classes
 				}
 			}
 		}
+
+
+
+		/// <summary>
+		/// Analyzes given input for Dialogue or Script functions and delegates.
+		/// </summary>
+		private void infoRoute(String info, Entity actor)
+		{
+			if (info.StartsWith("{D:"))
+			{
+				Dialogues.DialogueManager.startDialogue(info.Substring(3, info.Length - 4), actor);
+			}
+			else if (info.StartsWith("{S:"))
+			{
+				//Call the script
+			}
+			else
+			{
+				Dialogues.DialogueManager.PlayerSay(info);
+				Net.NetworkManager.PlayerSay(info, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+			}
+		}
+
+
 
 
 

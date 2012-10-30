@@ -17,6 +17,7 @@ namespace Classes.Dialogues
 		private List<Topic> choice = new List<Topic>();
 		private int iterator = 0;
 		private Color drawColor;
+		private bool _isChoice = false;
 
 
 
@@ -36,6 +37,14 @@ namespace Classes.Dialogues
 			}
 		}
 
+
+
+
+		public Boolean isChoice
+		{
+			get { return this._isChoice; }
+			set { this._isChoice = value; }
+		}
 
 
 
