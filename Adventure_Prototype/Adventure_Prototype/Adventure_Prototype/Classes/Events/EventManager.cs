@@ -82,31 +82,38 @@ namespace Classes.Events
                     String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
                     Event tmp = new Event(id.ToLower());
                     n++;
-                    if (data[n].Contains("ACTION:"))
+                    while (!data[n].StartsWith("ENDEVENT"))
                     {
-                        while (data[n].Contains("ACTION:"))
+                        if (data[n].StartsWith("BEGINACTION:"))
                         {
-                            Classes.Events.Action action = new Classes.Events.Action(data[n].Substring(data[n].IndexOf("ACTION:") + 7));
+                            List<string> content = new List<string>();
+                            n++;
+                            while (!data[n].StartsWith("ENDACTION:"))
+                            {
+                                content.Add(data[n]);
+                                n++;
+                            }
+                            Classes.Events.Action action = new Classes.Events.Action(content);
                             tmp.Actions.Add(action);
                             n++;
                         }
-                    }
-                    if (data[n].Contains("DEPENDENCE:"))
-                    {
-                        while (data[n].Contains("DEPENDENCE:"))
+                        if (data[n].Contains("DEPENDENCE:"))
                         {
-                            string event_id = data[n].Substring(data[n].IndexOf("DEPENDENCE:") + 11).Trim();
-                            try
+                            while (data[n].Contains("DEPENDENCE:"))
                             {
-                                tmp.Dependencies.Add(EventLibrary[event_id]);
+                                string event_id = data[n].Substring(data[n].IndexOf("DEPENDENCE:") + 11).Trim();
+                                try
+                                {
+                                    tmp.Dependencies.Add(EventLibrary[event_id]);
+                                }
+                                catch (Exception ex)
+                                {
+                                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+                                    return;
+                                }
+                                n++;
                             }
-                            catch (Exception ex)
-                            {
-                                System.Diagnostics.Debug.WriteLine(ex.ToString());
-                                return;
-                            }
-                            n++;
-                        }
+                        } 
                     }
 
                 }
@@ -122,7 +129,7 @@ namespace Classes.Events
             {
                 throw new System.ArgumentException("ExecuteEvent:no such event defined");
             }
-            if (EventLibrary[ID].checkDependencies())
+            if (!EventLibrary[ID].Executed && EventLibrary[ID].checkDependencies())
             {
                 if (EventLibrary[ID].Actions.Count == 0)
                 {

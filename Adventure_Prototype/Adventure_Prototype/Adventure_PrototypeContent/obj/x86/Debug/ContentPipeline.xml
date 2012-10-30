@@ -7,8 +7,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\funn.xnb</Output>
-      <Time>2012-10-30T12:16:26.6805005+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\funn.xnb</Output>
+      <Time>2012-10-30T12:12:55.4603283+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\Key.png</Source>
@@ -19,8 +19,8 @@
         <Data Key="ColorKeyColor">0, 255, 0, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\Key.xnb</Output>
-      <Time>2012-07-03T17:28:06.1930478+02:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\Key.xnb</Output>
+      <Time>2012-10-30T12:12:55.3903243+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\picture.png</Source>
@@ -31,8 +31,8 @@
         <Data Key="ColorKeyColor">0, 255, 0, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\picture.xnb</Output>
-      <Time>2012-07-03T17:28:06.1960479+02:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\picture.xnb</Output>
+      <Time>2012-10-30T12:12:55.3923244+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Cursor\cursor_look.png</Source>
@@ -43,8 +43,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_look.xnb</Output>
-      <Time>2012-10-30T12:16:26.775506+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_look.xnb</Output>
+      <Time>2012-10-30T12:12:55.4203261+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Cursor\cursor_talk.png</Source>
@@ -55,8 +55,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_talk.xnb</Output>
-      <Time>2012-10-30T12:16:26.7825064+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_talk.xnb</Output>
+      <Time>2012-10-30T12:12:55.4113255+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Cursor\cursor_walk.png</Source>
@@ -67,8 +67,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_walk.xnb</Output>
-      <Time>2012-10-30T12:16:26.7905068+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_walk.xnb</Output>
+      <Time>2012-10-30T12:12:55.4173259+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Cursor\cursor_use.png</Source>
@@ -76,8 +76,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_use.xnb</Output>
-      <Time>2012-10-30T12:16:26.7865066+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_use.xnb</Output>
+      <Time>2012-10-30T12:12:55.4143257+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Charsets\afroGB.png</Source>
@@ -88,8 +88,8 @@
         <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\afroGB.xnb</Output>
-      <Time>2012-10-30T12:16:26.7365037+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\afroGB.xnb</Output>
+      <Time>2012-10-30T12:12:55.3963247+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Cursor\cursor_dialogue.png</Source>
@@ -97,8 +97,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_dialogue.xnb</Output>
-      <Time>2012-10-30T12:16:26.7795062+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Cursor\cursor_dialogue.xnb</Output>
+      <Time>2012-10-30T12:12:55.4073253+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Charsets\spriteA.png</Source>
@@ -109,8 +109,8 @@
         <Data Key="ColorKeyColor">15, 191, 167, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\spriteA.xnb</Output>
-      <Time>2012-10-30T12:16:26.7445042+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\spriteA.xnb</Output>
+      <Time>2012-10-30T12:12:55.4043251+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Backgrounds\room01.png</Source>
@@ -118,8 +118,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\room01.xnb</Output>
-      <Time>2012-10-30T12:16:26.6735001+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\room01.xnb</Output>
+      <Time>2012-10-30T12:12:55.4533279+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\blue_sky_march_2010___6_by_kartine29.jpg</Source>
@@ -127,8 +127,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_back.xnb</Output>
-      <Time>2012-10-30T12:16:27.301536+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_back.xnb</Output>
+      <Time>2012-10-30T12:12:55.4513278+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\menu_title_font.png</Source>
@@ -139,8 +139,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_title_font.xnb</Output>
-      <Time>2012-10-30T12:16:27.3065363+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_title_font.xnb</Output>
+      <Time>2012-10-30T12:12:55.4253263+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\button_down.png</Source>
@@ -151,8 +151,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_down.xnb</Output>
-      <Time>2012-10-30T12:16:27.2845351+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_down.xnb</Output>
+      <Time>2012-10-30T12:12:55.4413273+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\button_up.png</Source>
@@ -163,8 +163,8 @@
         <Data Key="ColorKeyColor">0, 0, 0, 0</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_up.xnb</Output>
-      <Time>2012-10-30T12:16:27.2595336+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_up.xnb</Output>
+      <Time>2012-10-30T12:12:55.4313267+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\menu_player_space.png</Source>
@@ -172,8 +172,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_player_space.xnb</Output>
-      <Time>2012-10-30T12:16:27.3105366+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\menu_player_space.xnb</Output>
+      <Time>2012-10-30T12:12:55.4283265+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\noGamePic.png</Source>
@@ -181,8 +181,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\noGamePic.xnb</Output>
-      <Time>2012-10-30T12:16:27.2735344+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\noGamePic.xnb</Output>
+      <Time>2012-10-30T12:12:55.4353269+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\button_disabled.png</Source>
@@ -190,8 +190,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_disabled.xnb</Output>
-      <Time>2012-10-30T12:16:27.2795348+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\button_disabled.xnb</Output>
+      <Time>2012-10-30T12:12:55.4383271+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\UI\sad.png</Source>
@@ -199,8 +199,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\sad.xnb</Output>
-      <Time>2012-10-30T12:16:27.2955357+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\UI\sad.xnb</Output>
+      <Time>2012-10-30T12:12:55.4473276+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\door01.png</Source>
@@ -208,8 +208,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01.xnb</Output>
-      <Time>2012-10-29T19:09:27.1158083+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01.xnb</Output>
+      <Time>2012-10-30T12:29:15.913407+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\door01_closed.png</Source>
@@ -217,8 +217,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01_closed.xnb</Output>
-      <Time>2012-10-29T19:09:27.1338093+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door01_closed.xnb</Output>
+      <Time>2012-10-30T12:29:15.9104069+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\door02.png</Source>
@@ -226,8 +226,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02.xnb</Output>
-      <Time>2012-10-29T19:09:27.1368095+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02.xnb</Output>
+      <Time>2012-10-30T12:29:15.9154072+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\door02_closed.png</Source>
@@ -235,8 +235,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02_closed.xnb</Output>
-      <Time>2012-10-29T19:09:27.1398097+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02_closed.xnb</Output>
+      <Time>2012-10-30T12:29:15.9114069+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Backgrounds\01_Information.png</Source>
@@ -244,8 +244,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\01_Information.xnb</Output>
-      <Time>2012-10-29T19:27:09.4805721+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\01_Information.xnb</Output>
+      <Time>2012-10-30T12:29:15.8654043+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\bottle.png</Source>
@@ -253,8 +253,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\bottle.xnb</Output>
-      <Time>2012-10-29T19:27:17.6270381+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\bottle.xnb</Output>
+      <Time>2012-10-30T12:29:15.9174073+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Charsets\gb_sheet.png</Source>
@@ -265,8 +265,8 @@
         <Data Key="ColorKeyColor">255, 255, 255, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\gb_sheet.xnb</Output>
-      <Time>2012-10-30T12:16:26.740504+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Charsets\gb_sheet.xnb</Output>
+      <Time>2012-10-30T12:12:55.4003249+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Sprites\room01_door.png</Source>
@@ -277,8 +277,8 @@
         <Data Key="ColorKeyColor">0, 255, 0, 255</Data>
       </Parameters>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\room01_door.xnb</Output>
-      <Time>2012-07-03T17:28:06.1900476+02:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\room01_door.xnb</Output>
+      <Time>2012-10-30T12:12:55.3883242+01:00</Time>
     </Item>
     <Item>
       <Source>Graphics\Backgrounds\back001.jpg</Source>
@@ -286,8 +286,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\back001.xnb</Output>
-      <Time>2012-10-30T12:16:26.6775004+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\back001.xnb</Output>
+      <Time>2012-10-30T12:12:55.4573282+01:00</Time>
     </Item>
     <Item>
       <Source>Audio\ui\click.WAV</Source>
@@ -295,8 +295,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\ui\click.xnb</Output>
-      <Time>2012-10-30T12:17:39.9986941+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Audio\ui\click.xnb</Output>
+      <Time>2012-10-30T12:12:55.4633285+01:00</Time>
     </Item>
     <Item>
       <Source>ui_font.spritefont</Source>
@@ -304,8 +304,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\ui_font.xnb</Output>
-      <Time>2012-10-30T12:16:26.6694999+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\ui_font.xnb</Output>
+      <Time>2012-10-30T12:12:55.7353441+01:00</Time>
     </Item>
     <Item>
       <Source>big.spritefont</Source>
@@ -313,8 +313,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\big.xnb</Output>
-      <Time>2012-10-30T12:17:40.3367134+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\big.xnb</Output>
+      <Time>2012-10-30T12:12:55.7303438+01:00</Time>
     </Item>
     <Item>
       <Source>menu_font.spritefont</Source>
@@ -322,8 +322,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <Options>None</Options>
-      <Output>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
-      <Time>2012-10-30T12:17:40.0356962+01:00</Time>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
+      <Time>2012-10-30T12:12:55.7063424+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -331,39 +331,39 @@
       <TargetProfile>Reach</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\</RootDirectory>
-      <LoggerRootDirectory>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\</LoggerRootDirectory>
-      <IntermediateDirectory>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\</RootDirectory>
+      <LoggerRootDirectory>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\</LoggerRootDirectory>
+      <IntermediateDirectory>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_PrototypeContent\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.XImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.VideoImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.TextureImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.FBXImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.EffectImporter.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.AudioImporters.dll</Key>
-        <Value>2010-08-23T13:41:18+02:00</Value>
+        <Value>2010-08-23T12:41:18+02:00</Value>
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2012-03-17T19:10:47.4589309+01:00</Value>
+        <Value>2012-09-08T19:47:00.1743925+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>
