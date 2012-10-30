@@ -26,6 +26,7 @@ namespace Classes.Dialogues
 		{
 			if (this.iterator == this.info.Count)
 			{
+				this.iterator = 0;
 				return null;
 			}
 			else
