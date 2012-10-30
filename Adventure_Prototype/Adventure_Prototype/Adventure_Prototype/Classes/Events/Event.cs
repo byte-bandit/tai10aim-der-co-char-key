@@ -64,7 +64,7 @@ namespace Classes.Events
         /// <summary>
         /// 
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns true if all dependencies were executed</returns>
         private Boolean checkDependencies()
         {
             Boolean check = true ; 

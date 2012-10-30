@@ -435,7 +435,7 @@ namespace Classes.Dev
 						Vector2 tmp = walkAreas.Nodes[0];
 						walkAreas.Nodes.Add(tmp);
 						walkAreas.Changeable = false;
-						Microsoft.VisualBasic.Interaction.MsgBox("Walkare Complete.");
+						Microsoft.VisualBasic.Interaction.MsgBox("Walkarea Complete.");
 					}
 					else
 					{
