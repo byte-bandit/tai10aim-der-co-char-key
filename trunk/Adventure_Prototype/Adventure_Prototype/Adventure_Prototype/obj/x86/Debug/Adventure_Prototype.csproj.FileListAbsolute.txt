@@ -37,3 +37,5 @@ D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\door02_closed.xnb
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Backgrounds\01_Information.xnb
 D:\Co-Char-Key\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\bottle.xnb
+C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\obj\x86\Debug\Adventure_Prototype.exe
+C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\obj\x86\Debug\Adventure_Prototype.pdb

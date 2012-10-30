@@ -10,7 +10,8 @@ using Microsoft.Xna.Framework;
 using Classes;
 using Classes.Graphics;
 using Classes.Pathfinding;
-using Classes.Action;
+using Classes.Events;
+using Classes.Events.Action;
 
 namespace Classes.Pipeline
 {
@@ -265,87 +266,38 @@ namespace Classes.Pipeline
 				if (line.Trim().StartsWith("BEGINEVENT"))
 				{
 					n++;
-					
+
 					//Get Id of the event
 					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
-					Actions tmp = new Actions();
-					id.ToLower();
-					if (id.Contains("use"))
+                    Event tmp = new Event(id.ToLower());
+
+					if (data[n].Contains("ACTION:"))
 					{
-						tmp.Typ = IO.Cursor.CursorAction.use;
+						while (data[n].Contains("ACTION:"))
+						{
+                            Classes.Events.Action action = new Classes.Events.Action(data[n].Substring(data[n].IndexOf("ACTION:") + 7));
+						    tmp.Actions.Add(action);
+							n++;
+						}
 					}
-					if (id.Contains("look"))
-					{
-						tmp.Typ = IO.Cursor.CursorAction.look;
-					}
-					if (id.Contains("talk"))
-					{
-						tmp.Typ = IO.Cursor.CursorAction.talk;
-					}
-					if (id.Contains("walk"))
-					{
-						tmp.Typ = IO.Cursor.CursorAction.walk;
-					}
+                    if (data[n].Contains("DEPENDENCE:"))
+                    {
+                        while (data[n].Contains("DEPENDENCE:"))
+                        {
+                            string event_id = data[n].Substring(data[n].IndexOf("DEPENDENCE:") + 11).Trim();
+                            foreach (Event e in ret.Events)
+                            {
+                                if (e.ID == event_id)
+                                {
+                                    tmp.Dependencies.Add(e);
+                                    break;
+                                }
+                            }
+                            n++;
+                        }
+                    }	
 					
-
-					n++;
-					//Get Level of the Event
-					int level =  Int32.Parse(data[n].Substring(data[n].IndexOf("Level:") + 6));
-
-					//Get trigger
-					n++;
-					String trigger = data[n].Substring(data[n].IndexOf("TRIGGER:") + 8);
-					String trigger2 = string.Empty;
-					n++;
-					if (data[n].Contains("TRIGGER2:"))
-					{
-						trigger2 = data[n].Substring(data[n].IndexOf("TRIGGER2:") + 9);
-						n++;
-					}
-
-					foreach (POI p in ret.POIS)
-					{
-						if (p.Name == trigger)
-						{
-							tmp.Trigger = p;
-						}
-						if(p.Name == trigger2)
-						{
-							tmp.Trigger2 = trigger2;
-						}
-					}
-					foreach (WorldObject p in ret.getWorldObjects())
-					{
-						if (p.Name == trigger)
-						{
-							tmp.Trigger = p;
-						}
-						if (p.Name == trigger2)
-						{
-							tmp.Trigger2 = p;
-						}
-
-					}
-
-					{
-						if (data[n].Contains("ACTION:"))
-						{
-							string effect = String.Empty;
-							while (data[n].Contains("ACTION:"))
-							{
-								effect = data[n].Substring(data[n].IndexOf("ACTION:") + 7);
-								tmp.Effects.Add(effect);
-								n++;
-							}
-
-						}	
-					}
-					
-					if(ret.Events.Count < level)
-					{
-						ret.Events.Capacity = level + 1;
-					}
-					ret.Events[level].Add(tmp);
+					ret.Events.Add(tmp);
 					continue;
 
 				}
