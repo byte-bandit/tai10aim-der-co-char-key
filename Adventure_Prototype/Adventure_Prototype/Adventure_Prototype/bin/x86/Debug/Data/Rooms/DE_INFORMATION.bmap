@@ -1,0 +1,151 @@
+# Brunnen-G Adventure Engine Room File
+# Created: 29.10.2012 19:38:41
+# By: Kna - alias: Kna-Abakus
+# On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
+# 64Bit: True
+# Number of Processors: 4
+# Mapped Memory: 90648576
+# This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
+
+BEGIN
+BEGINROOM
+ID:DE_INFORMATION,TEXTURE:Graphics/Backgrounds/01_Information
+SCALING:False
+ENDROOM
+BEGINWALK
+X:191,Y:498
+ENDWALK
+BEGINWALK
+X:352,Y:503
+ENDWALK
+BEGINWALK
+X:354,Y:560
+ENDWALK
+BEGINWALK
+X:362,Y:575
+ENDWALK
+BEGINWALK
+X:807,Y:581
+ENDWALK
+BEGINWALK
+X:818,Y:600
+ENDWALK
+BEGINWALK
+X:860,Y:634
+ENDWALK
+BEGINWALK
+X:917,Y:654
+ENDWALK
+BEGINWALK
+X:950,Y:654
+ENDWALK
+BEGINWALK
+X:989,Y:597
+ENDWALK
+BEGINWALK
+X:1025,Y:596
+ENDWALK
+BEGINWALK
+X:1068,Y:577
+ENDWALK
+BEGINWALK
+X:1092,Y:574
+ENDWALK
+BEGINWALK
+X:1214,Y:700
+ENDWALK
+BEGINWALK
+X:59,Y:704
+ENDWALK
+BEGINWALK
+X:191,Y:498
+ENDWALK
+BEGINWO
+X:188,Y:230
+TEXTURE:Graphics/Sprites/door02_closed
+NAME:Türe
+ONLOOK:Sieht nach der einzigen Tür hier aus. Abgesehen vom Eingang...
+ONUSE:Abgeschlossen!
+ONTALK:Ich möchte nicht noch wahnsinniger wirken.
+ENDWO
+BEGINWO
+X:993,Y:513
+TEXTURE:Graphics/Sprites/bottle
+NAME:Flasche
+ONLOOK:Sieht leer aus ...
+ONUSE:PLACEHALTER_SCRIPT
+ONTALK:Lieber nicht.
+ENDWO
+BEGINPOI
+X:470,Y:168
+X:466,Y:225
+X:668,Y:224
+X:665,Y:171
+X:470,Y:168
+NAME:Information
+ONLOOK:"Information" ... sehr ungewöhnlich ...
+ONUSE:Da komme ich unmöglich ran!
+ONTALK:Lieber nicht.
+ENDPOI
+BEGINPOI
+X:647,Y:392
+X:671,Y:417
+X:737,Y:377
+X:715,Y:343
+X:647,Y:392
+NAME:Hinweisschild
+ONLOOK:Die Spinnweben deuten auf die wahren Besitzer dieses Schalters hin...
+ONUSE:Ich möchte mich hier nicht unbeliebt machen.
+ONTALK:Lieber nicht.
+ENDPOI
+BEGINPOI
+X:827,Y:579
+X:860,Y:612
+X:931,Y:561
+X:896,Y:623
+X:923,Y:642
+X:999,Y:549
+X:1000,Y:580
+X:1026,Y:577
+X:1041,Y:513
+X:1049,Y:454
+X:1080,Y:418
+X:1060,Y:380
+X:1019,Y:386
+X:1000,Y:403
+X:994,Y:430
+X:965,Y:440
+X:926,Y:440
+X:902,Y:471
+X:890,Y:507
+X:899,Y:518
+X:902,Y:534
+X:827,Y:579
+NAME:Skelett
+ONLOOK:Liegt wohl schon etwas länger hier...
+ONUSE:Ich möchte ihm nichts brechen. Seine Knochen sind alles, was er noch hat...
+ONTALK:{D:DE_SKELLETON}
+ENDPOI
+BEGINPOI
+X:1115,Y:237
+X:1113,Y:426
+X:1249,Y:532
+X:1259,Y:236
+X:1115,Y:237
+NAME:Kunst
+ONLOOK:Ob ihn das Skelett oder die freundliche Dame am Schalter irritiert?
+ONUSE:Vermutlich unschätzbar wertvoll ... wir haben schon genug Probleme.
+ONTALK:Ich bin mir ziemlich sicher, dass er sich die Ohren zuhält...
+ENDPOI
+BEGINPOI
+X:35,Y:153
+X:29,Y:554
+X:168,Y:430
+X:143,Y:89
+X:35,Y:153
+NAME:Fenster
+ONLOOK:Wow, da draußen geht ziemlich was ab!
+ONUSE:Klemmt! Verdammt...
+ONTALK:Die würden mich vermutlich eh nicht hören.
+ENDPOI
+END

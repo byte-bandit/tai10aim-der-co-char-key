@@ -1,0 +1,11 @@
+@DIALOGUE DE_SKELLETON
+	@TOPIC GREETING "Oh hallo"
+		@INFO "Hallöchen!"
+	@TOPIC dialog1 "Ein sprechendes Skelett?"
+		@INFO "Problem?"
+		@CHOICE dialog2
+	@TOPIC dialog2 "Ein bisschen schon, ja!"
+		@INFO "Dein Problem."
+		@GOODBYE "Ich verschwinde..."
+	@TOPIC dialog3 "Und sonst so?"
+		@INFO "Eigentlich nichts ..."

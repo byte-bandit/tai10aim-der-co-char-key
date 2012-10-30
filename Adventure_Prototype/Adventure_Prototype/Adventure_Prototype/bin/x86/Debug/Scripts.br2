@@ -1,0 +1,6 @@
+@SCRIPT InitialDialogueDone
+	set _GLOBAL_firstDialogue TRUE
+@SCRIPT SetRiddleSolved
+	set _GLOBAL_riddleSolved TRUE
+@SCRIPT SetRiddleStarted
+	set _GLOB_Ridd1 TRUE
