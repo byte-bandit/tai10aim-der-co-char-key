@@ -37,7 +37,7 @@ namespace Classes.Events
         public Boolean Executed
         {
             get { return this.executed; }
-            set { this.executed = false; }
+            set { this.executed = value; }
         }
 
         public string Alternative
@@ -50,14 +50,14 @@ namespace Classes.Events
 
         public Event()
         {
-            this.executed = true;
+            this.executed = false;
             this.alternative = "Geht nicht.";
         }
 
         public Event(string id)
         {
             this.id = id;
-            this.executed = true;
+            this.executed = false;
             this.alternative = "Geht nicht.";
         }
 
@@ -65,7 +65,7 @@ namespace Classes.Events
         /// 
         /// </summary>
         /// <returns>returns true if all dependencies were executed</returns>
-        private Boolean checkDependencies()
+        public Boolean checkDependencies()
         {
             Boolean check = true ; 
             foreach(Event e in this.dependencies)

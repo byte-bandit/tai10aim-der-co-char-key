@@ -33,7 +33,6 @@ namespace Classes
 		private float scaleCharactersMax;
 		private Polygon walkAreas;
 		private String infoText;
-		private List<Event> events;
 
 		/// <summary>
 		/// Constructor for Room
@@ -52,16 +51,11 @@ namespace Classes
 			this.npcs = new List<NPC>();
 			this.pois = new List<POI>();
 			this.LoadContent();
-            this.events = new List<Event>();
 		}
 
 		#region Properties
 
-        public List<Event> Events
-		{
-			get { return events; }
-			set { this.events = value; }
-		}
+
 
 		public Polygon WalkAreas
 		{

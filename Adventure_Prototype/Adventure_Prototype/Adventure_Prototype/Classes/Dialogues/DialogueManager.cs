@@ -362,9 +362,6 @@ namespace Classes.Dialogues
 		}
 
 
-
-
-
 		public static void Initialize()
 		{
 			String[] txt;
@@ -521,11 +518,6 @@ namespace Classes.Dialogues
 		}
 
 
-
-
-
-
-
 		private static void loadInChoices(List<KeyValuePair<Topic, String>> choices, Dialogue cuD)
 		{
 			if (choices.Count > 0)
@@ -550,8 +542,6 @@ namespace Classes.Dialogues
 		}
 
 
-
-
 		/// <summary>
 		/// Get a Dialogue by it's ID
 		/// </summary>
@@ -569,8 +559,6 @@ namespace Classes.Dialogues
 
 			return null;
 		}
-
-
 
 
 	}

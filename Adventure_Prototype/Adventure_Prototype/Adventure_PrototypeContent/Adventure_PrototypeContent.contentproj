@@ -182,6 +182,9 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Content Include="Events.txt">
+      <Name>Events</Name>
+    </Content>
     <Content Include="WorldObjects.txt">
       <Name>WorldObjects</Name>
     </Content>

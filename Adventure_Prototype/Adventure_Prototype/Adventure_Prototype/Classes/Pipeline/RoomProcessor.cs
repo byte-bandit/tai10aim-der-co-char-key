@@ -262,52 +262,7 @@ namespace Classes.Pipeline
 					continue;
 				}
 
-				if (line.Trim().StartsWith("BEGINEVENT"))
-				{
-					n++;
-
-					//Get Id of the event
-					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
-                    Event tmp = new Event(id.ToLower());
-
-					if (data[n].Contains("ACTION:"))
-					{
-						while (data[n].Contains("ACTION:"))
-						{
-                            Classes.Events.Action action = new Classes.Events.Action(data[n].Substring(data[n].IndexOf("ACTION:") + 7));
-						    tmp.Actions.Add(action);
-							n++;
-						}
-					}
-                    if (data[n].Contains("DEPENDENCE:"))
-                    {
-                        while (data[n].Contains("DEPENDENCE:"))
-                        {
-                            string event_id = data[n].Substring(data[n].IndexOf("DEPENDENCE:") + 11).Trim();
-                            foreach (Event e in ret.Events)
-                            {
-                                if (e.ID == event_id)
-                                {
-                                    tmp.Dependencies.Add(e);
-                                    break;
-                                }
-                            }
-                            n++;
-                        }
-                    }	
-					
-					ret.Events.Add(tmp);
-					continue;
-
-				}
-
-
-
-
-			}
-
-
-
+            }
 
 			ret.WalkAreas = walkAreas;
 
