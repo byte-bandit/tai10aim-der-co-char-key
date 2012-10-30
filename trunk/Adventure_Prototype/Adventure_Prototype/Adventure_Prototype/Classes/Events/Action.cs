@@ -8,7 +8,7 @@ using Classes;
 
 namespace Classes.Events
 {
-    private class Action
+    public class Action
     {
         private enum type
         {

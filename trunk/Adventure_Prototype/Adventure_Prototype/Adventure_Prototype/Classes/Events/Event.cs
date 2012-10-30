@@ -6,7 +6,7 @@ using Classes.Events;
 
 namespace Classes.Events
 {
-	class Event
+	public class Event
 	{
         private string id;
         private List<Action> actions;
