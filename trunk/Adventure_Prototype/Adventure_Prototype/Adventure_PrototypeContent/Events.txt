@@ -1,0 +1,6 @@
+##############################################################################
+#This is the Event source file
+#
+#Lines with a leading # will be ignored and can be used for comments
+#Spaces / Tabs should be fine and can be used for layout.
+##############################################################################
