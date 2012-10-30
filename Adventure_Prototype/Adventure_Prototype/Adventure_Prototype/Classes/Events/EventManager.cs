@@ -142,6 +142,13 @@ namespace Classes.Events
                     {
                         case Action.type.AddObject:
                             { 
+                                Graphics.WorldObject wo = new Graphics.WorldObject(GameRef.Game, a.TargetID);
+                                wo.Name = a.TargetName;
+                                wo.OnLook = a.OnLook;
+                                wo.OnTalk = a.OnTalk;
+                                wo.OnUse = a.OnUse;
+                                wo.Position = a.TargetVector;
+                                SceneryManager.CurrentRoom.addObject(wo);
                                 break; 
                             }
                         case Action.type.GiveItem:
