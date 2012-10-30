@@ -189,7 +189,10 @@ namespace Classes.Dialogues
 				case State.topics:
 					for (int n = 0; n < dialogue.Topics.Count; n++)
 					{
-						Graphics.GraphicsManager.drawText(dialogue.Topics[n].getText(), new Vector2(10, (n + 1) * LINEBREAK), font, dialogue.Topics[n].color);
+						if (!dialogue.Topics[n].isGoodbye())
+						{
+							Graphics.GraphicsManager.drawText(dialogue.Topics[n].getText(), new Vector2(10, (n + 1) * LINEBREAK), font, dialogue.Topics[n].color);
+						}
 					}
 					break;
 
