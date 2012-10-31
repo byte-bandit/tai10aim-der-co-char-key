@@ -372,7 +372,7 @@ namespace Classes
 			}
 			else if (info.StartsWith("{S:"))
 			{
-				//Call the script
+                Events.EventManager.ExecuteEvent(info.Substring(3, info.Length - 4));
 			}
 			else
 			{
