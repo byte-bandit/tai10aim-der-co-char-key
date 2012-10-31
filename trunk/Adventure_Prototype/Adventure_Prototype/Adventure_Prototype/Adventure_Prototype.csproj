@@ -132,6 +132,7 @@
     <Compile Include="Classes\Graphics\RectangleOverlay.cs" />
     <Compile Include="Classes\Graphics\WorldObject.cs" />
     <Compile Include="Classes\Inventory\Inventory.cs" />
+    <Compile Include="Classes\Inventory\ItemManager.cs" />
     <Compile Include="Classes\IO\Cursor.cs" />
     <Compile Include="Classes\IO\InputManager.cs" />
     <Compile Include="Classes\IO\KeyboardEx.cs" />

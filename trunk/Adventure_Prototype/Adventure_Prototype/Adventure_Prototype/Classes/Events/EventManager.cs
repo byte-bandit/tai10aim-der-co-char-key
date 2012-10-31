@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Diagnostics;
 
+using Classes.Inventory;
 using Classes.Pipeline;
 
 namespace Classes.Events
@@ -152,7 +153,8 @@ namespace Classes.Events
                                 break; 
                             }
                         case Action.type.GiveItem:
-                            { 
+                            {
+                                GameRef.ItemManager.AddToInventory(a.TargetID);
                                 break; 
                             }
                         case Action.type.RemoveItem:
