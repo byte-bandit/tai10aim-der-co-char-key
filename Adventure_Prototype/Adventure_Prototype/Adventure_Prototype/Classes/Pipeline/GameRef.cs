@@ -40,6 +40,7 @@ namespace Classes.Pipeline
 		private static Game1 game;
 		private static Boolean editor;
 		private static Inventory.Inventory inventory;
+        private static Inventory.ItemManager itemManager;
 		private static Vector2 resolution;
 		private static Vector2 animationFrames;
 		private static Player player1;
@@ -124,10 +125,19 @@ namespace Classes.Pipeline
 			set { editor = value; }
 		}
 
+        /// <summary>
+        /// 
+        /// </summary>
 		public static Inventory.Inventory Inventory
 		{
 			get { return inventory; }
 			set { inventory = value; }
 		}
+
+        public static Inventory.ItemManager ItemManager
+        {
+            get { return itemManager; }
+            set { itemManager = value; }
+        }
 	}
 }
