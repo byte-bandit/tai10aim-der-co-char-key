@@ -70,8 +70,7 @@ namespace Classes.Events
             Boolean check = true ; 
             foreach(String s in this.dependencies)
             {
-				
-				Event e = Events.EventManager.EventLibrary[s];
+				Event e = Events.EventManager.EventLibrary[s.ToLower()];
 
 				if (e == null)
 				{

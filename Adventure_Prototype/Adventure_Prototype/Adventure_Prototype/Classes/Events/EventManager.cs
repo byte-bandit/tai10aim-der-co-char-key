@@ -153,7 +153,7 @@ namespace Classes.Events
                     {
                         case Action.type.AddObject:
                             { 
-                                Graphics.WorldObject wo = new Graphics.WorldObject(GameRef.Game, a.TargetID);
+                                Graphics.WorldObject wo = new Graphics.WorldObject(GameRef.Game, "Graphics/Sprites/" + a.TargetID);
                                 wo.Name = a.TargetName;
                                 wo.OnLook = a.OnLook;
                                 wo.OnTalk = a.OnTalk;
@@ -174,7 +174,7 @@ namespace Classes.Events
                             }
                         case Action.type.RemoveObject:
                             {
-                                SceneryManager.CurrentRoom.removeObject((Graphics.WorldObject) a.Target1);
+                                SceneryManager.CurrentRoom.removeObject(SceneryManager.CurrentRoom.getWorldObjectByID(a.TargetID));
                                 break; 
                             }
                         case Action.type.StartDialogue:

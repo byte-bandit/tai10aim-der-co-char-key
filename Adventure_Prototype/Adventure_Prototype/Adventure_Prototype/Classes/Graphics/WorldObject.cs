@@ -21,6 +21,7 @@ namespace Classes.Graphics
 		private String sOnLook;
 		private String sOnUse;
 		private String sOnTalk;
+		private String sID;
 
 		private Color floatingLineColor = default(Color);
 
@@ -38,6 +39,14 @@ namespace Classes.Graphics
 			this.textureString = textureString;
 			this.Initialize();
 			this.position = Vector2.Zero;
+		}
+
+
+
+		public String ID
+		{
+			get { return this.sID; }
+			set { this.sID = value; }
 		}
 
 

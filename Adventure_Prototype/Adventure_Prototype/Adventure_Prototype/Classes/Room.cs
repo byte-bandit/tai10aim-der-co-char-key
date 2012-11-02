@@ -104,6 +104,53 @@ namespace Classes
 			this.objects.Add(wObject);
 		}
 
+
+
+
+		/// <summary>
+		/// Returns an NPC by its name
+		/// </summary>
+		/// <param name="name"></param>
+		/// <returns></returns>
+		public NPC getNPCByName(String name)
+		{
+			NPC ret = null;
+
+			foreach(NPC n in this.npcs)
+			{
+				if (n.Name == name)
+				{
+					return n;
+				}
+			}
+
+			return ret;
+		}
+
+
+
+
+
+		/// <summary>
+		/// Returns a World Object by ID or null if not found
+		/// </summary>
+		/// <param name="ID"></param>
+		/// <returns></returns>
+		public WorldObject getWorldObjectByID(String ID)
+		{
+			foreach (WorldObject w in this.objects)
+			{
+				if (w.ID == ID)
+				{
+					return w;
+				}
+			}
+
+			return null;
+		}
+
+
+
 		/// <summary>
 		///		
 		/// </summary>
@@ -334,6 +381,8 @@ namespace Classes
 			//Reset Info Text
 			infoText = "";
 
+			
+
 			//Mouse Over World Object?
 			foreach (WorldObject w in this.objects)
 			{
@@ -343,7 +392,6 @@ namespace Classes
 					return;
 				}
 			}
-
 
 			//Mouse Over Point of Interest?
 			foreach (POI w in this.pois)
