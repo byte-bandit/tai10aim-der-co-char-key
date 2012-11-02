@@ -212,6 +212,14 @@ namespace Classes
 			//Check Click
 			MouseClickStuff();
 
+			//NPCs Update
+			foreach (NPC n in this.npcs)
+			{
+				n.Update(gameTime);
+			}
+
+
+
 
 			base.Update(gameTime);
 		}
@@ -372,7 +380,8 @@ namespace Classes
 			}
 			else if (info.StartsWith("{S:"))
 			{
-                Events.EventManager.ExecuteEvent(info.Substring(3, info.Length - 4));
+				Events.EventManager.ExecuteEvent(info.Substring(3, info.Length - 4));
+				Net.NetworkManager.ExecuteEvent(info.Substring(3, info.Length - 4));
 			}
 			else
 			{

@@ -184,6 +184,7 @@
     </Compile>
     <Content Include="Events.txt">
       <Name>Events</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WorldObjects.txt">
       <Name>WorldObjects</Name>

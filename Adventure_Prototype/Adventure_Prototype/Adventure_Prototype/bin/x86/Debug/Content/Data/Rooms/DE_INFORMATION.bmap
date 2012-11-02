@@ -1,10 +1,10 @@
 # Brunnen-G Adventure Engine Room File
-# Created: 29.10.2012 19:38:41
+# Created: 02.11.2012 20:46:14
 # By: Kna - alias: Kna-Abakus
 # On: KNA-ABAKUS - Microsoft Windows NT 6.1.7600.0
 # 64Bit: True
 # Number of Processors: 4
-# Mapped Memory: 90648576
+# Mapped Memory: 76464128
 # This File is automatically created by the Brunnen-G Adventure Engine EDITOR! V0.2.3 [Brunnis-2]
 
 BEGIN
@@ -76,6 +76,15 @@ ONLOOK:Sieht leer aus ...
 ONUSE:PLACEHALTER_SCRIPT
 ONTALK:Lieber nicht.
 ENDWO
+BEGINNPC
+X:95,Y:523
+TEXTURE:gb_sheet
+MIRROR:False
+NAME:Horsti
+ONLOOK:Hi Horst
+ONUSE:{S:Horsti_walk}
+ONTALK:Was geht?
+ENDNPC
 BEGINPOI
 X:470,Y:168
 X:466,Y:225

@@ -91,6 +91,29 @@ namespace ServerSoftware
 
 
 
+
+
+				case PacketTypes.EVENT_EXECUTED:
+					String t_token = inc.ReadString();
+					String t_event_ID = inc.ReadString();
+					foreach (Peer p in parent.connectedPeers)
+					{
+						if (p.Token != t_token)
+						{
+							NetOutgoingMessage outm = parent.server.CreateMessage();
+							outm.Write((byte)PacketTypes.EVENT_EXECUTED);
+							outm.Write(t_token);
+							outm.Write(t_event_ID);
+
+							p.Connection.SendMessage(outm, NetDeliveryMethod.ReliableOrdered);
+						}
+					}
+
+					break;
+
+
+
+
 				case PacketTypes.BROADCAST:
 
 					String n_token_2 = inc.ReadString();

@@ -9,8 +9,8 @@ namespace Classes.Events
 	public class Event
 	{
         private string id;
-        private List<Action> actions;
-        private List<Event> dependencies;
+        private List<Action> actions = new List<Action>();
+        private List<String> dependencies = new List<String>();
         private Boolean executed;
         private string alternative;
 
@@ -28,7 +28,7 @@ namespace Classes.Events
             set {this.actions = value;}
         }
 
-        public List<Event> Dependencies
+        public List<String> Dependencies
         {
             get { return this.dependencies; }
             set { this.dependencies = value; }
@@ -68,8 +68,15 @@ namespace Classes.Events
         public Boolean checkDependencies()
         {
             Boolean check = true ; 
-            foreach(Event e in this.dependencies)
+            foreach(String s in this.dependencies)
             {
+				
+				Event e = Events.EventManager.EventLibrary[s];
+
+				if (e == null)
+				{
+					continue;
+				}
                 check = check && e.executed;
             }
                 return check;

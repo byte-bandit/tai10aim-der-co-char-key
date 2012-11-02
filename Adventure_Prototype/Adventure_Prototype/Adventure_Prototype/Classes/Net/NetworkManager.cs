@@ -27,7 +27,8 @@ public enum PacketTypes
 	BROADCAST,
 	LOBBY,
 	GAME_STATE_CHANGED,
-	PLAYER_SAY
+	PLAYER_SAY,
+	EVENT_EXECUTED
 }
 
 
@@ -277,6 +278,19 @@ namespace Classes.Net
 
 
 
+
+		public static void ExecuteEvent(String Event_ID)
+		{
+			NetOutgoingMessage msg = client.CreateMessage();
+			msg.Write((byte)PacketTypes.EVENT_EXECUTED);
+			msg.Write(profile.Token);
+			msg.Write(Event_ID);
+			client.SendMessage(msg, NetDeliveryMethod.ReliableOrdered);
+		}
+
+
+
+
 		public static void Update()
 		{
 
@@ -452,6 +466,30 @@ namespace Classes.Net
 								{
 									SceneryManager.Player1.setWalkingTarget(new Vector2(n_X, n_Y));
 								}
+							}
+							catch (Exception ex)
+							{
+								System.Diagnostics.Debug.Print(ex.ToString());
+							}
+							return;
+						}
+
+
+
+
+						if ((PacketTypes)packetidentifier == PacketTypes.EVENT_EXECUTED)
+						{
+							try
+							{
+								String n_token = inc.ReadString();
+								if (profile.Token == n_token)
+								{
+									return;
+								}
+
+								String Event_ID = inc.ReadString();
+
+								Events.EventManager.ExecuteEvent(Event_ID);
 							}
 							catch (Exception ex)
 							{
