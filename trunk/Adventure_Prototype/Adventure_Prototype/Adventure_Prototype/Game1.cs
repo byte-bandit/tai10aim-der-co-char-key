@@ -167,6 +167,9 @@ namespace Adventure_Prototype
 			KeyboardEx.Initialize();			//A more powerful keyboard class
 			DialogueManager.Initialize();		//Get all Dialogues
 			NetworkManager.Initialize();
+
+			Classes.Events.EventManager.Initialize();
+
 			Components.Add(GameRef.Inventory);
 			
 			//Load up all our fonts

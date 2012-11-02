@@ -12,7 +12,7 @@ namespace Classes.Events
 	class EventManager
 	{
 
-		private static SortedList<String, Event> EventLibrary;
+		public static SortedList<String, Event> EventLibrary;
 
 		/// <summary>
 		/// Adds an Event to the EventManager for Handling
@@ -81,7 +81,7 @@ namespace Classes.Events
                     n++;
                     //Get Id of the event
                     String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
-                    Event tmp = new Event(id.ToLower());
+                    Event tmp = new Event(id.ToLower().Trim());
                     n++;
                     while (!data[n].StartsWith("ENDEVENT"))
                     {
@@ -89,7 +89,7 @@ namespace Classes.Events
                         {
                             List<string> content = new List<string>();
                             n++;
-                            while (!data[n].StartsWith("ENDACTION:"))
+                            while (!data[n].StartsWith("ENDACTION"))
                             {
                                 content.Add(data[n]);
                                 n++;
@@ -97,6 +97,7 @@ namespace Classes.Events
                             Classes.Events.Action action = new Classes.Events.Action(content);
                             tmp.Actions.Add(action);
                             n++;
+							continue;
                         }
                         if (data[n].Contains("DEPENDENCE:"))
                         {
@@ -105,7 +106,7 @@ namespace Classes.Events
                                 string event_id = data[n].Substring(data[n].IndexOf("DEPENDENCE:") + 11).Trim();
                                 try
                                 {
-                                    tmp.Dependencies.Add(EventLibrary[event_id]);
+                                    tmp.Dependencies.Add(event_id);
                                 }
                                 catch (Exception ex)
                                 {
@@ -113,9 +114,18 @@ namespace Classes.Events
                                     return;
                                 }
                                 n++;
+								
                             }
-                        } 
+							continue;
+                        }
+
+						//If we reach this point, we have an empty line in the file
+						n++;
+ 						
                     }
+
+					//Needs to add the event to the lib
+					EventLibrary.Add(tmp.ID, tmp);
 
                 }
 
@@ -125,7 +135,7 @@ namespace Classes.Events
 
         public static void ExecuteEvent(String ID)
         {
-
+			ID = ID.ToLower().Trim();
             if (EventLibrary[ID] == null)
             {
                 throw new System.ArgumentException("ExecuteEvent:no such event defined");
@@ -169,12 +179,41 @@ namespace Classes.Events
                             }
                         case Action.type.StartDialogue:
                             {
-								Dialogues.DialogueManager.startDialogue(a.TargetID, a.TargetCharacter);
+								NPC target = null;
+								foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
+								{
+									if (n.Name == a.TargetCharacter)
+									{
+										target = n;
+										break;
+									}
+								}
+
+								if (target != null)
+								{
+									Dialogues.DialogueManager.startDialogue(a.TargetID, target);
+								}
                                 break; 
                             }
                         case Action.type.WalkTo:
                             {
-                                a.TargetCharacter.setWalkingTarget(a.TargetVector);
+								NPC target = null;
+
+								foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
+								{
+									if (n.Name == a.TargetCharacter)
+									{
+										target = n;
+										break;
+									}
+								}
+
+								if (target != null)
+								{
+									target.setWalkingTarget(a.TargetVector);
+								}
+
+                                
                                 break; 
                             }
                     }

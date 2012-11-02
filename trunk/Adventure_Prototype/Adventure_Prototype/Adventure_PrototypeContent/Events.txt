@@ -4,8 +4,51 @@
 #Lines with a leading # will be ignored and can be used for comments
 #Spaces / Tabs should be fine and can be used for layout.
 ##############################################################################
-BEGINEVENT
-ID:DE_RAUM01_GETKEY
-ACTION:REMOVE_OBJECT, key_id_bla
-ACTION:ADD_ITEM, item_key_id
+BEGINEVENT:
+ID: Open_brown_door
+
+BEGINACTION:
+RemoveObject
+brown_door_closed
+ENDACTION
+
+BEGINACTION:
+AddObject
+brown_door_open
+100
+200
+brown_door_open
+Da gehts wohl weiter.
+Hallo, liebes Loch in der Wand...antwortet wohl nicht.
+Mhmm, da ist es dunkel. Lieber nicht.
+ENDACTION
+
+DEPENDENCE: Take_key_small
+ENDEVENT
+
+BEGINEVENT:
+ID: Horsti_walk
+
+BEGINACTION:
+WalkTo
+Horsti
+750
+650
+ENDACTION
+ENDEVENT
+
+
+BEGINEVENT:
+ID: Take_key_small
+
+BEGINACTION:
+RemoveObject
+key_small
+ENDACTION
+
+BEGINACTION:
+GiveItem
+key_small
+ENDACTION
+
 ENDEVENT

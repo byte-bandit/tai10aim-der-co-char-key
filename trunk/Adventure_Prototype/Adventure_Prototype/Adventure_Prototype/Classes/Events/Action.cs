@@ -25,7 +25,7 @@ namespace Classes.Events
         private object target1;
         private object target2;
         private Vector2 targetVector;
-        private Character targetCharacter;
+        private String targetCharacter;
         private String targetID;
         private String targetName;
         private String onUse;
@@ -54,7 +54,7 @@ namespace Classes.Events
             set { this.targetVector = value; }
         }
 
-        public Character TargetCharacter
+        public String TargetCharacter
         {
             get { return this.targetCharacter; }
             set { this.targetCharacter = value; }
@@ -106,17 +106,18 @@ namespace Classes.Events
 
             switch(Content[0].ToLower().Trim())
             {
-                case "WalkTo":
+                case "walkto":
                     {
                         this.typ = type.WalkTo;
-                        foreach(Character ch in SceneryManager.CurrentRoom.getNPCs())
-                        {
-                            if(Content[1] == ch.Name)
-                            {
-                                this.targetCharacter = ch;
-                                break;
-                            }
-                        }
+						//foreach(Character ch in SceneryManager.CurrentRoom.getNPCs())
+						//{
+						//    if(Content[1] == ch.Name)
+						//    {
+						//        this.targetCharacter = ch;
+						//        break;
+						//    }
+						//}
+						this.targetCharacter = Content[1];
                         try
                         {
                             this.targetVector.X = Convert.ToInt16(Content[2].Trim());
@@ -128,13 +129,13 @@ namespace Classes.Events
                         }
                         break;
                     }
-                case "GiveItem":
+                case "giveitem":
                     {
                         this.typ = type.GiveItem;
                         this.targetID = Content[1].Trim();
                         break;
                     }
-                case "RemoveItem":
+                case "removeitem":
                     {
                         this.typ = type.RemoveItem;
                         foreach(Inventory.Item i in GameRef.Inventory.Items)
@@ -149,7 +150,7 @@ namespace Classes.Events
 
                         break;
                     }
-                case "AddObject":
+                case "addobject":
                     {
                         this.typ = type.AddObject;
                         this.targetID = Content[1].Trim();
@@ -168,26 +169,29 @@ namespace Classes.Events
                         this.onLook = Content[7].Trim();
                         break;
                     }
-                case "RemoveObject":
+                case "removeobject":
                     {
                         this.typ = type.RemoveObject;
                         this.TargetName = Content[1].Trim();
                         break;
                     }
-                case "StartDialogue":
-                    {
-                        this.typ = type.StartDialogue;
-                        this.targetID = Content[1].Trim();
-                        foreach (Character ch in SceneryManager.CurrentRoom.getNPCs())
-                        {
-                            if (Content[2] == ch.Name)
-                            {
-                                this.targetCharacter = ch;
-                                break;
-                            }
-                        }
-                        break;
-                    }
+				case "startdialogue":
+					{
+						this.typ = type.StartDialogue;
+						this.targetID = Content[1].Trim();
+						//    foreach (Character ch in SceneryManager.CurrentRoom.getNPCs())
+						//    {
+						//        if (Content[2] == ch.Name)
+						//        {
+						//            this.targetCharacter = ch;
+						//            break;
+						//        }
+						//    }
+						//    break;
+						//}
+						this.targetCharacter = Content[2];
+						break;
+					}
 
             }
             //if this particular action type is not defined, an exception is thrown
