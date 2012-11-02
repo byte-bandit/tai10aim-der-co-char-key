@@ -166,13 +166,13 @@ namespace Classes.Events
                         this.targetName = Content[4].Trim();
                         this.onLook = Content[5].Trim();
                         this.onTalk = Content[6].Trim();
-                        this.onLook = Content[7].Trim();
+                        this.onUse = Content[7].Trim();
                         break;
                     }
                 case "removeobject":
                     {
                         this.typ = type.RemoveObject;
-                        this.TargetName = Content[1].Trim();
+                        this.TargetID = Content[1].Trim();
                         break;
                     }
 				case "startdialogue":

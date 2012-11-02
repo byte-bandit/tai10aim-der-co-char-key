@@ -179,6 +179,10 @@ namespace Classes.Pipeline
 					n++;
 					String WO_Texture_Path = data[n].Substring(data[n].IndexOf("TEXTURE:") + 8);
 
+					//Get ID
+					n++;
+					String id = data[n].Substring(data[n].IndexOf("ID:") + 3);
+
 					//Get Name
 					n++;
 					String name = data[n].Substring(data[n].IndexOf("NAME:") + 5);
@@ -197,6 +201,7 @@ namespace Classes.Pipeline
 
 					WorldObject tmp = new WorldObject(_game, WO_Texture_Path);
 					tmp.Position = new Vector2(X, Y);
+					tmp.ID = id;
 					tmp.Name = name;
 					tmp.OnLook = look;
 					tmp.OnUse = use;

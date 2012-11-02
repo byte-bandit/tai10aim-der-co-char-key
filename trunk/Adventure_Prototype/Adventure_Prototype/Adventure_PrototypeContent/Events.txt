@@ -52,3 +52,26 @@ key_small
 ENDACTION
 
 ENDEVENT
+
+BEGINEVENT
+ID: removeBottle
+BEGINACTION:
+RemoveObject
+bottle
+ENDACTION
+ENDEVENT
+
+BEGINEVENT
+ID: addFunnyKey
+BEGINACTION:
+AddObject
+Key
+100
+200
+key01
+Da gehts wohl weiter.
+Hallo, liebes Loch in der Wand...antwortet wohl nicht.
+Mhmm, da ist es dunkel. Lieber nicht.
+ENDACTION
+DEPENDENCE: removeBottle
+ENDEVENT

@@ -132,6 +132,7 @@ namespace Classes.Dev
 				fileout.AppendLine("BEGINWO");
 				fileout.AppendLine("X:" + r.Position.X + ",Y:" + r.Position.Y);
 				fileout.AppendLine("TEXTURE:" + r.Texture);
+				fileout.AppendLine("ID:" + r.ID);
 				fileout.AppendLine("NAME:" + r.Name);
 				fileout.AppendLine("ONLOOK:" + r.OnLook);
 				fileout.AppendLine("ONUSE:" + r.OnUse);
@@ -516,11 +517,13 @@ namespace Classes.Dev
 				WorldObject tmp = new WorldObject(GameRef.Game, WorldObjectToPlace);
 				tmp.Position = MouseEx.Position();
 
+				String tID = Microsoft.VisualBasic.Interaction.InputBox("ID:");
 				String tName = Microsoft.VisualBasic.Interaction.InputBox("Name");
 				String tOnLook = Microsoft.VisualBasic.Interaction.InputBox("OnLook");
 				String tOnTalk = Microsoft.VisualBasic.Interaction.InputBox("OnTalk");
 				String tOnUse = Microsoft.VisualBasic.Interaction.InputBox("OnUse");
 
+				tmp.ID = tID;
 				tmp.Name = tName;
 				tmp.OnLook = tOnLook;
 				tmp.OnTalk = tOnTalk;
