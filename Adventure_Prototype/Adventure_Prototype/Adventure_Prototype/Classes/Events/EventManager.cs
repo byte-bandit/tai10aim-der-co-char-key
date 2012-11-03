@@ -222,6 +222,41 @@ namespace Classes.Events
                                 
                                 break; 
                             }
+						case Action.type.DisableControls:
+							{
+								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+								{
+									Net.NetworkManager.Profile.ControlsActive = false;
+								}
+								break;
+							}
+						case Action.type.EnableControls:
+							{
+								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+								{
+									Net.NetworkManager.Profile.ControlsActive = true;
+								}
+								break;
+							}
+						case Action.type.Sleep:
+							{
+								//currently not supported lol
+								break;
+							}
+						case Action.type.PlayerWalkTo:
+							{
+								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+								{
+									Net.NetworkManager.Profile.Puppet.setWalkingTarget(a.TargetVector);
+									Net.NetworkManager.setPlayerWaypoint(a.TargetVector);
+								}
+								break;
+							}
+						case Action.type.PortToRoom:
+							{
+								RoomTransporter.Transport(a.TargetID, a.TargetVector, a.TargetVector2);
+								break;
+							}
                     }
 
                 }

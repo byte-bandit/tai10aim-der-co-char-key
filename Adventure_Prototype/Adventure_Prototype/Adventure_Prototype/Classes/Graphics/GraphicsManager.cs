@@ -143,7 +143,14 @@ namespace Classes.Graphics
 		{
 			foreach (DrawableGameComponent d in children)
 			{
-				d.Draw(gameTime);
+				try
+				{
+					d.Draw(gameTime);
+				}
+				catch (Exception ex)
+				{
+					System.Diagnostics.Debug.Print(ex.ToString());
+				}
 			}
 
 		}

@@ -20,11 +20,19 @@ namespace Classes.Events
             AddObject,
             RemoveObject,
             StartDialogue,
+			DisableControls,
+			EnableControls,
+			Sleep,
+			PlayerWalkTo,
+			PortToRoom
         }
         private type typ;
         private object target1;
         private object target2;
         private Vector2 targetVector;
+		private Vector2 targetVector2;
+		private Vector2 targetVector3;
+		private Vector2 targetVector4;
         private String targetCharacter;
         private String targetID;
         private String targetName;
@@ -54,6 +62,23 @@ namespace Classes.Events
             set { this.targetVector = value; }
         }
 
+		public Vector2 TargetVector2
+		{
+			get { return this.targetVector2; }
+			set { this.targetVector2 = value; }
+		}
+
+		public Vector2 TargetVector3
+		{
+			get { return this.targetVector3; }
+			set { this.targetVector3 = value; }
+		}
+
+		public Vector2 TargetVector4
+		{
+			get { return this.targetVector4; }
+			set { this.targetVector4 = value; }
+		}
         public String TargetCharacter
         {
             get { return this.targetCharacter; }
@@ -182,7 +207,39 @@ namespace Classes.Events
 						this.targetCharacter = Content[2];
 						break;
 					}
-
+				case "disablecontrols":
+					{
+						this.typ = type.DisableControls;
+						this.targetID = Content[1].Trim();
+						break;
+					}
+				case "enablecontrols":
+					{
+						this.typ = type.EnableControls;
+						this.targetID = Content[1].Trim();
+						break;
+					}
+				case "sleep":
+					{
+						this.typ = type.Sleep;
+						this.targetID = Content[1].Trim();
+						break;
+					}
+				case "playerwalkto":
+					{
+						this.typ = type.PlayerWalkTo;
+						this.targetID = Content[1].Trim();
+						this.TargetVector = new Vector2(Convert.ToInt32(Content[2].Trim()), Convert.ToInt32(Content[3].Trim()));
+						break;
+					}
+				case "porttoroom":
+					{
+						this.typ = type.PortToRoom;
+						this.targetID = Content[1].Trim();
+						this.TargetVector = new Vector2(Convert.ToInt32(Content[2].Trim()), Convert.ToInt32(Content[3].Trim()));
+						this.TargetVector2 = new Vector2(Convert.ToInt32(Content[4].Trim()), Convert.ToInt32(Content[5].Trim()));
+						break;
+					}
             }
             //if this particular action type is not defined, an exception is thrown
             if(this.typ == type.Unknown)

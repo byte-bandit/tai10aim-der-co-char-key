@@ -19,7 +19,7 @@ namespace Classes
 		protected Animation gfxInfo;
 		protected Texture2D gfx;
 		protected Game game;
-		protected String id;
+		public String id;
 		protected String name;
 		protected Room room;
 
@@ -62,7 +62,10 @@ namespace Classes
 
 
 
-
+		public String ID
+		{
+			get { return this.ID; }
+		}
 
 
 

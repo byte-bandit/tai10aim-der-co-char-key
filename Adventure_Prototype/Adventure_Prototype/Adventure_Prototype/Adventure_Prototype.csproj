@@ -125,6 +125,7 @@
     <Compile Include="Classes\Events\Action.cs" />
     <Compile Include="Classes\Events\Event.cs" />
     <Compile Include="Classes\Events\EventManager.cs" />
+    <Compile Include="Classes\Events\RoomTransporter.cs" />
     <Compile Include="Classes\Graphics\Entity.cs" />
     <Compile Include="Classes\Graphics\GraphicsManager.cs" />
     <Compile Include="Classes\Graphics\LineOverlay.cs" />

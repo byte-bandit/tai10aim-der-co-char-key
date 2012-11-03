@@ -205,7 +205,7 @@ namespace Classes
 							Microsoft.VisualBasic.Interaction.MsgBox("Der eingegebe Name ist ungültig. Bitte versuche es erneut.");
 							return;
 						}
-						NetworkManager.connect(getSelectedServerIP());
+						NetworkManager.Connect(getSelectedServerIP());
 						this.state = MenuStates.HOST;
 						break;
 					case "btnReady":
