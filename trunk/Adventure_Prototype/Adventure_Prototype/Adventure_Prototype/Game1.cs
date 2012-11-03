@@ -169,6 +169,7 @@ namespace Adventure_Prototype
 			NetworkManager.Initialize();
 
 			Classes.Events.EventManager.Initialize();
+            Classes.Inventory.ItemManager.Initialize();
 
 			Components.Add(GameRef.Inventory);
 			

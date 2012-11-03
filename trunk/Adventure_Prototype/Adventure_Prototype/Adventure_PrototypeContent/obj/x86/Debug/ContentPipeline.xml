@@ -325,6 +325,15 @@
       <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\menu_font.xnb</Output>
       <Time>2012-11-02T22:01:39.6042127+01:00</Time>
     </Item>
+    <Item>
+      <Source>Graphics\Sprites\green_bottle.png</Source>
+      <Name>Graphics\Sprites\green_bottle</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\Luke\Programmieren\Adventure_Prototype\Adventure_Prototype\Adventure_Prototype\bin\x86\Debug\Content\Graphics\Sprites\green_bottle.xnb</Output>
+      <Time>2012-11-04T00:19:18.2406369+01:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <TargetPlatform>Windows</TargetPlatform>

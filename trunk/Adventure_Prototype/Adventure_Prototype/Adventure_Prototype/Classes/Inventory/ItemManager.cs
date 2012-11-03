@@ -10,7 +10,7 @@ namespace Classes.Inventory
 {
     public class ItemManager
     {
-        private SortedList<String, Item> itemLibrary = new SortedList<string,Item>();
+        private static SortedList<String, Item> itemLibrary = new SortedList<string,Item>();
 
         public void AddToInventory(String id)
         {
@@ -18,7 +18,7 @@ namespace Classes.Inventory
             
         }
 
-        public void Initialize()
+        public static void Initialize()
         {
             String[] data;
 
