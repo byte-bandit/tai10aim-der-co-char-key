@@ -27,8 +27,8 @@ namespace Classes.Dev
 		//Output - Used by Editor to print Info
 		private static StringBuilder edOut;
 		private static String VersionNumber = "0.2.3 [Brunnis-2]";
-		private static String helpmsg = "Press Strg-H to see the help";
-		private static String helpString = "Strg-N : New Room\nStrg-O Open existing Room\nTAB : Change Mode\nE : Create Walk Map\nW : Place World Objects\nN : Create NPCs\nQ: Create POI";
+		private static String helpmsg = "";
+		private static String helpString = "Strg-N : New Room\nStrg-O Open existing Room\nStrg-S Save map\nTAB : Change Mode\nE : Create Walk Map\nW : Place World Objects\nN : Create NPCs\nQ: Create POI\nDel: Delete selected Entity\nStrg-W: Delete Walk Area";
 
 
 		//Some Variables to decide wether Users is dragging or not
@@ -248,7 +248,7 @@ namespace Classes.Dev
 		{
 			edOut = new StringBuilder();
 			edOut.AppendLine("Brunnen-G Adventure Engine 0.0.3 EDITOR V." + VersionNumber + "\t" + helpmsg);
-			edOut.AppendLine("Mouse at: " + Mouse.GetState().X + ", " + Mouse.GetState().Y + "\nRoom: " + SceneryManager.CurrentRoom.ID + "\tMode: " + mode.ToString());
+			edOut.AppendLine("Mouse at: " + Mouse.GetState().X + ", " + Mouse.GetState().Y + "\nRoom: " + SceneryManager.CurrentRoom.ID+"\n");
 		}
 
 
@@ -314,7 +314,7 @@ namespace Classes.Dev
 
 		private static void UpdateCreation_NPC()
 		{
-
+			edOut.AppendLine("Creation Mode: NPC");
 			//Place selected NPC
 			if (MouseEx.click())
 			{
@@ -426,6 +426,8 @@ namespace Classes.Dev
 			//    }
 			//}
 
+			edOut.AppendLine("Creation Mode: Walk Area");
+
 			if (MouseEx.click())
 			{
 				if (walkAreas.Changeable)
@@ -456,7 +458,7 @@ namespace Classes.Dev
 		private static void UpdateCreation_POI()
 		{
 
-			edOut.AppendLine("Creating Point of Interest");
+			edOut.AppendLine("Creation Mode: POI");
 
 			if (MouseEx.click())
 			{
@@ -508,7 +510,7 @@ namespace Classes.Dev
 
 		private static void UpdateCreation_WO()
 		{
-			edOut.AppendLine("Adding World Object: " + WorldObjectToPlace.Name);
+			edOut.AppendLine("Creation Mode: WO, Asset: " + WorldObjectToPlace.Name);
 
 			//Place selected WO
 			if (MouseEx.click())
@@ -568,7 +570,7 @@ namespace Classes.Dev
 
 		private static void UpdateManipulation()
 		{
-
+			edOut.AppendLine("Manipulation Mode");
 			//Select an Object
 			if (MouseEx.click())
 			{
@@ -669,6 +671,12 @@ namespace Classes.Dev
 					selection = null;
 					SelectionVortex = Vector2.Zero;
 				}
+			}
+			//Delete complete Walk Area
+			if (KeyboardEx.isKeyHit(Keys.W) && KeyboardEx.isKeyDown(Keys.LeftControl))
+			{
+				walkAreas.Nodes.Clear();
+				walkAreas.Changeable = true;
 			}
 		}
 
@@ -838,10 +846,15 @@ namespace Classes.Dev
 
 
 			//Toggle the Help Message
-			if (KeyboardEx.isKeyHit(Keys.H) && KeyboardEx.isKeyDown(Keys.LeftControl))
-			{
-				toggleHelpDisplay();
-			}
+			//if (KeyboardEx.isKeyHit(Keys.H) && KeyboardEx.isKeyDown(Keys.LeftControl))
+			//{
+			//    toggleHelpDisplay();
+			//    System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
+			//    stopwatch.Start();
+			//    while (stopwatch.ElapsedMilliseconds < (long)500)
+			//    {
+			//    }
+			//}
 
 
 		}
@@ -849,17 +862,17 @@ namespace Classes.Dev
 
 
 
-		private static void toggleHelpDisplay()
-		{
-			if (helpmsg == "")
-			{
-				helpmsg = "Press H to see the help";
-			}
-			else
-			{
-				helpmsg = "";
-			}
-		}
+		//private static void toggleHelpDisplay()
+		//{
+		//    if (helpmsg == "")
+		//    {
+		//        helpmsg = "Press H to see the help";
+		//    }
+		//    else
+		//    {
+		//        helpmsg = "";
+		//    }
+		//}
 
 
 		private static void setupScaling()
@@ -1064,7 +1077,7 @@ namespace Classes.Dev
 
 			if (helpmsg == "")
 			{
-				Graphics.GraphicsManager.drawText(helpString, new Vector2(650, 5), Graphics.GraphicsManager.font01, Color.White, true);
+				Graphics.GraphicsManager.drawText(helpString, new Vector2(1100, 5), Graphics.GraphicsManager.font01, Color.White, true);
 			}
 
 
@@ -1073,6 +1086,7 @@ namespace Classes.Dev
 				if (selection != null && (selection.GetType() == typeof(WorldObject) && w == selection))
 				{
 					w.HighlightColor = Color.Red;
+					drawRect(w);
 					if (w.Name != null)
 					{
 						GraphicsManager.drawText(w.Name, Vector2.Subtract(w.Position, new Vector2(-5, 10)), GraphicsManager.font01, Color.Green, true);
@@ -1174,6 +1188,7 @@ namespace Classes.Dev
 				if (selection != null && (selection.GetType() == typeof(NPC) && w == selection))
 				{
 					w.HighlightColor = Color.Red;
+					drawRect(w);
 					if (w.Name != null)
 					{
 						GraphicsManager.drawText(w.Name, Vector2.Subtract(w.Position, new Vector2(-5, 10)), GraphicsManager.font01, Color.Green, true);
@@ -1215,7 +1230,54 @@ namespace Classes.Dev
 
 
 
+		private static void drawRect(WorldObject w)
+		{
+			int x = (int)w.Position.X;
+			int y = (int)w.Position.Y;
+			int wi = (int)w.size.X;
+			int h = (int)w.size.Y;
 
+			GraphicsManager.spriteBatch.Begin();
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y), new Vector2(x+10, y));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y+h), new Vector2(x+10, y+h));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y), new Vector2(x, y+10));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y+h), new Vector2(x, y+h-10));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x+wi, y), new Vector2(x + wi -10, y));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x+wi, y+h), new Vector2(x + wi - 10, y+h));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y), new Vector2(x + wi, y + 10));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y + h), new Vector2(x + wi, y + h - 10));
+
+			GraphicsManager.spriteBatch.End();
+		}
+
+
+		private static void drawRect(NPC w)
+		{
+			int x = (int)w.Position.X;
+			int y = (int)w.Position.Y;
+			int wi = (int)w.GFX.Bounds.Width;
+			int h = (int)w.GFX.Bounds.Height;
+
+			GraphicsManager.spriteBatch.Begin();
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y), new Vector2(x + 10, y));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y + h), new Vector2(x + 10, y + h));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y), new Vector2(x, y + 10));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x, y + h), new Vector2(x, y + h - 10));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y), new Vector2(x + wi - 10, y));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y + h), new Vector2(x + wi - 10, y + h));
+
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y), new Vector2(x + wi, y + 10));
+			GraphicsManager.DrawLine(2, Color.Green, new Vector2(x + wi, y + h), new Vector2(x + wi, y + h - 10));
+
+			GraphicsManager.spriteBatch.End();
+		}
 
 
 
