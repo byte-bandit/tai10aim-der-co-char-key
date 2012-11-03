@@ -99,6 +99,12 @@ namespace Classes.Events
                             n++;
 							continue;
                         }
+						if (data[n].StartsWith("REPEATABLE"))
+						{
+							tmp.Repeatable = true;
+							n++;
+							continue;
+						}
                         if (data[n].Contains("DEPENDENCE:"))
                         {
                             while (data[n].Contains("DEPENDENCE:"))
@@ -220,7 +226,10 @@ namespace Classes.Events
 
                 }
 
-                EventLibrary[ID].Executed = true;
+				if (!EventLibrary[ID].Repeatable)
+				{
+					EventLibrary[ID].Executed = true;
+				}
             }
         }
 	}

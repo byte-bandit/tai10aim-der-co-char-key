@@ -75,3 +75,13 @@ Mhmm, da ist es dunkel. Lieber nicht.
 ENDACTION
 DEPENDENCE: removeBottle
 ENDEVENT
+
+BEGINEVENT
+ID: lookSkeletton
+REPEATABLE
+BEGINACTION:
+StartDialogue
+DE_HORST_SKELLETON
+Horsti
+ENDACTION
+ENDEVENT

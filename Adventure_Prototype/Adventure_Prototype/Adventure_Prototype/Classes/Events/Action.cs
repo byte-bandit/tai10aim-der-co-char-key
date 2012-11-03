@@ -179,16 +179,6 @@ namespace Classes.Events
 					{
 						this.typ = type.StartDialogue;
 						this.targetID = Content[1].Trim();
-						//    foreach (Character ch in SceneryManager.CurrentRoom.getNPCs())
-						//    {
-						//        if (Content[2] == ch.Name)
-						//        {
-						//            this.targetCharacter = ch;
-						//            break;
-						//        }
-						//    }
-						//    break;
-						//}
 						this.targetCharacter = Content[2];
 						break;
 					}
