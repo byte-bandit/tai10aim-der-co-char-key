@@ -61,6 +61,15 @@ namespace Classes.Dialogues
 					return false;
 				}
 
+				foreach (Topic t in dialogue.Topics)
+				{
+					if (t.ID == "GREETING")
+					{
+						topicClick(t);
+						prevMouseState = mouseState;	//lulzhack fur good display of GREETING
+					}
+				}
+
 				return true;
 			}
 			else
@@ -191,7 +200,7 @@ namespace Classes.Dialogues
 				case State.topics:
 					for (int n = 0; n < dialogue.Topics.Count; n++)
 					{
-						if (!dialogue.Topics[n].isChoice)
+						if (!dialogue.Topics[n].isChoice && dialogue.Topics[n].ID != "GREETING")
 						{
 							Graphics.GraphicsManager.drawText(dialogue.Topics[n].getText(), new Vector2(10, (lineIt + 1) * LINEBREAK), font, dialogue.Topics[n].color);
 							lineIt++;
@@ -248,7 +257,7 @@ namespace Classes.Dialogues
 				case State.topics:
 					for (int n = 0; n < dialogue.Topics.Count; n++)
 					{
-						if (!dialogue.Topics[n].isChoice)
+						if (!dialogue.Topics[n].isChoice && dialogue.Topics[n].ID != "GREETING")
 						{
 							if (mouseState.Y > (LineIt + 1) * LINEBREAK && mouseState.Y < (LineIt + 2) * LINEBREAK)
 							{
@@ -269,7 +278,7 @@ namespace Classes.Dialogues
 						//Click Detected
 						for (int n = 0; n < dialogue.Topics.Count; n++)
 						{
-							if (!dialogue.Topics[n].isChoice)
+							if (!dialogue.Topics[n].isChoice && dialogue.Topics[n].ID != "GREETING")
 							{
 								if (mouseState.Y > (LineIt + 1) * LINEBREAK && mouseState.Y < (LineIt + 2) * LINEBREAK)
 								{

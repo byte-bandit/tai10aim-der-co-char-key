@@ -13,8 +13,16 @@ namespace Classes.Events
         private List<String> dependencies = new List<String>();
         private Boolean executed;
         private string alternative;
+		private Boolean repeatable;
+
 
         #region Properties
+
+		public bool Repeatable
+		{
+			get { return this.repeatable; }
+			set { this.repeatable = value; }
+		}
 
         public string ID
         {
@@ -51,6 +59,7 @@ namespace Classes.Events
         public Event()
         {
             this.executed = false;
+			this.repeatable = false;
             this.alternative = "Geht nicht.";
         }
 
@@ -58,6 +67,7 @@ namespace Classes.Events
         {
             this.id = id;
             this.executed = false;
+			this.repeatable = false;
             this.alternative = "Geht nicht.";
         }
 

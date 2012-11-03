@@ -9,3 +9,13 @@
 		@GOODBYE "Ich verschwinde..."
 	@TOPIC dialog3 "Und sonst so?"
 		@INFO "Eigentlich nichts ..."
+@DIALOGUE DE_HORST_SKELLETON
+	@TOPIC GREETING ""
+		@GOODBYE "Den würde ich lieber nicht anfassen ..."
+@DIALOGUE DE_HORST
+	@TOPIC GREETING ""
+		@INFO "Hallo Fremder!"
+	@TOPIC fremder "Fremder?"
+		@INFO "Ganz Recht, Fremder."
+	@TOPIC bye "Pah. Ich hau ab!"
+		@GOODBYE "Ja ja, geh du nur ..."

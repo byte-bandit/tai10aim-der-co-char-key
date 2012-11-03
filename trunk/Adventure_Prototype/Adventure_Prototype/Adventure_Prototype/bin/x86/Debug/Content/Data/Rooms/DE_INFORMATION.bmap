@@ -85,7 +85,7 @@ MIRROR:False
 NAME:Horsti
 ONLOOK:Hi Horst
 ONUSE:{S:Horsti_walk}
-ONTALK:Was geht?
+ONTALK:{D:DE_HORST}
 ENDNPC
 BEGINPOI
 X:470,Y:168
@@ -138,7 +138,7 @@ X:1077,Y:418
 X:1022,Y:372
 X:825,Y:582
 NAME:Skelett
-ONLOOK:Liegt wohl schon etwas länger hier...
+ONLOOK:{S:lookSkeletton}
 ONUSE:Ich möchte ihm nichts brechen. Seine Knochen sind alles, was er noch hat...
 ONTALK:{D:DE_SKELLETON}
 ENDPOI
