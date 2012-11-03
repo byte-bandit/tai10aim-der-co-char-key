@@ -88,7 +88,7 @@ namespace Classes.Inventory
                     if (counter >4)
                     t.Position = new Vector2((294*counter)+100, 100);
                     else
-                    t.Position = new Vector2((294*counter)+100, 420);
+                    t. Position = new Vector2((294*counter)+100, 420);
 					t.Draw(gameTime);
 					if (MouseEx.inBoundaries(t.Image.Bounds))
 					{
