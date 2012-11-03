@@ -76,6 +76,8 @@ namespace Classes.Inventory
 
 		public override void Draw(GameTime gameTime)
 		{
+            int counter = 0;
+            Vector2 position;
 			if (this.status)
 			{
 			GraphicsManager.spriteBatch.Begin();
@@ -83,11 +85,16 @@ namespace Classes.Inventory
 				GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
 				foreach (Item t in items)
 				{
+                    if (counter >4)
+                    t.Position = new Vector2((294*counter)+100, 100);
+                    else
+                    t.Position = new Vector2((294*counter)+100, 420);
 					t.Draw(gameTime);
 					if (MouseEx.inBoundaries(t.Image.Bounds))
 					{
 						GraphicsManager.spriteBatch.Draw(t.Tooltip, MouseEx.Position(), Color.White);
 					}
+                    counter++;
 				}
 			
 			GraphicsManager.spriteBatch.End();

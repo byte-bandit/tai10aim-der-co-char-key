@@ -62,7 +62,7 @@ namespace Classes.Inventory
 
 		public override void Draw(GameTime gameTime)
 		{
-				GraphicsManager.spriteBatch.Draw(this.image, this.Position, Color.White);
+				GraphicsManager.spriteBatch.Draw(this.image, position, Color.White);
 				base.Draw(gameTime);
 		}
 
