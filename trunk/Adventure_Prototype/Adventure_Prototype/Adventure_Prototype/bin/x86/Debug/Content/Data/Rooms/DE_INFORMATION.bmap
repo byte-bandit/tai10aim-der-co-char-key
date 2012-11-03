@@ -83,7 +83,7 @@ X:95,Y:523
 TEXTURE:gb_sheet
 MIRROR:False
 NAME:Horsti
-ONLOOK:Hi Horst
+ONLOOK:{S:ROOMA_TO_B}
 ONUSE:{S:Horsti_walk}
 ONTALK:{D:DE_HORST}
 ENDNPC

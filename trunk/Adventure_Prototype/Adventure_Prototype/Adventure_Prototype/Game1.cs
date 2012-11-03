@@ -291,9 +291,12 @@ namespace Adventure_Prototype
 			MouseEx.Update();
 			KeyboardEx.Update();
 
+			//Updating fur the lulz
+			Classes.Events.RoomTransporter.Update();
+
 			//SEND OUR PLAYER WALKING IF IN GAME MODE
 			// WILL BE CHANGED TO INPUTMANAGER EVENTUALLY
-			if (MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME)
+			if (NetworkManager.Profile.ControlsActive && MouseEx.click() && Cursor.CurrentAction == Cursor.CursorAction.walk && !DialogueManager.busy && !_EDITOR && gameMode == GameMode.GAME)
 			{
 				NetworkManager.Profile.Puppet.setWalkingTarget(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));
 				NetworkManager.setPlayerWaypoint(new Vector2(Mouse.GetState().X, Mouse.GetState().Y));

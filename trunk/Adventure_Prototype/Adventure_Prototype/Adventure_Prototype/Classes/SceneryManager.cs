@@ -13,7 +13,7 @@ namespace Classes
 		private static Room currentRoom;
 		private static Player player1;
 		private static Player player2;
-
+		private static int order;
 
 		public static Player Player1
 		{
@@ -30,11 +30,27 @@ namespace Classes
 		}
 
 
+
+
+		public static void ChangeRoom(Room r)
+		{
+			CurrentRoom = r;
+			GraphicsManager.removeChild(player1);
+			GraphicsManager.removeChild(player2);
+			GraphicsManager.addChild(player1);
+			GraphicsManager.addChild(player2);
+		}
+
+
+
+
+
 		public static Room CurrentRoom
 		{
 			get { return currentRoom; }
 			set 
 			{
+
 				GraphicsManager.removeChild(currentRoom);
 				UpdateManager.removeItem(currentRoom);
 				currentRoom = value;

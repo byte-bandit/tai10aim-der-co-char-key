@@ -196,14 +196,25 @@ namespace Classes.Net
 		}
 
 
-		public static bool connect(String ip)
+		public static void Connect(String ip)
+		{
+			while (!connect(ip))
+			{
+				System.Threading.Thread.Sleep(100);
+			}
+		}
+
+
+		private static bool connect(String ip)
 		{
 			try
 			{
+
 				NetOutgoingMessage outmsg = client.CreateMessage();
 				//outmsg.Write((byte)PacketTypes.LOGIN);
 				outmsg.Write(profile.Name);
 				con = client.Connect(ip, 14242, outmsg);
+
 				return true;
 			}
 			catch (Exception ex)

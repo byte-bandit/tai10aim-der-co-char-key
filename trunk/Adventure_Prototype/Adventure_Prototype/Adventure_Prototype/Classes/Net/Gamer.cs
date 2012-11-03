@@ -16,6 +16,8 @@ namespace Classes.Net
 		private Player puppet;
 		private NetConnection connection;
 
+		private bool controlsactive = true;
+
 
 
 
@@ -37,6 +39,14 @@ namespace Classes.Net
 			}
 		}
 
+
+
+
+		public bool ControlsActive
+		{
+			get { return this.controlsactive; }
+			set { this.controlsactive = value; }
+		}
 
 
 

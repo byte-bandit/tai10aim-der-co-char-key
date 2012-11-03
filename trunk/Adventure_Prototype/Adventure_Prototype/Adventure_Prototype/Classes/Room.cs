@@ -252,13 +252,14 @@ namespace Classes
 
 		public override void Update(GameTime gameTime)
 		{
+			if (Net.NetworkManager.Profile.ControlsActive)
+			{
+				//Check Mouse Over
+				MouseOverStuff();
 
-			//Check Mouse Over
-			MouseOverStuff();
-
-			//Check Click
-			MouseClickStuff();
-
+				//Check Click
+				MouseClickStuff();
+			}
 			//NPCs Update
 			foreach (NPC n in this.npcs)
 			{
