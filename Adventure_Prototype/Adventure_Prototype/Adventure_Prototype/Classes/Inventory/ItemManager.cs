@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
+using Classes.Graphics;
 using Classes.Pipeline;
 
 namespace Classes.Inventory
@@ -65,6 +66,7 @@ namespace Classes.Inventory
                             Console.WriteLine("Input string is not a sequence of digits.");
                         }
                     Item tmp = new Item(X, Y, GameRef.Game.Content.Load<Texture2D>(asset), id);
+                    GraphicsManager.addChild(tmp);
                     itemLibrary.Add(tmp.ID, tmp);
                 }
 
