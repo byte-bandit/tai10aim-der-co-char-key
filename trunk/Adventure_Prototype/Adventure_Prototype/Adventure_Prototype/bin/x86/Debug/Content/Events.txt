@@ -1,0 +1,125 @@
+##############################################################################
+#This is the Event source file
+#
+#Lines with a leading # will be ignored and can be used for comments
+#Spaces / Tabs should be fine and can be used for layout.
+##############################################################################
+BEGINEVENT:
+ID: Open_brown_door
+
+BEGINACTION:
+RemoveObject
+brown_door_closed
+ENDACTION
+
+BEGINACTION:
+AddObject
+brown_door_open
+100
+200
+brown_door_open
+Da gehts wohl weiter.
+Hallo, liebes Loch in der Wand...antwortet wohl nicht.
+Mhmm, da ist es dunkel. Lieber nicht.
+ENDACTION
+
+DEPENDENCE: Take_key_small
+ENDEVENT
+
+BEGINEVENT:
+ID: Horsti_walk
+
+BEGINACTION:
+WalkTo
+Horsti
+750
+650
+ENDACTION
+ENDEVENT
+
+
+BEGINEVENT:
+ID: Take_key_small
+
+BEGINACTION:
+RemoveObject
+key_small
+ENDACTION
+
+BEGINACTION:
+GiveItem
+key_small
+ENDACTION
+
+ENDEVENT
+
+BEGINEVENT
+ID: removeBottle
+BEGINACTION:
+RemoveObject
+bottle
+ENDACTION
+BEGINACTION
+GiveItem
+green_bottle
+ENDACTION
+ENDEVENT
+
+BEGINEVENT
+ID: addFunnyKey
+BEGINACTION:
+AddObject
+Key
+100
+200
+key01
+Da gehts wohl weiter.
+Hallo, liebes Loch in der Wand...antwortet wohl nicht.
+Mhmm, da ist es dunkel. Lieber nicht.
+ENDACTION
+DEPENDENCE: removeBottle
+ENDEVENT
+
+BEGINEVENT
+ID: lookSkeletton
+REPEATABLE
+BEGINACTION:
+StartDialogue
+DE_HORST_SKELLETON
+Horsti
+ENDACTION
+ENDEVENT
+
+
+BEGINEVENT
+ID: ROOMA_TO_B
+REPEATABLE
+BEGINACTION:
+DisableControls
+1
+ENDACTION
+BEGINACTION:
+DisableControls
+2
+ENDACTION
+BEGINACTION:
+PlayerWalkTo
+1
+230
+510
+ENDACTION
+BEGINACTION:
+PlayerWalkTo
+2
+300
+510
+ENDACTION
+BEGINACTION:
+PortToRoom
+DE_GANG
+220
+520
+300
+520
+ENDACTION
+ENDEVENT
