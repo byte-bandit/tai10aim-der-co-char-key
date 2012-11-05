@@ -8,7 +8,5 @@
 ###
 
 BEGINITEM
-ID:brown_bottle
+ID:green_bottle
 ASSET:green_bottle
-X:100
-Y:100

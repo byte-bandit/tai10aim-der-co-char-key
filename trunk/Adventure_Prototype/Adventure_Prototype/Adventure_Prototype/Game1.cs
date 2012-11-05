@@ -156,6 +156,7 @@ namespace Adventure_Prototype
 			//Setup our Game Reference for use with Instances
 			GameRef.Game = this;
 			GameRef.Inventory = new Inventory();
+            GameRef.ItemManager = new ItemManager();
 			GameRef._EDITOR = this._EDITOR;
 			GameRef.Resolution = new Vector2(1280, 720);
 			GameRef.AnimationFrames = new Vector2(6, 3);
@@ -169,7 +170,8 @@ namespace Adventure_Prototype
 			NetworkManager.Initialize();
 
 			Classes.Events.EventManager.Initialize();
-            Classes.Inventory.ItemManager.Initialize();
+            GameRef.ItemManager.Initialize();
+            
 
 			Components.Add(GameRef.Inventory);
 			
@@ -288,6 +290,9 @@ namespace Adventure_Prototype
 			{
 				return;
 			}
+
+            //Inventory
+            GameRef.Inventory.Update(gameTime);
 
 			MouseEx.Update();
 			KeyboardEx.Update();

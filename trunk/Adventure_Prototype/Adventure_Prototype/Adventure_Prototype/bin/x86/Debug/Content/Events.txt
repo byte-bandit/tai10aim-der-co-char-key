@@ -58,8 +58,8 @@ ID: removeBottle
 BEGINACTION:
 RemoveObject
 bottle
-ENDACTION
-BEGINACTION
+ENDACTION:
+BEGINACTION:
 GiveItem
 green_bottle
 ENDACTION

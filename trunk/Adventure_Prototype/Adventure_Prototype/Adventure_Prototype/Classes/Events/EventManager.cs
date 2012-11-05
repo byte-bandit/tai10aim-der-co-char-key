@@ -170,7 +170,16 @@ namespace Classes.Events
                             }
                         case Action.type.GiveItem:
                             {
-                                GameRef.ItemManager.AddToInventory(a.TargetID);
+                                if (GameRef.ItemManager.CheckForItem(a.TargetID))
+                                {
+                                    GameRef.Inventory.AddItem(GameRef.ItemManager.ItemLibrary[a.TargetID]);
+                                }
+                                else
+                                {
+                                    a.TargetID = "green_bottle";
+                                }
+
+                                
                                 break; 
                             }
                         case Action.type.RemoveItem:
