@@ -193,6 +193,7 @@
     </Compile>
     <Content Include="Items.txt">
       <Name>Items</Name>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WorldObjects.txt">
       <Name>WorldObjects</Name>

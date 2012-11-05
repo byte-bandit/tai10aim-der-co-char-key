@@ -17,7 +17,7 @@ namespace Classes.Inventory
 	public class Inventory : DrawableGameComponent
 	{
 		private Texture2D Image;
-		private Item focus = new Item(0, 0, null, "focus");
+		private Item focus = new Item(null, "focus");
 		private List<Item> items = new List<Item>();
 		private bool status;
 
@@ -62,11 +62,20 @@ namespace Classes.Inventory
 		{
 			if (GameRef.Inventory.Status)
 			{
+
 				Status = true;
+                foreach (Item t in items)
+                {
+                    t.Visible = Status;
+                }
 			}
 			else
 			{
 				Status = false;
+                foreach (Item t in items)
+                {
+                    t.Visible = Status;
+                }
 			}
 			base.Update(gameTime);
 		}
@@ -85,11 +94,13 @@ namespace Classes.Inventory
 				GraphicsManager.spriteBatch.Draw(Image, Vector2.Zero, Color.White);
 				foreach (Item t in items)
 				{
-                    if (counter >4)
-                    t.Position = new Vector2((294*counter)+100, 100);
+                    if (counter > 4)
+                        position = new Vector2((294 * counter) + 100, 100);
                     else
-                    t. Position = new Vector2((294*counter)+100, 420);
-					t.Draw(gameTime);
+                        position = new Vector2((294 * counter) + 100, 420);
+
+                    GraphicsManager.spriteBatch.Draw(t.Image, position, Color.White);
+					
 					if (MouseEx.inBoundaries(t.Image.Bounds))
 					{
 						GraphicsManager.spriteBatch.Draw(t.Tooltip, MouseEx.Position(), Color.White);

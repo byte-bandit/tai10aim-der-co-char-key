@@ -23,6 +23,7 @@ Content\Graphics\Sprites\door02.xnb
 Content\Graphics\Sprites\door02_closed.xnb
 Content\Graphics\Backgrounds\01_Information.xnb
 Content\Graphics\Sprites\bottle.xnb
+Content\Graphics\Sprites\green_bottle.xnb
 Content\Graphics\Charsets\gb_sheet.xnb
 Content\Graphics\Sprites\room01_door.xnb
 Content\Graphics\Backgrounds\back001.xnb
@@ -30,5 +31,5 @@ Content\Audio\ui\click.xnb
 Content\ui_font.xnb
 Content\big.xnb
 Content\menu_font.xnb
-Content\Graphics\Sprites\green_bottle.xnb
 Content\Events.txt
+Content\Items.txt

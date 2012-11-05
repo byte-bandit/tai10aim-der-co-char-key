@@ -9,19 +9,23 @@ using Classes.Pipeline;
 
 namespace Classes.Inventory
 {
-    public class ItemManager
+     public class ItemManager
     {
-        private static SortedList<String, Item> itemLibrary = new SortedList<string,Item>();
+        public SortedList<String, Item> ItemLibrary;
 
-        public void AddToInventory(String id)
+        public  bool CheckForItem(String item_id)
         {
-            GameRef.Inventory.AddItem(itemLibrary[id]);
-            
+            return ItemLibrary.ContainsKey(item_id);
         }
 
-        public static void Initialize()
+        public ItemManager()
+        {
+        }
+
+        public void Initialize()
         {
             String[] data;
+            ItemLibrary = new SortedList<string, Item>();
 
             try
             {
@@ -52,22 +56,9 @@ namespace Classes.Inventory
                     String asset = data[n].Substring(data[n].IndexOf("ASSET:")+6);
                     n++;
 
-                    int X = new Int32();
-                    int Y = new Int32();
-
-                    try
-                        {
-                            X = Convert.ToInt32(data[n].Substring(data[n].IndexOf("X:")+2));
-                            n++;
-                            Y = Convert.ToInt32(data[n].Substring(data[n].IndexOf("Y:")+2));
-                        }
-                        catch (FormatException e)
-                        {
-                            Console.WriteLine("Input string is not a sequence of digits.");
-                        }
-                    Item tmp = new Item(X, Y, GameRef.Game.Content.Load<Texture2D>(asset), id);
+                    Item tmp = new Item(GameRef.Game.Content.Load<Texture2D>("Graphics/Sprites/"+asset), id);
                     GraphicsManager.addChild(tmp);
-                    itemLibrary.Add(tmp.ID, tmp);
+                    ItemLibrary.Add(tmp.ID, tmp);
                 }
 
             }
