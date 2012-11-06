@@ -370,7 +370,7 @@ namespace Adventure_Prototype
 				Editor.Draw(this, gameTime);
 
 			//Draw Dialogue
-			if (!_EDITOR)
+			if ((!_EDITOR)&& (!GameRef.Inventory.Status))
 			{
 				DialogueManager.draw(GraphicsManager.font02, gameTime );
 			}
@@ -383,6 +383,11 @@ namespace Adventure_Prototype
 				GraphicsManager.drawText("Name: " + NetworkManager.Profile.Name, new Vector2(1100, 684), GraphicsManager.font01, Color.White, true);
 				//GraphicsManager.drawText("Token: " + NetworkManager.Profile.Token, new Vector2(20, 74), GraphicsManager.font02, Color.White, true);
 			}
+            if (GameRef.Inventory.Status)
+            {
+                GameRef.Inventory.Draw(gameTime);
+                DialogueManager.draw(GraphicsManager.font02, gameTime);
+            }
 
 			//Draw Cursor at last
 			if(!_EDITOR && this.IsActive && MouseEx.inBoundaries(new Rectangle(0,0,1280,720)))

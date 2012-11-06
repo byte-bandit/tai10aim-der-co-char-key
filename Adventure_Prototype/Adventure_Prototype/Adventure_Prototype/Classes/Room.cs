@@ -15,6 +15,7 @@ using Classes.IO;
 using Classes.Pathfinding;
 using Classes.Pipeline;
 using Classes.Events;
+using Classes.Inventory;
 namespace Classes
 {
 	public class Room : DrawableGameComponent
@@ -303,74 +304,114 @@ namespace Classes
 		/// </summary>
 		private void MouseClickStuff()
 		{
-			//Mouse Click World Object?
-			foreach (WorldObject w in this.objects)
-			{
-				if (MouseEx.clickInRectangle(w.getDrawingRect()))
-				{
-					switch (Cursor.CurrentAction)
-					{
-						case Cursor.CursorAction.look:
-							infoRoute(w.OnLook.Trim(), w);
-							break;
+            bool hit = false;
 
-						case Cursor.CursorAction.talk:
-							infoRoute(w.OnTalk.Trim(), w);
-							break;
+            if (!GameRef.Inventory.Status)
+            {
+                //Mouse Click World Object?
+                foreach (WorldObject w in this.objects)
+                {
+                    if (MouseEx.clickInRectangle(w.getDrawingRect()))
+                    {
+                        hit = true;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.look:
+                                infoRoute(w.OnLook.Trim(), w);
+                                break;
 
-						case Cursor.CursorAction.use:
-							infoRoute(w.OnUse.Trim(), w);
-							break;
-							
-					}
-					return;
-				}
-			}
+                            case Cursor.CursorAction.talk:
+                                infoRoute(w.OnTalk.Trim(), w);
+                                break;
 
-			//Mouse Click POI?
-			foreach (POI w in this.pois)
-			{
-				if (MouseEx.clickInPolygon(w))
-				{
-					switch (Cursor.CurrentAction)
-					{
-						case Cursor.CursorAction.look:
-							infoRoute(w.onLook.Trim(), w);
-							break;
+                            case Cursor.CursorAction.use:
+                                infoRoute(w.OnUse.Trim(), w);
+                                break;
 
-						case Cursor.CursorAction.talk:
-							infoRoute(w.onTalk.Trim(), w);
-							break;
+                        }
+                        return;
+                    }
+                }
 
-						case Cursor.CursorAction.use:
-							infoRoute(w.onUse.Trim(), w);
-							break;
-					}
-					return;
-				}
-			}
+                //Mouse Click POI?
+                foreach (POI w in this.pois)
+                {
+                    if (MouseEx.clickInPolygon(w))
+                    {
+                        hit = true;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.look:
+                                infoRoute(w.onLook.Trim(), w);
+                                break;
 
-			//Mouse Click NPC?
-			foreach (NPC n in this.npcs)
-			{
-				if (MouseEx.clickInRectangle(n.getDrawingRect()))
-				{
-					switch (Cursor.CurrentAction)
-					{
-						case Cursor.CursorAction.look:
-							infoRoute(n.OnLook.Trim(), n);
-							break;
+                            case Cursor.CursorAction.talk:
+                                infoRoute(w.onTalk.Trim(), w);
+                                break;
 
-						case Cursor.CursorAction.talk:
-							infoRoute(n.OnTalk.Trim(), n);
-							break;
+                            case Cursor.CursorAction.use:
+                                infoRoute(w.onUse.Trim(), w);
+                                break;
+                        }
+                        return;
+                    }
+                }
 
-						case Cursor.CursorAction.use:
-							infoRoute(n.OnUse.Trim(), n);
-							break;
-					}
-				}
-			}
+                //Mouse Click NPC?
+                foreach (NPC n in this.npcs)
+                {
+                    if (MouseEx.clickInRectangle(n.getDrawingRect()))
+                    {
+                        hit = true;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.look:
+                                infoRoute(n.OnLook.Trim(), n);
+                                break;
+
+                            case Cursor.CursorAction.talk:
+                                infoRoute(n.OnTalk.Trim(), n);
+                                break;
+
+                            case Cursor.CursorAction.use:
+                                infoRoute(n.OnUse.Trim(), n);
+                                break;
+                        }
+                    }
+                }               
+            }
+            else
+            {
+                foreach (Item t in GameRef.Inventory.Items)
+                {
+                    if (MouseEx.clickInRectangle(t.getDrawingRectangle()))
+                    {
+                        hit = true;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.look:
+                                infoRoute(t.Look.Trim(), t);
+                                break;
+
+                            case Cursor.CursorAction.talk:
+                                infoRoute(t.Talk.Trim(), t);
+                                break;
+
+                            case Cursor.CursorAction.use:
+                                
+                                infoRoute(t.Use.Trim(), t);
+                                break;
+
+                        }
+
+                    }
+                }
+ 
+            }
+            if (!hit)
+            {
+                GameRef.Inventory.Focus = new Item(null, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty);
+            }
 		}
 
 		/// <summary>

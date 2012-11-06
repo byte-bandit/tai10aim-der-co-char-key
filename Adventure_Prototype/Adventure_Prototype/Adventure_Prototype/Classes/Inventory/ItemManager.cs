@@ -55,8 +55,16 @@ namespace Classes.Inventory
                     n++;
                     String asset = data[n].Substring(data[n].IndexOf("ASSET:")+6);
                     n++;
+                    String tooltip = data[n].Substring(data[n].IndexOf("TOOLTIP:") + 8);
+                    n++;
+                    String look = data[n].Substring(data[n].IndexOf("LOOK:") + 5);
+                    n++;
+                    String use = data[n].Substring(data[n].IndexOf("USE:") + 4);
+                    n++;
+                    String talk = data[n].Substring(data[n].IndexOf("TALK:") + 5);
+                    n++;
 
-                    Item tmp = new Item(GameRef.Game.Content.Load<Texture2D>("Graphics/Sprites/"+asset), id);
+                    Item tmp = new Item(GameRef.Game.Content.Load<Texture2D>("Graphics/Sprites/"+asset), id,tooltip,use,look,talk);
                     GraphicsManager.addChild(tmp);
                     ItemLibrary.Add(tmp.ID, tmp);
                 }
