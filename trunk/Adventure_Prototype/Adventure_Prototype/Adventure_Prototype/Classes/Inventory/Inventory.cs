@@ -17,8 +17,7 @@ namespace Classes.Inventory
     public class Inventory : DrawableGameComponent
     {
         private Texture2D Image;
-        private Item focus = new Item(null, "focus", "", "", "", "");
-        private Item old_focus = new Item(null, "old_focus", "", "", "", "");
+        private Item focus = new Item(null, String.Empty, String.Empty, String.Empty, String.Empty, String.Empty);
         private List<Item> items = new List<Item>();
         private bool status;
 
@@ -35,16 +34,10 @@ namespace Classes.Inventory
             get { return this.status; }
             set { this.status = value; }
         }
-
         public Item Focus
         {
             get { return focus; }
             set { focus = value; }
-        }
-        public Item Old_Focus
-        {
-            get { return old_focus; }
-            set { old_focus = value; }
         }
         #endregion
 

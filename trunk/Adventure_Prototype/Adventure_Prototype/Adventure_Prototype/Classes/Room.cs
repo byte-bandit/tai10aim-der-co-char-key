@@ -81,20 +81,6 @@ namespace Classes
 		}
 		#endregion
 
-		/// <summary>
-		/// Helper Method
-		/// Generates a Pause between actions
-		/// </summary>
-		/// <param name="_time">the time to wait</param>
-		public static void Wait(int _duration)
-		{
-			System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-			stopwatch.Start();
-			while (stopwatch.ElapsedMilliseconds < (long)1000 * _duration)
-			{
-			}
-			stopwatch.Stop();
-		}
 
 		/// <summary>
 		/// Adds a World Object to the room
@@ -398,9 +384,11 @@ namespace Classes
                                 break;
 
                             case Cursor.CursorAction.use:
-                                
-                                infoRoute(t.Use.Trim(), t);
-                                break;
+                                {                                    
+                                    GameRef.Inventory.Focus = t;
+                                    infoRoute(t.Use.Trim(), t);
+                                    break;
+                                }
 
                         }
 
