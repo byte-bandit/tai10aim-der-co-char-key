@@ -19,7 +19,8 @@ namespace Classes.Events
         public enum combtyp
         {
             WorldObject,
-            InventoryItem
+            InventoryItem,
+            Unknown
         }
 
         #region Properties
@@ -78,6 +79,7 @@ namespace Classes.Events
             this.executed = false;
 			this.repeatable = false;
             this.alternative = "Geht nicht.";
+            this.combTyp = combtyp.Unknown;
         }
 
         public Event(string id)
@@ -86,6 +88,7 @@ namespace Classes.Events
             this.executed = false;
 			this.repeatable = false;
             this.alternative = "Geht nicht.";
+            this.combTyp = combtyp.Unknown;
         }
 
         /// <summary>

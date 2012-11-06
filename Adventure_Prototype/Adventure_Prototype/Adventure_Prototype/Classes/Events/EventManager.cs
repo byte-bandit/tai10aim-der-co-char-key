@@ -105,21 +105,17 @@ namespace Classes.Events
 							n++;
 							continue;
 						}
-                        if (data[n].StartsWith("COMBTYPW"))
+                        if (data[n].StartsWith("COMBTYPW:"))
                         {
                             tmp.CombTyp = Event.combtyp.WorldObject;
+                            tmp.CombItem = data[n].Substring(data[n].IndexOf("COMBTYPW:") + 9).Trim();
                             n++;
                             continue;
                         }
-                        if (data[n].StartsWith("COMBTYPI"))
+                        if (data[n].StartsWith("COMBTYPI:"))
                         {
                             tmp.CombTyp = Event.combtyp.InventoryItem;
-                            n++;
-                            continue;
-                        }
-                        if (data[n].StartsWith("COMBITEM:"))
-                        {
-                            tmp.Repeatable = true;
+                            tmp.CombItem = data[n].Substring(data[n].IndexOf("COMBTYPI:") + 9).Trim();
                             n++;
                             continue;
                         }
@@ -157,6 +153,127 @@ namespace Classes.Events
 
         }
 
+        public static void ExecuteActions(String ID)
+        {
+            foreach (Action a in EventLibrary[ID].Actions)
+            {
+                switch (a.Typ)
+                {
+                    case Action.type.AddObject:
+                        {
+                            Graphics.WorldObject wo = new Graphics.WorldObject(GameRef.Game, "Graphics/Sprites/" + a.TargetID);
+                            wo.Name = a.TargetName;
+                            wo.OnLook = a.OnLook;
+                            wo.OnTalk = a.OnTalk;
+                            wo.OnUse = a.OnUse;
+                            wo.Position = a.TargetVector;
+                            SceneryManager.CurrentRoom.addObject(wo);
+                            break;
+                        }
+                    case Action.type.GiveItem:
+                        {
+                            if (GameRef.ItemManager.CheckForItem(a.TargetID))
+                            {
+                                GameRef.Inventory.AddItem(GameRef.ItemManager.ItemLibrary[a.TargetID]);
+                            }
+                            else
+                            {
+                                a.TargetID = "green_bottle";
+                            }
+
+
+                            break;
+                        }
+                    case Action.type.RemoveItem:
+                        {
+                            GameRef.Inventory.RemoveItem((Inventory.Item)a.Target1);
+                            break;
+                        }
+                    case Action.type.RemoveObject:
+                        {
+                            SceneryManager.CurrentRoom.removeObject(SceneryManager.CurrentRoom.getWorldObjectByID(a.TargetID));
+                            break;
+                        }
+                    case Action.type.StartDialogue:
+                        {
+                            NPC target = null;
+                            foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
+                            {
+                                if (n.Name == a.TargetCharacter)
+                                {
+                                    target = n;
+                                    break;
+                                }
+                            }
+
+                            if (target != null)
+                            {
+                                Dialogues.DialogueManager.startDialogue(a.TargetID, target);
+                            }
+                            break;
+                        }
+                    case Action.type.WalkTo:
+                        {
+                            NPC target = null;
+
+                            foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
+                            {
+                                if (n.Name == a.TargetCharacter)
+                                {
+                                    target = n;
+                                    break;
+                                }
+                            }
+
+                            if (target != null)
+                            {
+                                target.setWalkingTarget(a.TargetVector);
+                            }
+
+
+                            break;
+                        }
+                    case Action.type.DisableControls:
+                        {
+                            if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+                            {
+                                Net.NetworkManager.Profile.ControlsActive = false;
+                            }
+                            break;
+                        }
+                    case Action.type.EnableControls:
+                        {
+                            if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+                            {
+                                Net.NetworkManager.Profile.ControlsActive = true;
+                            }
+                            break;
+                        }
+                    case Action.type.Sleep:
+                        {
+                            //currently not supported lol
+                            break;
+                        }
+                    case Action.type.PlayerWalkTo:
+                        {
+                            if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
+                            {
+                                Net.NetworkManager.Profile.Puppet.setWalkingTarget(a.TargetVector);
+                                Net.NetworkManager.setPlayerWaypoint(a.TargetVector);
+                            }
+                            break;
+                        }
+                    case Action.type.PortToRoom:
+                        {
+                            RoomTransporter.Transport(a.TargetID, a.TargetVector, a.TargetVector2);
+                            break;
+                        }
+                }
+
+            }
+
+        }
+
         public static void ExecuteEvent(String ID)
         {
 			ID = ID.ToLower().Trim();
@@ -171,127 +288,51 @@ namespace Classes.Events
                     //if no action is defined, use alternative
                     
                 }
-                foreach (Action a in EventLibrary[ID].Actions)
+
+                switch (EventLibrary[ID].CombTyp)
                 {
-                    switch (a.Typ)
-                    {
-                        case Action.type.AddObject:
-                            { 
-                                Graphics.WorldObject wo = new Graphics.WorldObject(GameRef.Game, "Graphics/Sprites/" + a.TargetID);
-                                wo.Name = a.TargetName;
-                                wo.OnLook = a.OnLook;
-                                wo.OnTalk = a.OnTalk;
-                                wo.OnUse = a.OnUse;
-                                wo.Position = a.TargetVector;
-                                SceneryManager.CurrentRoom.addObject(wo);
-                                break; 
-                            }
-                        case Action.type.GiveItem:
+                    case Event.combtyp.Unknown:
+                        {
+                            ExecuteActions(ID);
+                            if (!EventLibrary[ID].Repeatable)
                             {
-                                if (GameRef.ItemManager.CheckForItem(a.TargetID))
-                                {
-                                    GameRef.Inventory.AddItem(GameRef.ItemManager.ItemLibrary[a.TargetID]);
-                                }
-                                else
-                                {
-                                    a.TargetID = "green_bottle";
-                                }
-
-                                
-                                break; 
+                                EventLibrary[ID].Executed = true;
                             }
-                        case Action.type.RemoveItem:
+                            break;
+                        }
+                    case Event.combtyp.InventoryItem:
+                        if (EventLibrary[ID].CombItem == GameRef.Inventory.Focus.ID)
+                        {
+                            ExecuteActions(ID);
+                            if (!EventLibrary[ID].Repeatable)
                             {
-                                GameRef.Inventory.RemoveItem((Inventory.Item) a.Target1);
-                                break; 
+                                EventLibrary[ID].Executed = true;
                             }
-                        case Action.type.RemoveObject:
+
+                        }
+                        else
+                        {
+                            Dialogues.DialogueManager.PlayerSay(EventLibrary[ID].Alternative);
+                            Net.NetworkManager.PlayerSay(EventLibrary[ID].Alternative, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+                        }
+                        break;
+                    case Event.combtyp.WorldObject:
+                        if (SceneryManager.CurrentRoom.getWorldObjectByID(EventLibrary[ID].CombItem) == null)
+                        {
+                            Dialogues.DialogueManager.PlayerSay(EventLibrary[ID].Alternative);
+                            Net.NetworkManager.PlayerSay(EventLibrary[ID].Alternative, Net.NetworkManager.Profile.Puppet.Position, Net.NetworkManager.Profile.Puppet.GetFloatingLineColor());
+                        }
+                        else
+                        {
+                            ExecuteActions(ID);
+                            if (!EventLibrary[ID].Repeatable)
                             {
-                                SceneryManager.CurrentRoom.removeObject(SceneryManager.CurrentRoom.getWorldObjectByID(a.TargetID));
-                                break; 
+                                EventLibrary[ID].Executed = true;
                             }
-                        case Action.type.StartDialogue:
-                            {
-								NPC target = null;
-								foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
-								{
-									if (n.Name == a.TargetCharacter)
-									{
-										target = n;
-										break;
-									}
-								}
 
-								if (target != null)
-								{
-									Dialogues.DialogueManager.startDialogue(a.TargetID, target);
-								}
-                                break; 
-                            }
-                        case Action.type.WalkTo:
-                            {
-								NPC target = null;
-
-								foreach (NPC n in SceneryManager.CurrentRoom.getNPCs())
-								{
-									if (n.Name == a.TargetCharacter)
-									{
-										target = n;
-										break;
-									}
-								}
-
-								if (target != null)
-								{
-									target.setWalkingTarget(a.TargetVector);
-								}
-
-                                
-                                break; 
-                            }
-						case Action.type.DisableControls:
-							{
-								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
-								{
-									Net.NetworkManager.Profile.ControlsActive = false;
-								}
-								break;
-							}
-						case Action.type.EnableControls:
-							{
-								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
-								{
-									Net.NetworkManager.Profile.ControlsActive = true;
-								}
-								break;
-							}
-						case Action.type.Sleep:
-							{
-								//currently not supported lol
-								break;
-							}
-						case Action.type.PlayerWalkTo:
-							{
-								if (Net.NetworkManager.Profile.Puppet.id.Contains(a.TargetID))
-								{
-									Net.NetworkManager.Profile.Puppet.setWalkingTarget(a.TargetVector);
-									Net.NetworkManager.setPlayerWaypoint(a.TargetVector);
-								}
-								break;
-							}
-						case Action.type.PortToRoom:
-							{
-								RoomTransporter.Transport(a.TargetID, a.TargetVector, a.TargetVector2);
-								break;
-							}
-                    }
-
+                        }
+                        break;
                 }
-
-				if (!EventLibrary[ID].Repeatable)
-				{
-					EventLibrary[ID].Executed = true;
-				}
             }
         }
 	}
