@@ -10,3 +10,7 @@
 BEGINITEM
 ID:green_bottle
 ASSET:green_bottle
+TOOLTIP:Gruene Flasche
+LOOK:Eine gruene Flasche, wie toll...
+USE:Lieber nicht.
+TALK: Wie denn?

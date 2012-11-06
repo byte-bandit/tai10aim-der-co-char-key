@@ -12,9 +12,15 @@ namespace Classes.Events
         private List<Action> actions = new List<Action>();
         private List<String> dependencies = new List<String>();
         private Boolean executed;
+        private combtyp combTyp;
+        private string combitem;
         private string alternative;
 		private Boolean repeatable;
-
+        public enum combtyp
+        {
+            WorldObject,
+            InventoryItem
+        }
 
         #region Properties
 
@@ -28,6 +34,17 @@ namespace Classes.Events
         {
             get { return this.id; }
             set { this.id = value; }
+        }
+
+        public combtyp CombTyp
+        {
+            get { return this.combTyp; }
+            set { this.combTyp = value; }
+        }
+        public string CombItem
+        {
+            get { return this.CombItem; }
+            set { this.CombItem = value; }
         }
 
         public List<Action> Actions

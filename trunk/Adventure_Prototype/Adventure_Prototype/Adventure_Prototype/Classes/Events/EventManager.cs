@@ -105,6 +105,24 @@ namespace Classes.Events
 							n++;
 							continue;
 						}
+                        if (data[n].StartsWith("COMBTYPW"))
+                        {
+                            tmp.CombTyp = Event.combtyp.WorldObject;
+                            n++;
+                            continue;
+                        }
+                        if (data[n].StartsWith("COMBTYPI"))
+                        {
+                            tmp.CombTyp = Event.combtyp.InventoryItem;
+                            n++;
+                            continue;
+                        }
+                        if (data[n].StartsWith("COMBITEM:"))
+                        {
+                            tmp.Repeatable = true;
+                            n++;
+                            continue;
+                        }
                         if (data[n].Contains("DEPENDENCE:"))
                         {
                             while (data[n].Contains("DEPENDENCE:"))

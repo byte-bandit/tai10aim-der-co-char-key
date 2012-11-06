@@ -57,23 +57,49 @@ namespace Classes.IO
             {
                 if (!GameRef._EDITOR)
                 {
-                    switch (Cursor.CurrentAction)
+                    if (!GameRef.Inventory.Status)
                     {
-                        case Cursor.CursorAction.walk:
-                            Cursor.CurrentAction = Cursor.CursorAction.talk;
-                            break;
 
-                        case Cursor.CursorAction.talk:
-                            Cursor.CurrentAction = Cursor.CursorAction.look;
-                            break;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.walk:
+                                Cursor.CurrentAction = Cursor.CursorAction.talk;
+                                break;
 
-                        case Cursor.CursorAction.look:
-                            Cursor.CurrentAction = Cursor.CursorAction.use;
-                            break;
+                            case Cursor.CursorAction.talk:
+                                Cursor.CurrentAction = Cursor.CursorAction.look;
+                                break;
 
-                        case Cursor.CursorAction.use:
-                            Cursor.CurrentAction = Cursor.CursorAction.walk;
-                            break;
+                            case Cursor.CursorAction.look:
+                                Cursor.CurrentAction = Cursor.CursorAction.use;
+                                break;
+
+                            case Cursor.CursorAction.use:
+                                Cursor.CurrentAction = Cursor.CursorAction.walk;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.walk:
+                                Cursor.CurrentAction = Cursor.CursorAction.talk;
+                                break;
+
+                            case Cursor.CursorAction.talk:
+                                Cursor.CurrentAction = Cursor.CursorAction.look;
+                                break;
+
+                            case Cursor.CursorAction.look:
+                                Cursor.CurrentAction = Cursor.CursorAction.use;
+                                break;
+
+                            case Cursor.CursorAction.use:
+                                Cursor.CurrentAction = Cursor.CursorAction.talk;
+                                break;
+                        }
+
                     }
                 }
             }
@@ -87,23 +113,47 @@ namespace Classes.IO
             {
                 if (!GameRef._EDITOR)
                 {
-                    switch (Cursor.CurrentAction)
+                    if (!GameRef.Inventory.Status)
                     {
-                        case Cursor.CursorAction.walk:
-                            Cursor.CurrentAction = Cursor.CursorAction.use;
-                            break;
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.walk:
+                                Cursor.CurrentAction = Cursor.CursorAction.use;
+                                break;
 
-                        case Cursor.CursorAction.talk:
-                            Cursor.CurrentAction = Cursor.CursorAction.walk;
-                            break;
+                            case Cursor.CursorAction.talk:
+                                Cursor.CurrentAction = Cursor.CursorAction.walk;
+                                break;
 
-                        case Cursor.CursorAction.look:
-                            Cursor.CurrentAction = Cursor.CursorAction.talk;
-                            break;
+                            case Cursor.CursorAction.look:
+                                Cursor.CurrentAction = Cursor.CursorAction.talk;
+                                break;
 
-                        case Cursor.CursorAction.use:
-                            Cursor.CurrentAction = Cursor.CursorAction.look;
-                            break;
+                            case Cursor.CursorAction.use:
+                                Cursor.CurrentAction = Cursor.CursorAction.look;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        switch (Cursor.CurrentAction)
+                        {
+                            case Cursor.CursorAction.walk:
+                                Cursor.CurrentAction = Cursor.CursorAction.use;
+                                break;
+
+                            case Cursor.CursorAction.talk:
+                                Cursor.CurrentAction = Cursor.CursorAction.use;
+                                break;
+
+                            case Cursor.CursorAction.look:
+                                Cursor.CurrentAction = Cursor.CursorAction.talk;
+                                break;
+
+                            case Cursor.CursorAction.use:
+                                Cursor.CurrentAction = Cursor.CursorAction.look;
+                                break;
+                        }
                     }
                 }
             }
